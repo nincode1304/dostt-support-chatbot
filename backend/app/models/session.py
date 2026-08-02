@@ -1,0 +1,44 @@
+from enum import Enum
+from typing import Any, Dict, List, Optional
+from pydantic import BaseModel, Field
+from datetime import datetime
+
+
+class ConversationStage(str, Enum):
+    INITIAL = "INITIAL"
+    AWAITING_CALL_SELECTION = "AWAITING_CALL_SELECTION"
+    AWAITING_TRANSACTION_SELECTION = "AWAITING_TRANSACTION_SELECTION"
+    ANSWERED = "ANSWERED"
+    AWAITING_TICKET_CONFIRMATION = "AWAITING_TICKET_CONFIRMATION"
+    AWAITING_TICKET_EDIT = "AWAITING_TICKET_EDIT"
+    AWAITING_CALL_CONSENT = "AWAITING_CALL_CONSENT"
+    TICKET_CREATED = "TICKET_CREATED"
+    ENDED = "ENDED"
+
+
+class UserType(str, Enum):
+    USER = "USER"
+    LISTENER = "LISTENER"
+
+
+class ChatMessage(BaseModel):
+    role: str  # "user" | "assistant"
+    content: str
+    timestamp: datetime = Field(default_factory=datetime.now)
+
+
+class SessionState(BaseModel):
+    session_id: str
+    user_type: UserType = UserType.USER
+    auth_token: Optional[str] = None
+    matched_faq_id: Optional[str] = None
+    selected_call: Optional[Dict[str, Any]] = None
+    selected_transaction: Optional[Dict[str, Any]] = None
+    original_message: Optional[str] = None
+    ticket_description: Optional[str] = None
+    consent_call: Optional[bool] = None
+    tickets_raised: int = 0
+    stage: ConversationStage = ConversationStage.INITIAL
+    messages: List[ChatMessage] = Field(default_factory=list)
+    created_at: datetime = Field(default_factory=datetime.now)
+    last_activity: datetime = Field(default_factory=datetime.now)

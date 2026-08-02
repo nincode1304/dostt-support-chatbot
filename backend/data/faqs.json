@@ -1,0 +1,443 @@
+[
+  {
+    "id": 332,
+    "name": "KYC- How Do I complete my KYC",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How Do I complete my KYC ?",
+    "answer": "<p>To complete KYC on the Dostt app, please ensure you have the following:</p>\n<ul>\n<li>A valid PAN number and UPI ID.</li>\n<li>Your gender must match the gender on your PAN.</li>\n<li>The PAN should not have been used by you or anyone else previously on this platform.</li>\n<li>The bank account holder name associated with your UPI ID must match the name on your PAN card.</li>\n</ul>\n<p>Steps to Complete KYC:</p>\n<ul>\n<li>Go to Earnings by clicking on your Profile, then select Earnings.</li>\n<li>Click on the Verify button.</li>\n<li>Enter your PAN number and UPI ID.</li>\n<li>Click Verify.</li>\n</ul>\n<p>Verification usually takes up to 30 seconds. Once verified, your account will be KYC compliant.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 364,
+    "name": "Other- Expert- Unable to Pick calls",
+    "visibility": 1,
+    "type": 0,
+    "title11": "Why am I not able to pick call ?",
+    "answer": "<p>We would like to inform you of the following updates regarding call handling:</p>\n<ul>\n<li>Calls must be answered within 7 seconds after ringing starts.</li>\n<li>If a call is not accepted within this time frame, it will be automatically marked as missed or disconnected.</li>\n<li>Please keep the app active and ensure a stable internet connection at all times.</li>\n<li>To avoid interruptions, kindly enable notifications and allow call permissions.</li>\n</ul>\n<p>These steps will help ensure a smooth and uninterrupted experience.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 331,
+    "name": "KYC- Is KYC Mandatory",
+    "visibility": 1,
+    "type": 0,
+    "title11": "What is KYC and is this Mandatory ?",
+    "answer": "<p>KYC (Know Your Customer) is a verification process used to confirm your identity. It helps us ensure that your account is secure, transactions are safe, and all payouts comply with government regulations.</p>\n<p>Yes, completing KYC is mandatory if your earning is high, for receiving payments on the Dostt app. Accounts without KYC may face restrictions, including higher TDS deductions or limited access to certain features.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 362,
+    "name": "Dostt Not Showing Face",
+    "visibility": 0,
+    "type": 1,
+    "title11": "What should I do if a Listener is not showing their face on a video call?",
+    "answer": "<p>If a Listener is not in the camera frame, the video feed is automatically paused. This feature is designed to protect you from suspicious or unsafe activities. We apologize for the inconvenience caused.</p>\n<p>If you notice that a Listener is not showing their face for an extended period, you can raise a request. Our team will review the case and take appropriate action within 24-48 hours.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 335,
+    "name": "KYC- Already Completed KYC- Why Redo It",
+    "visibility": 1,
+    "type": 3,
+    "title11": "I've already completed PAN/KYC verification. Why do I need to verify again?",
+    "answer": "<p>If you are being asked to re-verify your PAN/KYC even after completing it, this is because to increase security, we periodically improve our verification criteria and make your account more secure. If you are still seeing this prompt, please re-verify again with the correct details.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 334,
+    "name": "PAN Delink and Link to Other Account",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How can I remove my PAN from my old account and link it to a new account?",
+    "answer": "<p>To remove your PAN from the old account and link it to a new one, please raise a support ticket. Make sure to provide the following details:</p>\n<ul>\n<li>Old and new phone numbers</li>\n<li>Old and new user IDs</li>\n<li>PAN number</li>\n</ul>\n<p>Our team will review your request and assist you with the transfer - it might take up to 72 hours for the change to reflect.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 337,
+    "name": "Wallet Balance is Negative",
+    "visibility": 1,
+    "type": 2,
+    "title11": "Why is my account balance negative?",
+    "answer": "<p>Please check your recent transactions to identify the cause of the negative balance and raise a support ticket with relevant details. Our team will help resolve it promptly.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 347,
+    "name": "Account- Gender Change",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How to change my gender?",
+    "answer": "<p>Your gender is selected when you create your account and is generally not meant to be changed.</p>\n<p>If you have an urgent need to update your gender, please raise a support ticket. Our team may call you for verification, and upon successful verification, your gender can be updated.</p>\n<p>Please note: we cannot guarantee that the change will be approved.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 351,
+    "name": "Payment- Withdrawal Assistance and Guidance",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How do I withdraw money from my wallet ?",
+    "answer": "<p>To proceed with a withdrawal, please ensure the following:</p>\n<ul>\n<li>Your wallet balance is at least Rs.50</li>\n<li>You have added and selected your UPI ID and KYC details under the withdrawal section</li>\n<li>Your name is correctly displayed in the UPI details</li>\n</ul>\n<p>Once these steps are completed, you'll be able to successfully place a withdrawal request. If you are not able to withdraw and need assistance, raise a support ticket with all relevant details.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 529,
+    "name": "Earning not matching with call duration",
+    "visibility": 1,
+    "type": 1,
+    "title11": "Why is my earning less than the call duration ?",
+    "answer": "<p>Your earning is calculated based on the actual duration of the call you attended. However, in some cases, the displayed duration on the app may differ from the payable duration. Deductions may happen due to the following reasons:</p>\n<ul>\n<li>Actual call duration (as recorded on the system) is shorter than what appears on the app.</li>\n<li>Face was not visible during the call.</li>\n<li>You were not responsive or inactive during parts of the call.</li>\n<li>Customer raised a concern about the call and requested a refund.</li>\n</ul>",
+    "feedback_type": 3
+  },
+  {
+    "id": 397,
+    "name": "Other- Any Other Issues",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Any other issues you'd like to flag?",
+    "answer": "<p>If your issue doesn't fall under any of the categories listed, please raise a support ticket. Include a brief description and, if possible, attach a screenshot to help us resolve it faster.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 367,
+    "name": "Change Language",
+    "visibility": 0,
+    "type": 0,
+    "title11": "How do I change my language ?",
+    "answer": "<p>You can change the app language by following the steps below:</p>\n<ul>\n<li>Open the app and go to your Profile section.</li>\n<li>Tap on the Language option.</li>\n<li>Choose your preferred language from the list.</li>\n<li>Confirm your selection to apply the changes.</li>\n</ul>\n<p>If you face any issues while changing the language, feel free to reach out to us again.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 356,
+    "name": "No Listener Online",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Why am I unable to connect with any Listeners?",
+    "answer": "<p>Listeners' availability depends on several factors, including their login time, activity status, and ongoing sessions. Even if a Listener appears online, they may not be able to answer immediately due to reasons such as:</p>\n<ul>\n<li>They are already engaged in another call.</li>\n<li>They may have temporarily stepped away from their device.</li>\n<li>Time zone differences or personal schedules may limit their availability.</li>\n<li>High demand periods when many users are trying to connect simultaneously.</li>\n</ul>\n<p>If you are unable to connect, we recommend waiting a few minutes and trying again, or connecting with other available Listeners. Ensure your internet connection is stable.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 343,
+    "name": "Account- Not Getting Video Calls",
+    "visibility": 1,
+    "type": 0,
+    "title11": "Why am I not getting any video calls?",
+    "answer": "<p>Initially, we enable audio calls only for all listeners. Since video calls earn more money, this feature is unlocked for users who meet certain performance criteria.</p>\n<p>Our onboarding team reviews your performance on a regular basis, and if you are eligible, video calls will be enabled by the team. Until then, keep listening and improving your performance!</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 345,
+    "name": "Account- Change User name- Expert",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How can I change my User name?",
+    "answer": "<p>Your username is created when you sign up and is generally not meant to be changed.</p>\n<p>If you have an urgent need to change your username, please raise a support ticket. Our team will review your request and assist you further.</p>\n<p>Please note: we cannot guarantee that the username will be changed.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 340,
+    "name": "Report- Asking for Personal Info",
+    "visibility": 2,
+    "type": 0,
+    "title11": "What to do if other person is asking for personal Information ?",
+    "answer": "<p>Our platform never asks customers to share sensitive personal information such as phone numbers, social media IDs, passwords, OTPs, or payment details over calls or messages.</p>\n<p>For your safety, please do not share any such personal information. If someone has requested such information over call or message, please report this immediately using the Report User option in the call log section of the app so we can investigate and take necessary action.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 346,
+    "name": "Account- Account Deletion Request- Expert",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How do I delete my account ?",
+    "answer": "<p>If you wish to delete your account, please follow these steps:</p>\n<ul>\n<li>Open the app and go to your Profile.</li>\n<li>Tap on Switch to Dostt and then go to Account Settings under the Profile section.</li>\n<li>Select the Delete Account option.</li>\n<li>Follow the on-screen instructions to complete the process.</li>\n</ul>\n<p>Important: This will delete your account both as a user and a listener. After deleting your account, do not log in to the Dostt app for 30 days, as this may interfere with the deletion process.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 344,
+    "name": "Account- Change Language- Experts",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How do I select multiple languages to get call from all languages?",
+    "answer": "<p>We apologize for the inconvenience. Currently, you can select only one language on the platform. Our team is continuously working to improve the experience and may consider expanding language options in future updates. If you want to change language, raise a support ticket. This might lead to re-verification of the account.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 348,
+    "name": "Delete Call History",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How do I delete the call History?",
+    "answer": "<p>We understand your concern. Currently, there is no option to delete call history or logs within the app. However, please be assured that your information is kept secure and private.</p>\n<p>Our team is working on improving user controls, and we'll keep your feedback in mind as we plan future updates.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 596,
+    "name": "SDT Access Request",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Why is my Listener verification taking longer than expected?",
+    "answer": "<p>After you submit your application to become a Listener, our Verification Team reviews your profile. As part of the verification process, you will receive a verification call from our team.</p>\n<p>Sometimes, the verification process may take a little longer due to a high number of pending applications or additional checks required for your profile.</p>\n<p>If you haven't received a verification call or any update for a long time, please raise a support ticket. Our team will check your application and help you as soon as possible.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 361,
+    "name": "Charged Incorrectly for Call",
+    "visibility": 0,
+    "type": 1,
+    "title11": "I was charged incorrectly for this call. What should I do?",
+    "answer": "<p>Apologies for the inconvenience. If coins were deducted but no call took place, please raise a support ticket and provide all relevant details, such as the transaction ID, date, and amount. We will verify the transaction from our side, and if the details are correct and no conversation occurred, we will refund your coins.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 430,
+    "name": "Asking for Personal Info",
+    "visibility": 2,
+    "type": 1,
+    "title11": "What should I do if a User is asking for my personal information?",
+    "answer": "<p>Our platform never asks customers to share sensitive personal information, such as phone numbers, social media IDs, passwords, OTPs, or payment details over calls or messages.</p>\n<p>For your safety, please do not share any such information. If someone requests this information from you via call or message, report it immediately:</p>\n<ul>\n<li>Go to the session for which the user was asking for personal information.</li>\n<li>Tap the three dots on the right side of the call.</li>\n<li>Select Report User.</li>\n<li>Choose the appropriate reason for your report.</li>\n</ul>",
+    "feedback_type": 3
+  },
+  {
+    "id": 354,
+    "name": "Tech- Audio Issue",
+    "visibility": 2,
+    "type": 0,
+    "title11": "I'm experiencing audio issues during my call. What should I do?",
+    "answer": "<p>Apologies for the inconvenience caused. If you are experiencing audio issues during a call, please raise a support ticket. Provide a detailed description of the issue, including what kind of problem you are facing (e.g., no sound, distorted audio, or one-way audio) and any other relevant details. Our team will review your case and assist you in resolving the issue as quickly as possible.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 355,
+    "name": "Tech- Video Issue",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Why is the video not working during my call?",
+    "answer": "<p>For a better video experience, please ensure your face is visible on the camera. The app automatically turns off the video feed if a face is not detected. Additionally, a weak internet connection can affect video quality. Make sure you are in a well-lit space and keep your face within the frame.</p>\n<p>If you believe you are experiencing a technical issue, please submit a support ticket with a detailed description of the problem, such as no video, blurred video, distorted video, or laggy video. Our team will review your case and assist you promptly.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 496,
+    "name": "Gender-MisMatch",
+    "visibility": 1,
+    "type": 0,
+    "title11": "Getting error as PAN GENDER NOT MATCHING what to do ?",
+    "answer": "<p>The Gender Mismatch error occurs when the gender you have selected is different from the gender mentioned on your PAN card. Ideally, you should use your own PAN card for verification. However, if you don't have one, you may use the PAN card of an immediate family member. In that case, the following documents are required: PAN number of the immediate family member, UPI ID of the same family member, and proof of relationship between both of you (for example: Ration card or Aadhaar cards showing the same father's name).</p>\n<p>To resolve this issue, please raise a support ticket and attach the above documents. Our team will verify your details and assist you further.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 353,
+    "name": "Tech- App Related Issue",
+    "visibility": 2,
+    "type": 0,
+    "title11": "App freezes or closes unexpectedly, how can I fix it?",
+    "answer": "<p>Please make sure you are using the latest version of the app. To update the app:</p>\n<ul>\n<li>For Android: Open the Google Play Store, search for Dostt, tap Update if available.</li>\n<li>For iOS: Open the App Store, tap your profile icon, scroll to pending updates, tap Update next to Dostt.</li>\n</ul>\n<p>If the issue persists after updating, please raise a support ticket and provide the following details: mobile handset model, time of issue, and a screenshot of the error. Our team will review your case and assist you promptly.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 338,
+    "name": "Payment- Change UPI Details",
+    "visibility": 1,
+    "type": 0,
+    "title11": "How do I add/change my UPI ID ?",
+    "answer": "<p>You can add up to 3 UPI IDs in the app for withdrawals. To add a UPI ID, follow these steps:</p>\n<ul>\n<li>Go to the Wallet or Withdrawal section in the app.</li>\n<li>Tap on Add UPI ID.</li>\n<li>Enter your UPI ID and ensure that the name given in your PAN for KYC matches the bank account holder name.</li>\n<li>Once the name is confirmed, your UPI ID will be successfully added.</li>\n</ul>\n<p>If you have already added 3 UPI IDs, please wait 24 hours before adding another. Note: you cannot add more than 5 UPI IDs in a year.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 350,
+    "name": "App Usages Guide- Competition",
+    "visibility": 1,
+    "type": 0,
+    "title11": "What are competitions and Where can I get more information on this?",
+    "answer": "<p>Thank you for your interest in our competitions! To stay updated with the latest news, details, and instructions, we recommend joining our official WhatsApp group for competitions. You can also visit Profiles > Competitions in the app. This will help you stay informed about upcoming contests, rules, and winner announcements.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 497,
+    "name": "KYC LIMIT EXCEEDED",
+    "visibility": 1,
+    "type": 0,
+    "title11": "Getting error as your KYC limit is exceeded, what to do ?",
+    "answer": "<p>We allow up to 20 attempts to complete your KYC. If you have submitted incorrect information multiple times, you may see the error KYC limit exceeded.</p>\n<p>Information required for KYC: A valid PAN number linked with your Aadhaar, the gender on your PAN must match the gender on your Dostt profile, and the bank account holder's name must exactly match the name on the PAN card.</p>\n<p>If you encounter the KYC limit exceeded error, please review the specific error messages from your previous attempts. Then, raise a support ticket with the correct information. Our team will help you complete your KYC verification.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 349,
+    "name": "App Usages Guide- Tier",
+    "visibility": 1,
+    "type": 0,
+    "title11": "What is Tiers and how to increase my Tier?",
+    "answer": "<p>Based on your performance from the previous day, you've been placed in a reward tier. Tiers range from Basic to Diamond, with earnings starting at Rs.0.9 per minute for audio calls and Rs.5 per minute for video calls.</p>\n<p>If your daily performance meets or exceeds expectations, you'll be promoted to a higher tier which means increased payouts and the opportunity to earn up to 2X the base amount.</p>\n<p>To maintain or upgrade your tier, stay active, take more calls, and keep your performance consistent.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 363,
+    "name": "Not Getting Calls",
+    "visibility": 1,
+    "type": 0,
+    "title11": "Why am I Not getting Calls ?",
+    "answer": "<p>Ensure that your Audio and Video toggles are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 341,
+    "name": "Report- OTP Sharing",
+    "visibility": 2,
+    "type": 0,
+    "title11": "I shared my OTP with some person and amount is withdrawn from my account. What should I do?",
+    "answer": "<p>For your safety and security, you should never share your OTP (One-Time Password) or any other sensitive account information with anyone, including friends, family, or strangers. OTPs are strictly personal and are meant to verify your identity during transactions.</p>\n<p>If an OTP is shared with someone else and a transaction occurs as a result, we are not liable for any loss incurred. Please note that all withdrawals and transactions using a shared OTP are considered authorised by the account holder, and we cannot reverse them.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 463,
+    "name": "Cannot Hear Dostt's Voice",
+    "visibility": 0,
+    "type": 1,
+    "title11": "I'm unable to hear the listener's voice. What should I do?",
+    "answer": "<p>If you are unable to hear the listener's voice, please try the following steps:</p>\n<ul>\n<li>Check your internet connection - a weak or unstable network may affect audio.</li>\n<li>Increase your phone's volume and ensure it's not on silent or Do Not Disturb mode.</li>\n</ul>\n<p>If you still can't hear the listener after trying these steps, please raise a support ticket.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 357,
+    "name": "Favourite Listener Unavailable",
+    "visibility": 0,
+    "type": 0,
+    "title11": "I'm unable to reach my favorite Listener. Why?",
+    "answer": "<p>Listeners' availability depends on several factors, including their login time, activity status, and ongoing sessions. Even if your favorite Listener appears online, they may not be able to answer immediately due to reasons such as:</p>\n<ul>\n<li>They are already engaged in another call.</li>\n<li>Time zone differences or personal schedules may limit their availability.</li>\n<li>High-demand periods when many users are trying to connect simultaneously.</li>\n</ul>\n<p>If your preferred Listener is unavailable, we recommend trying again after some time or connecting with other available Listeners.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 333,
+    "name": "KYC -PAN linked to another user.",
+    "visibility": 1,
+    "type": 0,
+    "title11": "My PAN is showing as linked to another user. How do I resolve this?",
+    "answer": "<p>If you see an error saying that your PAN is linked with another user, it means that the same PAN has already been used for KYC on our platform.</p>\n<p>What to do:</p>\n<ul>\n<li>Double-check that you entered your PAN correctly.</li>\n<li>If the PAN is indeed correct and you are the rightful owner, please raise a support ticket.</li>\n<li>Provide relevant details of your PAN, and any supporting documents.</li>\n</ul>\n<p>Our Trust and Support team will review your case and help resolve the issue. Note: Each PAN can only be linked to one user account on our platform.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 465,
+    "name": "Recharged Twice by Mistake",
+    "visibility": 0,
+    "type": 2,
+    "title11": "I accidentally recharged twice. What should I do?",
+    "answer": "<p>Apologies for the inconvenience caused. If you have accidentally recharged twice, please raise a support ticket with all relevant details, such as your transaction IDs, date, and amount. Our team will review your case and assist you in resolving the issue, including processing any eligible refunds.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 365,
+    "name": "Other- Expert- Certification",
+    "visibility": 1,
+    "type": 0,
+    "title11": "What Is certification and how do I get certified ?",
+    "answer": "<p>The Mental Wellbeing Certification is an NSDC-aligned Skill India initiative designed to help you develop strong communication and listening skills, enhance emotional intelligence, and gain confidence in supporting others.</p>\n<p>How to Get Certified:</p>\n<ul>\n<li>Visit the Official Portal - Go to the Skill India or NSDC India website, or simply click the NSDC Certification banner on the home page of the Dostt App.</li>\n<li>Search for the Mental Wellbeing Course.</li>\n<li>Enroll using your basic details (name, phone number, and Aadhaar).</li>\n<li>Complete Aadhaar verification via OTP.</li>\n<li>Complete all course modules and activities.</li>\n<li>Appear for the final assessment and get your official NSDC-Skill India Certificate in Mental Wellbeing.</li>\n</ul>",
+    "feedback_type": 1
+  },
+  {
+    "id": 360,
+    "name": "Recharged but Coins Not Added",
+    "visibility": 0,
+    "type": 2,
+    "title11": "Why are coins not added to my wallet even after recharge?",
+    "answer": "<p>Please allow up to 72 hours for the coins to be credited to your account. If the coins are not reflected after this period, the amount will be automatically refunded to your original payment method within 4-5 working days.</p>\n<p>If your transaction has expired, do not worry - money has not been debited from your account. If it was, it should reach you within 72-96 hours.</p>\n<p>If you are still facing an issue after the waiting period, please raise a support ticket.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 595,
+    "name": "Become a listener",
+    "visibility": 0,
+    "type": 0,
+    "title11": "How do I become a Listener on Dostt?",
+    "answer": "<p>Becoming a Listener on Dostt is easy!</p>\n<ul>\n<li>Open the Profile section in the Dostt app.</li>\n<li>Tap on Switch to Listener.</li>\n<li>Complete the required steps by recording your voice sample, uploading a clear photo, and filling in the requested details about yourself.</li>\n<li>Submit your application.</li>\n</ul>\n<p>Once you've submitted your application, our team will review it and contact you within 24 hours via a phone call to complete the verification process. After your verification is complete and your profile is approved, you'll be able to start your journey as a Listener on Dostt.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 339,
+    "name": "Report- Improper Behavior",
+    "visibility": 2,
+    "type": 0,
+    "title11": "What to do if user is behaving inappropriately?",
+    "answer": "<p>We strive to keep our platform safe for everyone. If you encounter behavior that feels intolerable, please report it by clicking on the Call Details and Report button.</p>\n<p>Our Trust and Safety team will review the case and take appropriate action within 24-48 hours. If you notice similar issues with the same user, please use the Report option against their User ID in the call logs for faster validation.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 352,
+    "name": "App Usages Guide- TDS",
+    "visibility": 1,
+    "type": 0,
+    "title11": "What is TDS and how much TDS is deducted for me ?",
+    "answer": "<p>TDS (Tax Deducted at Source) is a portion of your earnings that is automatically deducted as tax by the company before you receive your payout. TDS is applied based on your lifetime earnings on the Dostt app and your KYC verification status.</p>\n<p>If you are KYC verified, a lower TDS rate applies. If you are not KYC verified, a higher TDS will be applied. Note: TDS rates are subject to change according to the company's internal policies.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 336,
+    "name": "Withdrawal Amount Not Received",
+    "visibility": 1,
+    "type": 4,
+    "title11": "Why did I not receive my withdrawal amount?",
+    "answer": "<p>Withdrawals are usually instant, and you should receive the amount within a few minutes. However, sometimes there may be delays due to bank server issues. Please wait a few hours and try again.</p>\n<p>If the issue persists after multiple attempts, kindly raise a support ticket. Make sure to include all relevant details, such as your UPI ID and screenshots. Our team will be happy to assist you.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 464,
+    "name": "Inappropriate Behaviour",
+    "visibility": 2,
+    "type": 1,
+    "title11": "User is behaving inappropriately, What should I do ?",
+    "answer": "<p>We're sorry you had a bad experience. Please report this issue to help us maintain a safe and respectful environment for everyone. This behaviour is against our community guidelines and is taken very seriously.</p>\n<p>To report a user:</p>\n<ul>\n<li>Navigate to the Past Sessions screen.</li>\n<li>Click the three-dot icon on the right side of the specific user's session.</li>\n<li>Select Report.</li>\n<li>Choose the appropriate reason from the list.</li>\n<li>Click Report User to submit your report.</li>\n</ul>\n<p>Our Trust and Safety team will review the case and take appropriate action within 24-48 hours.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 342,
+    "name": "Account- Suspended",
+    "visibility": 2,
+    "type": 0,
+    "title11": "When will my suspension be revoked?",
+    "answer": "<p>We're sorry for the inconvenience caused. Please check if you can see a timer on your screen.</p>\n<ul>\n<li>If yes: Please wait for the timer to finish. Your account will automatically become active once the cooldown period ends.</li>\n<li>If No: Please raise a support ticket so our team can investigate further.</li>\n</ul>\n<p>We also request you to kindly follow our platform guidelines to avoid similar issues or potential account restrictions in the future.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 565,
+    "name": "Will AI Dostt remember our previous conversations?",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Will Dia remember our previous conversations?",
+    "answer": "<p>Dia remembers what you share within a session. Across sessions, she holds on to important things you've told her - like your name, what you're going through, and things that matter to you - so she doesn't feel like a stranger each time. She won't remember every message, but she gets more personalised the more you chat.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 564,
+    "name": "Is AI Dostt a real person?",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Is Dia a real person?",
+    "answer": "<p>No - Dia is an AI companion, not a real person. She's designed to feel warm and natural, but she's fully AI-powered. If you're looking to connect with a real human, try our Listeners feature.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 563,
+    "name": "AI Dostt is not responding",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Dia is not responding / chat not loading",
+    "answer": "<p>Try these steps: Close the chat and reopen it. Check your internet connection. If Dia still doesn't respond after 30 seconds, exit and re-enter the chat. If the issue keeps happening, report it so our team can investigate.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 562,
+    "name": "AI Dostt said something wrong or offensive",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Dia said something wrong or offensive.",
+    "answer": "<p>Dia is an AI and can sometimes respond in unexpected ways. Your feedback matters - tap Report this chat and our team will review the conversation. We take safety seriously and use these reports to improve Dia's responses. For anything that felt genuinely harmful, also use Safety and Abuse reporting.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 597,
+    "name": "SDT Access Rejected",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Why was my Listener application rejected?",
+    "answer": "<p>Our team carefully reviews every Listener application based on factors such as current Listener demand, profile quality, and our platform requirements.</p>\n<p>If your application wasn't approved, it doesn't always mean there's an issue with your profile. Sometimes, we may not need additional Listeners at that time.</p>\n<p>Don't worry, your application details are safely stored with us. If we need more Listeners in the future and your profile is a good fit, our team may reach out to you to continue the onboarding process.</p>",
+    "feedback_type": 1
+  }
+]

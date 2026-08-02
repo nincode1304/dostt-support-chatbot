@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Environment
+.env
+backend/.env
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build output — committed for Render deployment
+# frontend/dist is intentionally NOT ignored
+
+# Sensitive — contain real JWT tokens
+headers.py
+testresponse.py
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code local settings
+.claude/

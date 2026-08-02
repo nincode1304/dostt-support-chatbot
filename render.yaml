@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: dostt-support-chatbot
+    runtime: python
+    buildCommand: |
+      cd frontend && npm install && npm run build && cd ../backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: DOSTT_API_BASE_URL
+        value: https://testdostt.getlokalapp.com
