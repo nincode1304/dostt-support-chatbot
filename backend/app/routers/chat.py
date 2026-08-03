@@ -79,13 +79,11 @@ async def chat(req: ChatRequest) -> ChatResponse:
         items = await _dispatch(session, req)
     except Exception as e:
         logger.exception("Unhandled error in chat dispatch: %s", e)
-        items = [ResponseItem(
-            type=ResponseItemType.ERROR,
-            content=(
-                "I'm sorry, something went wrong on my end. "
-                "Please try again or raise a ticket and our team will help you."
-            ),
-        )]
+        if "503" in str(e) or "UNAVAILABLE" in str(e):
+            msg = "Our AI is very busy right now. Please wait a moment and try again."
+        else:
+            msg = "I'm sorry, something went wrong. Please try again in a moment."
+        items = [ResponseItem(type=ResponseItemType.ERROR, content=msg)]
 
     # Persist bot text messages in history
     for item in items:

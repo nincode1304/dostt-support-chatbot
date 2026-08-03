@@ -9,6 +9,7 @@ Responsibilities:
 The backend orchestrates the conversation flow; AI only generates text.
 """
 
+import asyncio
 import json
 import logging
 import re
@@ -260,27 +261,36 @@ async def _call_gemini(
     user_prompt: str,
     history: List[ChatMessage],
     max_tokens: int = 8192,
+    _retries: int = 2,
 ) -> str:
     contents = _format_history(history)
     contents.append(types.Content(role="user", parts=[types.Part(text=user_prompt)]))
-    try:
-        response = await _client.aio.models.generate_content(
-            model=settings.GEMINI_MODEL,
-            contents=contents,
-            config=types.GenerateContentConfig(
-                system_instruction=_SYSTEM_PROMPT,
-                max_output_tokens=max_tokens,
-                temperature=0.5,
-            ),
-        )
-        candidate = response.candidates[0] if response.candidates else None
-        finish = candidate.finish_reason if candidate else "UNKNOWN"
-        text = response.text
-        logger.info("Model response | finish_reason=%s | text=%r", finish, text)
-        if not text:
-            logger.warning("Empty response from model, finish_reason=%s", finish)
-            raise ValueError(f"Model returned empty response (finish_reason={finish})")
-        return text.strip()
-    except Exception as e:
-        logger.error("Gemini API error: %s", e)
-        raise
+
+    for attempt in range(_retries + 1):
+        try:
+            response = await _client.aio.models.generate_content(
+                model=settings.GEMINI_MODEL,
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    system_instruction=_SYSTEM_PROMPT,
+                    max_output_tokens=max_tokens,
+                    temperature=0.5,
+                ),
+            )
+            candidate = response.candidates[0] if response.candidates else None
+            finish = candidate.finish_reason if candidate else "UNKNOWN"
+            text = response.text
+            logger.info("Model response | finish_reason=%s | text=%r", finish, text)
+            if not text:
+                logger.warning("Empty response from model, finish_reason=%s", finish)
+                raise ValueError(f"Model returned empty response (finish_reason={finish})")
+            return text.strip()
+        except Exception as e:
+            is_503 = "503" in str(e) or "UNAVAILABLE" in str(e)
+            if is_503 and attempt < _retries:
+                wait = 2 ** attempt  # 1s, then 2s
+                logger.warning("Gemini 503, retrying in %ss (attempt %d/%d)", wait, attempt + 1, _retries)
+                await asyncio.sleep(wait)
+                continue
+            logger.error("Gemini API error: %s", e)
+            raise
