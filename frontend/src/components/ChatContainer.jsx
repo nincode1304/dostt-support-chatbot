@@ -5,6 +5,9 @@ import TypingIndicator from "./TypingIndicator";
 export default function ChatContainer({
   messages,
   isLoading,
+  onSelectCategory,
+  onSelectTransactionSubtype,
+  onSelectFaq,
   onSelectCall,
   onSelectTransaction,
   onConfirmTicket,
@@ -25,6 +28,9 @@ export default function ChatContainer({
         <Message
           key={msg.id}
           msg={msg}
+          onSelectCategory={onSelectCategory}
+          onSelectTransactionSubtype={onSelectTransactionSubtype}
+          onSelectFaq={onSelectFaq}
           onSelectCall={onSelectCall}
           onSelectTransaction={onSelectTransaction}
           onConfirmTicket={onConfirmTicket}

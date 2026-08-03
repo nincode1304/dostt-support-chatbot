@@ -12,6 +12,12 @@ export default function App() {
     isLoading,
     error,
     sendText,
+    moreHelpYes,
+    moreHelpNo,
+    restartChat,
+    selectCategory,
+    selectTransactionSubtype,
+    selectFaq,
     selectCall,
     selectTransaction,
     confirmTicket,
@@ -31,12 +37,31 @@ export default function App() {
       consentYes();
     } else if (optionId === "consent_no") {
       consentNo();
+    } else if (optionId === "more_help_yes") {
+      moreHelpYes();
+    } else if (optionId === "more_help_no") {
+      moreHelpNo();
     } else {
       sendText(optionId);
     }
   }
 
   const loading = !sessionId && isLoading;
+
+  const SELECTION_TYPES = [
+    "category_cards",
+    "transaction_subtype_cards",
+    "faq_cards",
+    "call_cards",
+    "transaction_cards",
+    "quick_replies",
+    "ticket_confirmation",
+    "chat_ended",
+    "error",
+  ];
+  const lastBotMsg = [...messages].reverse().find((m) => m.role === "bot");
+  const isChatEnded = lastBotMsg?.type === "chat_ended";
+  const awaitingSelection = lastBotMsg && SELECTION_TYPES.includes(lastBotMsg.type);
 
   return (
     <div className="app">
@@ -53,6 +78,9 @@ export default function App() {
         <ChatContainer
           messages={messages}
           isLoading={isLoading}
+          onSelectCategory={selectCategory}
+          onSelectTransactionSubtype={selectTransactionSubtype}
+          onSelectFaq={selectFaq}
           onSelectCall={selectCall}
           onSelectTransaction={selectTransaction}
           onConfirmTicket={confirmTicket}
@@ -62,7 +90,19 @@ export default function App() {
         />
       )}
 
-      <MessageInput onSend={sendText} disabled={isLoading || loading} />
+      {sessionId && !loading && (
+        <div className="restart-bar">
+          <button className="restart-chip" onClick={restartChat} disabled={isLoading}>
+            ↩ Restart chat
+          </button>
+        </div>
+      )}
+
+      <MessageInput
+        onSend={sendText}
+        disabled={isLoading || loading || awaitingSelection}
+        placeholder={isChatEnded ? "This chat has ended" : awaitingSelection ? "Please select an option above" : "Type a message..."}
+      />
     </div>
   );
 }

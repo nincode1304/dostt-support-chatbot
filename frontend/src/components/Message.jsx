@@ -1,7 +1,10 @@
 import CallSelector from "./CallSelector";
+import CategorySelector from "./CategorySelector";
+import FaqSelector from "./FaqSelector";
 import QuickReplies from "./QuickReplies";
 import TicketConfirmation from "./TicketConfirmation";
 import TransactionSelector from "./TransactionSelector";
+import TransactionSubtypeSelector from "./TransactionSubtypeSelector";
 
 function formatTime(ts) {
   if (!ts) return "";
@@ -9,10 +12,10 @@ function formatTime(ts) {
   return d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
 }
 
-export default function Message({ msg, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
+export default function Message({ msg, onSelectCategory, onSelectTransactionSubtype, onSelectFaq, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
   const now = Date.now();
 
-  if (msg.type === "text") {
+  if (msg.type === "text" || msg.type === "chat_ended") {
     return (
       <div className={`message-row ${msg.role}${msg.role === "bot" && msg.type === "error" ? " message-error" : ""}`}>
         {msg.role === "bot" && (
@@ -42,6 +45,33 @@ export default function Message({ msg, onSelectCall, onSelectTransaction, onConf
           <div className="message-bubble">{msg.content}</div>
           <div className="message-time">{formatTime(now)}</div>
         </div>
+      </div>
+    );
+  }
+
+  if (msg.type === "category_cards") {
+    return (
+      <div className="message-row bot">
+        <div className="bot-avatar-spacer" />
+        <CategorySelector data={msg.data || {}} onSelect={onSelectCategory} />
+      </div>
+    );
+  }
+
+  if (msg.type === "transaction_subtype_cards") {
+    return (
+      <div className="message-row bot">
+        <div className="bot-avatar-spacer" />
+        <TransactionSubtypeSelector data={msg.data || {}} onSelect={onSelectTransactionSubtype} />
+      </div>
+    );
+  }
+
+  if (msg.type === "faq_cards") {
+    return (
+      <div className="message-row bot">
+        <div className="bot-avatar-spacer" />
+        <FaqSelector data={msg.data || {}} onSelect={onSelectFaq} />
       </div>
     );
   }

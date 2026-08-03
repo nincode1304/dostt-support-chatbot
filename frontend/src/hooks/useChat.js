@@ -29,6 +29,7 @@ export function useChat(token, userType) {
         const data = await res.json();
         setSessionId(data.session_id);
         appendBotText(data.greeting);
+        processResponseItems(data.items || []);
       } catch (e) {
         setError("Could not connect to support. Please try again.");
       } finally {
@@ -108,6 +109,38 @@ export function useChat(token, userType) {
     [sendMessage]
   );
 
+  const moreHelpYes = useCallback(
+    () => sendMessage({ type: "more_help_yes" }),
+    [sendMessage]
+  );
+
+  const moreHelpNo = useCallback(
+    () => sendMessage({ type: "more_help_no" }),
+    [sendMessage]
+  );
+
+  const restartChat = useCallback(() => {
+    setMessages([]);
+    setSessionId(null);
+    setIsLoading(true);
+    initSession(token, userType);
+  }, [initSession, token, userType]);
+
+  const selectCategory = useCallback(
+    (categoryId) => sendMessage({ type: "select_category", selected_id: categoryId }),
+    [sendMessage]
+  );
+
+  const selectTransactionSubtype = useCallback(
+    (subtypeId) => sendMessage({ type: "select_transaction_subtype", selected_id: subtypeId }),
+    [sendMessage]
+  );
+
+  const selectFaq = useCallback(
+    (faqId) => sendMessage({ type: "select_faq", selected_id: String(faqId) }),
+    [sendMessage]
+  );
+
   // -------------------------------------------------------------------------
   // Message list helpers
   // -------------------------------------------------------------------------
@@ -133,6 +166,16 @@ export function useChat(token, userType) {
       ...prev,
       ...items.map((item) => ({ id: uid(), role: "bot", ...item })),
     ]);
+    if (items.some((item) => item.type === "error")) {
+      const tok = token;
+      const ut = userType;
+      setTimeout(() => {
+        setMessages([]);
+        setSessionId(null);
+        setIsLoading(true);
+        initSession(tok, ut);
+      }, 5000);
+    }
   }
 
   return {
@@ -141,6 +184,12 @@ export function useChat(token, userType) {
     error,
     sessionId,
     sendText,
+    moreHelpYes,
+    moreHelpNo,
+    restartChat,
+    selectCategory,
+    selectTransactionSubtype,
+    selectFaq,
     selectCall,
     selectTransaction,
     confirmTicket,
