@@ -622,13 +622,25 @@ a { color: inherit; text-decoration: none; }
 /* =========================================================
    Quick replies
    ========================================================= */
+.quick-replies-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: slide-in var(--anim-slow);
+}
+
 .quick-replies {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
-  margin-bottom: 4px;
-  animation: slide-in var(--anim-slow);
+}
+
+.quick-replies-disclaimer {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  padding: 0 2px;
 }
 
 .quick-reply-btn {

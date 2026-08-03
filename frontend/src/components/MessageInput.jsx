@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function MessageInput({ onSend, disabled }) {
+export default function MessageInput({ onSend, disabled, placeholder = "Type a message..." }) {
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
 
@@ -33,7 +33,7 @@ export default function MessageInput({ onSend, disabled }) {
       <textarea
         ref={textareaRef}
         className="input-field"
-        placeholder="Type a message..."
+        placeholder={placeholder}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={handleKeyDown}

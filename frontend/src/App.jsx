@@ -38,6 +38,10 @@ export default function App() {
 
   const loading = !sessionId && isLoading;
 
+  const SELECTION_TYPES = ["call_cards", "transaction_cards", "quick_replies", "ticket_confirmation"];
+  const lastBotMsg = [...messages].reverse().find((m) => m.role === "bot");
+  const awaitingSelection = lastBotMsg && SELECTION_TYPES.includes(lastBotMsg.type);
+
   return (
     <div className="app">
       <Header />
@@ -62,7 +66,7 @@ export default function App() {
         />
       )}
 
-      <MessageInput onSend={sendText} disabled={isLoading || loading} />
+      <MessageInput onSend={sendText} disabled={isLoading || loading || awaitingSelection} placeholder={awaitingSelection ? "Please select an option above" : "Type a message..."} />
     </div>
   );
 }

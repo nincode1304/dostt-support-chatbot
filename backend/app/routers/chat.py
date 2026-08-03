@@ -579,23 +579,17 @@ async def _handle_ticket_edit(session: SessionState, req: ChatRequest) -> List[R
 def _ask_call_consent(session: SessionState) -> List[ResponseItem]:
     session.stage = ConversationStage.AWAITING_CALL_CONSENT
     hour = (datetime.now(tz=timezone.utc) + _IST).hour
-    if 9 <= hour < 19:
-        question = "Would you like the Dostt team to call you to help resolve this?"
-    else:
-        question = (
-            "Would you like the Dostt team to call you? "
-            "Please note, by choosing Yes you agree that our support team "
-            "may reach out to you until 1:00 AM IST."
-        )
+    show_disclaimer = not (9 <= hour < 19)
     return [
-        _text(question),
+        _text("Would you like the Dostt team to call you to help resolve this?"),
         ResponseItem(
             type=ResponseItemType.QUICK_REPLIES,
             data={
                 "options": [
                     {"id": "consent_yes", "label": "Yes, please call me"},
                     {"id": "consent_no", "label": "No thanks"},
-                ]
+                ],
+                "disclaimer": "* By submitting this request, you agree that our support team may reach out to you until 1:00 AM IST." if show_disclaimer else None,
             },
         ),
     ]
