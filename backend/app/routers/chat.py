@@ -1,5 +1,5 @@
 """
-Chat router: orchestrates the full conversation state machine.
+Chat router: orchestrates the guided conversation state machine.
 
 The AI only generates text. All flow decisions (which stage, which cards to
 show, when to create a ticket) are made deterministically here.
@@ -30,9 +30,7 @@ from app.services.dostt_client import DUMMY_MODE
 router = APIRouter(prefix="/api", tags=["chat"])
 logger = logging.getLogger(__name__)
 
-# ── Change this to allow more or fewer tickets per chat session ───────────────
 MAX_TICKETS_PER_SESSION = 2
-# ─────────────────────────────────────────────────────────────────────────────
 
 
 # ---------------------------------------------------------------------------
@@ -49,7 +47,11 @@ async def init_session(req: InitSessionRequest) -> InitSessionResponse:
         "Hi! I'm Dostt Support. I'm here to help you with any questions or issues "
         "you're facing with the app. What can I help you with today?"
     )
-    return InitSessionResponse(session_id=session.session_id, greeting=greeting)
+    return InitSessionResponse(
+        session_id=session.session_id,
+        greeting=greeting,
+        items=_category_cards_items(),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -71,7 +73,6 @@ async def chat(req: ChatRequest) -> ChatResponse:
     if session is None:
         raise HTTPException(status_code=404, detail="Session not found or expired.")
 
-    # Record user's text message in history
     if req.type == MessageInputType.TEXT and req.message:
         session.messages.append(ChatMessage(role="user", content=req.message))
 
@@ -87,7 +88,6 @@ async def chat(req: ChatRequest) -> ChatResponse:
             ),
         )]
 
-    # Persist bot text messages in history
     for item in items:
         if item.type == ResponseItemType.TEXT and item.content:
             session.messages.append(ChatMessage(role="assistant", content=item.content))
@@ -103,14 +103,26 @@ async def chat(req: ChatRequest) -> ChatResponse:
 async def _dispatch(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
     stage = session.stage
 
-    if stage == ConversationStage.INITIAL:
-        return await _handle_initial(session, req)
+    if stage in (ConversationStage.INITIAL, ConversationStage.AWAITING_CATEGORY_SELECTION):
+        return await _handle_category_selection(session, req)
+
+    if stage == ConversationStage.AWAITING_TRANSACTION_SUBTYPE:
+        return await _handle_transaction_subtype(session, req)
 
     if stage == ConversationStage.AWAITING_CALL_SELECTION:
         return await _handle_call_selection(session, req)
 
     if stage == ConversationStage.AWAITING_TRANSACTION_SELECTION:
         return await _handle_transaction_selection(session, req)
+
+    if stage == ConversationStage.AWAITING_FAQ_SELECTION:
+        return await _handle_faq_selection(session, req)
+
+    if stage == ConversationStage.AWAITING_OTHER_TEXT:
+        return await _handle_other_text(session, req)
+
+    if stage == ConversationStage.AWAITING_MORE_HELP_RESPONSE:
+        return await _handle_more_help_response(session, req)
 
     if stage == ConversationStage.ANSWERED:
         return await _handle_ticket_intent(session, req)
@@ -124,70 +136,47 @@ async def _dispatch(session: SessionState, req: ChatRequest) -> List[ResponseIte
     if stage == ConversationStage.AWAITING_CALL_CONSENT:
         return await _handle_call_consent(session, req)
 
-    # TICKET_CREATED or ENDED — restart if the user sends a new text message
-    if req.type == MessageInputType.TEXT and req.message:
-        session.stage = ConversationStage.INITIAL
-        session.matched_faq_id = None
-        session.original_message = None
-        session.selected_call = None
-        session.selected_transaction = None
-        session.ticket_description = None
-        session.consent_call = None
-        session.messages = []
-        return await _handle_initial(session, req)
-
-    text = await ai_service.generate_already_ended_response()
-    return [_text(text)]
+    # TICKET_CREATED or ENDED — reset and show category cards
+    _reset_for_new_issue(session)
+    return _category_cards_items()
 
 
 # ---------------------------------------------------------------------------
-# INITIAL: match FAQ and start the appropriate flow
+# Category selection
 # ---------------------------------------------------------------------------
 
-async def _handle_initial(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
-    if not req.message:
-        return [_text("Please type your question and I'll do my best to help.")]
+async def _handle_category_selection(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
+    if req.type != MessageInputType.SELECT_CATEGORY:
+        return _category_cards_items()
 
-    faqs = faq_service.get_faqs_for_user_type(session.user_type)
-    issue_id = await ai_service.identify_faq(req.message, session.user_type, faqs)
+    category = req.selected_id
+    session.selected_category = category
 
-    if not issue_id:
-        session.stage = ConversationStage.ENDED
-        return [_text(_out_of_scope_reply())]
+    if category == "calls":
+        return await _start_call_category_flow(session)
+    if category == "transactions":
+        return await _start_transaction_category_flow(session)
+    if category == "other":
+        session.stage = ConversationStage.AWAITING_OTHER_TEXT
+        return [_text("Sure! Please tell me what issue you're facing and I'll do my best to help.")]
 
-    faq = faq_service.get_faq_by_id(issue_id)
-    if not faq:
-        session.stage = ConversationStage.ENDED
-        return [_text(_out_of_scope_reply())]
-
-    session.matched_faq_id = issue_id
-    session.original_message = req.message
-
-    if faq.type == IssueType.CALL:
-        return await _start_call_flow(session, faq)
-    if faq.type == IssueType.PAYMENT:
-        return await _start_payment_flow(session, faq)
-    if faq.type == IssueType.PAYOUT:
-        return await _start_payout_flow(session, faq)
-    # OTHER (0) and ALL (3) both follow the direct-answer flow
-    return await _handle_other_issue(session, faq)
+    return _category_cards_items()
 
 
 # ---------------------------------------------------------------------------
-# CALL flow
+# CALL category flow
 # ---------------------------------------------------------------------------
 
-async def _start_call_flow(session: SessionState, faq) -> List[ResponseItem]:
+async def _start_call_category_flow(session: SessionState) -> List[ResponseItem]:
     if not session.auth_token and not DUMMY_MODE:
-        return await _fallback_to_no_data(session, faq, entity="calls")
+        return _show_faq_cards(session)
 
     try:
         if session.user_type.value == "LISTENER":
-            calls = await dostt_client.get_recent_listener_sessions(
-                session.auth_token, limit=5
-            )
+            calls = await dostt_client.get_recent_listener_sessions(session.auth_token, limit=5)
         else:
             calls = await dostt_client.get_recent_calls(session.auth_token, limit=5)
+        calls = [c for c in calls if not c.get("ticket_detail")]
     except httpx.HTTPStatusError as e:
         if e.response.status_code == 401:
             session.stage = ConversationStage.ENDED
@@ -195,28 +184,19 @@ async def _start_call_flow(session: SessionState, faq) -> List[ResponseItem]:
                 "I wasn't able to verify your session. "
                 "Please close this chat and reopen it from the Dostt app."
             )]
-        return await _fallback_to_no_data(session, faq, entity="calls")
+        calls = []
     except Exception:
-        return await _fallback_to_no_data(session, faq, entity="calls")
-
-    # Hide calls that already have a ticket raised
-    calls = [c for c in calls if not c.get("ticket_detail")]
+        calls = []
 
     if not calls:
-        return await _fallback_to_no_data(session, faq, entity="calls")
+        return _show_faq_cards(session)
 
-    intro = await ai_service.generate_initial_response(
-        faq=faq,
-        original_message=session.original_message or "",
-        session=session,
-        context_note="You are about to show the user their recent calls.",
-    )
     session.stage = ConversationStage.AWAITING_CALL_SELECTION
     return [
-        _text(intro),
+        _text("Please select the call you're having an issue with:"),
         ResponseItem(
             type=ResponseItemType.CALL_CARDS,
-            data={"calls": calls, "prompt": "Please select the call you're referring to:"},
+            data={"calls": calls, "prompt": "Select the call you're referring to:"},
         ),
     ]
 
@@ -225,42 +205,55 @@ async def _handle_call_selection(session: SessionState, req: ChatRequest) -> Lis
     if req.type != MessageInputType.SELECT_CALL:
         return [_text("Please tap on one of the calls above to continue.")]
 
-    # Find call from the stored list (re-fetch would be wasteful; trust the id)
     selected_call = await _resolve_call(session, req.selected_id)
     if not selected_call:
-        return [_text(
-            "I couldn't find that call. Please select one of the calls shown above."
-        )]
+        return [_text("I couldn't find that call. Please select one of the calls shown above.")]
 
     session.selected_call = selected_call
-    faq = faq_service.get_faq_by_id(session.matched_faq_id or "")
-    if not faq:
-        return [_error()]
-
-    summary = _call_summary(selected_call)
-    return await _respond_after_selection(session, faq, summary)
+    return _show_faq_cards(session)
 
 
 # ---------------------------------------------------------------------------
-# PAYMENT flow
+# TRANSACTION category flow
 # ---------------------------------------------------------------------------
 
-async def _start_payment_flow(session: SessionState, faq) -> List[ResponseItem]:
+async def _start_transaction_category_flow(session: SessionState) -> List[ResponseItem]:
+    if session.user_type.value == "LISTENER":
+        session.stage = ConversationStage.AWAITING_TRANSACTION_SUBTYPE
+        return [
+            _text("Which type of transaction would you like help with?"),
+            ResponseItem(
+                type=ResponseItemType.TRANSACTION_SUBTYPE_CARDS,
+                data={
+                    "options": [
+                        {"id": "earnings", "label": "My Earnings"},
+                        {"id": "payouts", "label": "My Payouts / Withdrawals"},
+                    ]
+                },
+            ),
+        ]
+    return await _start_user_transaction_flow(session)
+
+
+async def _handle_transaction_subtype(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
+    if req.type != MessageInputType.SELECT_TRANSACTION_SUBTYPE:
+        return [_text("Please select one of the options above.")]
+
+    subtype = req.selected_id
+    session.selected_transaction_subtype = subtype
+
+    if subtype == "payouts":
+        return await _start_payout_flow(session)
+    return await _start_earnings_flow(session)
+
+
+async def _start_user_transaction_flow(session: SessionState) -> List[ResponseItem]:
     if not session.auth_token and not DUMMY_MODE:
-        return await _fallback_to_no_data(session, faq, entity="transactions")
-
-    is_listener = session.user_type.value == "LISTENER"
-    entity_label = "earnings" if is_listener else "transactions"
+        return _show_faq_cards(session)
 
     try:
-        if is_listener:
-            transactions = await dostt_client.get_listener_earnings(
-                session.auth_token, limit=5
-            )
-        else:
-            transactions = await dostt_client.get_recent_transactions(
-                session.auth_token, limit=5
-            )
+        transactions = await dostt_client.get_recent_transactions(session.auth_token, limit=5)
+        transactions = [t for t in transactions if not t.get("ticket_detail")]
     except httpx.HTTPStatusError as e:
         if e.response.status_code == 401:
             session.stage = ConversationStage.ENDED
@@ -268,49 +261,30 @@ async def _start_payment_flow(session: SessionState, faq) -> List[ResponseItem]:
                 "I wasn't able to verify your session. "
                 "Please close this chat and reopen it from the Dostt app."
             )]
-        return await _fallback_to_no_data(session, faq, entity=entity_label)
+        transactions = []
     except Exception:
-        return await _fallback_to_no_data(session, faq, entity=entity_label)
-
-    # Hide items that already have a ticket raised
-    transactions = [t for t in transactions if not t.get("ticket_detail")]
+        transactions = []
 
     if not transactions:
-        return await _fallback_to_no_data(session, faq, entity=entity_label)
+        return _show_faq_cards(session)
 
-    context_note = (
-        "You are about to show the listener their recent earnings so they can pick the relevant one."
-        if is_listener else
-        "You are about to show the user their recent transactions so they can pick the relevant one."
-    )
-    prompt_text = (
-        "Please select the earning you are referring to:"
-        if is_listener else
-        "Please select the transaction you're referring to:"
-    )
-
-    intro = await ai_service.generate_initial_response(
-        faq=faq,
-        original_message=session.original_message or "",
-        session=session,
-        context_note=context_note,
-    )
     session.stage = ConversationStage.AWAITING_TRANSACTION_SELECTION
     return [
-        _text(intro),
+        _text("Please select the transaction you're having an issue with:"),
         ResponseItem(
             type=ResponseItemType.TRANSACTION_CARDS,
-            data={"transactions": transactions, "prompt": prompt_text},
+            data={"transactions": transactions, "prompt": "Select the transaction you're referring to:"},
         ),
     ]
 
 
-async def _start_payout_flow(session: SessionState, faq) -> List[ResponseItem]:
+async def _start_earnings_flow(session: SessionState) -> List[ResponseItem]:
     if not session.auth_token and not DUMMY_MODE:
-        return await _fallback_to_no_data(session, faq, entity="payouts")
+        return _show_faq_cards(session)
 
     try:
-        payouts = await dostt_client.get_listener_payouts(session.auth_token, limit=5)
+        transactions = await dostt_client.get_listener_earnings(session.auth_token, limit=5)
+        transactions = [t for t in transactions if not t.get("ticket_detail")]
     except httpx.HTTPStatusError as e:
         if e.response.status_code == 401:
             session.stage = ConversationStage.ENDED
@@ -318,27 +292,50 @@ async def _start_payout_flow(session: SessionState, faq) -> List[ResponseItem]:
                 "I wasn't able to verify your session. "
                 "Please close this chat and reopen it from the Dostt app."
             )]
-        return await _fallback_to_no_data(session, faq, entity="payouts")
+        transactions = []
     except Exception:
-        return await _fallback_to_no_data(session, faq, entity="payouts")
+        transactions = []
 
-    payouts = [p for p in payouts if not p.get("ticket_detail")]
+    if not transactions:
+        return _show_faq_cards(session)
 
-    if not payouts:
-        return await _fallback_to_no_data(session, faq, entity="payouts")
-
-    intro = await ai_service.generate_initial_response(
-        faq=faq,
-        original_message=session.original_message or "",
-        session=session,
-        context_note="You are about to show the listener their recent withdrawals so they can pick the relevant one.",
-    )
     session.stage = ConversationStage.AWAITING_TRANSACTION_SELECTION
     return [
-        _text(intro),
+        _text("Please select the earning you're having an issue with:"),
         ResponseItem(
             type=ResponseItemType.TRANSACTION_CARDS,
-            data={"transactions": payouts, "prompt": "Please select the withdrawal you are referring to:"},
+            data={"transactions": transactions, "prompt": "Select the earning you're referring to:"},
+        ),
+    ]
+
+
+async def _start_payout_flow(session: SessionState) -> List[ResponseItem]:
+    if not session.auth_token and not DUMMY_MODE:
+        return _show_faq_cards(session)
+
+    try:
+        payouts = await dostt_client.get_listener_payouts(session.auth_token, limit=5)
+        payouts = [p for p in payouts if not p.get("ticket_detail")]
+    except httpx.HTTPStatusError as e:
+        if e.response.status_code == 401:
+            session.stage = ConversationStage.ENDED
+            return [_text(
+                "I wasn't able to verify your session. "
+                "Please close this chat and reopen it from the Dostt app."
+            )]
+        payouts = []
+    except Exception:
+        payouts = []
+
+    if not payouts:
+        return _show_faq_cards(session)
+
+    session.stage = ConversationStage.AWAITING_TRANSACTION_SELECTION
+    return [
+        _text("Please select the withdrawal you're having an issue with:"),
+        ResponseItem(
+            type=ResponseItemType.TRANSACTION_CARDS,
+            data={"transactions": payouts, "prompt": "Select the withdrawal you're referring to:"},
         ),
     ]
 
@@ -349,21 +346,106 @@ async def _handle_transaction_selection(session: SessionState, req: ChatRequest)
 
     selected_tx = await _resolve_transaction(session, req.selected_id)
     if not selected_tx:
-        return [_text(
-            "I couldn't find that transaction. Please select one from the list above."
-        )]
+        return [_text("I couldn't find that transaction. Please select one from the list above.")]
 
     session.selected_transaction = selected_tx
-    faq = faq_service.get_faq_by_id(session.matched_faq_id or "")
-    if not faq:
-        return [_error()]
-
-    summary = _transaction_summary(selected_tx)
-    return await _respond_after_selection(session, faq, summary)
+    return _show_faq_cards(session)
 
 
 # ---------------------------------------------------------------------------
-# OTHER flow
+# FAQ selection
+# ---------------------------------------------------------------------------
+
+def _show_faq_cards(session: SessionState) -> List[ResponseItem]:
+    category = session.selected_category
+    subtype = session.selected_transaction_subtype
+    user_type = session.user_type.value
+
+    if category == "calls":
+        faqs = faq_service.get_faqs_by_issue_type_and_user_type(IssueType.CALL, user_type)
+    elif category == "transactions":
+        if user_type == "LISTENER":
+            if subtype == "payouts":
+                faqs = faq_service.get_listener_payout_faqs()
+            else:
+                faqs = faq_service.get_listener_earnings_faqs()
+        else:
+            faqs = faq_service.get_faqs_by_issue_type_and_user_type(IssueType.PAYMENT, user_type)
+    else:
+        faqs = faq_service.get_faqs_by_issue_type_and_user_type(IssueType.OTHER, user_type)
+
+    session.stage = ConversationStage.AWAITING_FAQ_SELECTION
+    return [
+        _text("What issue are you facing?"),
+        ResponseItem(
+            type=ResponseItemType.FAQ_CARDS,
+            data={"faqs": [{"id": str(f.id), "title": f.title11} for f in faqs]},
+        ),
+    ]
+
+
+async def _handle_faq_selection(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
+    if req.type != MessageInputType.SELECT_FAQ:
+        return [_text("Please select one of the issues above.")]
+
+    faq = faq_service.get_faq_by_id(req.selected_id or "")
+    if not faq:
+        return [_error()]
+
+    session.matched_faq_id = str(faq.id)
+    session.original_message = faq.title11
+
+    if session.selected_call:
+        return await _respond_after_selection(session, faq, _call_summary(session.selected_call))
+
+    if session.selected_transaction:
+        return await _respond_after_selection(session, faq, _transaction_summary(session.selected_transaction))
+
+    # No entity selected (no data available) — answer directly
+    if faq_service.is_payout_faq(faq.id):
+        return await _fallback_to_no_data(session, faq, entity="payouts")
+    if faq.type == IssueType.CALL:
+        return await _fallback_to_no_data(session, faq, entity="calls")
+    if faq.type == IssueType.PAYMENT:
+        return await _fallback_to_no_data(session, faq, entity="transactions")
+    return await _handle_other_issue(session, faq)
+
+
+# ---------------------------------------------------------------------------
+# OTHER category: free-text → AI match → answer
+# ---------------------------------------------------------------------------
+
+async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
+    if not req.message:
+        return [_text("Please type your question and I'll do my best to help.")]
+
+    other_faqs = faq_service.get_faqs_by_issue_type_and_user_type(
+        IssueType.OTHER, session.user_type.value
+    )
+    issue_id = await ai_service.identify_faq(req.message, session.user_type.value, other_faqs)
+
+    if not issue_id:
+        _reset_for_new_issue(session)
+        return [
+            _text(_out_of_scope_reply()),
+            *_category_cards_items(),
+        ]
+
+    faq = faq_service.get_faq_by_id(issue_id)
+    if not faq:
+        _reset_for_new_issue(session)
+        return [
+            _text(_out_of_scope_reply()),
+            *_category_cards_items(),
+        ]
+
+    session.matched_faq_id = issue_id
+    session.original_message = req.message
+    return await _handle_other_issue(session, faq)
+
+
+# ---------------------------------------------------------------------------
+# OTHER issue handler (direct answer)
 # ---------------------------------------------------------------------------
 
 async def _handle_other_issue(session: SessionState, faq) -> List[ResponseItem]:
@@ -375,15 +457,15 @@ async def _handle_other_issue(session: SessionState, faq) -> List[ResponseItem]:
     items: List[ResponseItem] = [_text(answer_text)]
 
     if faq.feedback_type == FeedbackType.FEEDBACK_ONLY:
-        session.stage = ConversationStage.ENDED
-        items.append(_text("Hope that helps! If you have any other issue, feel free to ask."))
+        items.extend(_ask_more_help(session))
 
     elif faq.feedback_type in (FeedbackType.RAISE_COMPLAINT_ONLY, FeedbackType.BOTH):
         if _ticket_limit_reached(session):
-            session.stage = ConversationStage.ENDED
             items.append(_ticket_limit_reply())
+            items.extend(_ask_more_help(session))
         else:
             session.stage = ConversationStage.ANSWERED
+            items.append(_text("Are you still facing this issue?"))
             items.append(_quick_replies_item())
 
     return items
@@ -406,13 +488,12 @@ async def _respond_after_selection(
     items: List[ResponseItem] = [_text(response_text)]
 
     if faq.feedback_type == FeedbackType.FEEDBACK_ONLY:
-        session.stage = ConversationStage.ENDED
-        items.append(_text("Hope that helps! If you have any other issue, feel free to ask."))
+        items.extend(_ask_more_help(session))
 
     elif faq.feedback_type == FeedbackType.RAISE_COMPLAINT_ONLY:
         if _ticket_limit_reached(session):
-            session.stage = ConversationStage.ENDED
             items.append(_ticket_limit_reply())
+            items.extend(_ask_more_help(session))
         else:
             session.stage = ConversationStage.AWAITING_TICKET_CONFIRMATION
             session.ticket_description = session.original_message
@@ -420,10 +501,11 @@ async def _respond_after_selection(
 
     elif faq.feedback_type == FeedbackType.BOTH:
         if _ticket_limit_reached(session):
-            session.stage = ConversationStage.ENDED
             items.append(_ticket_limit_reply())
+            items.extend(_ask_more_help(session))
         else:
             session.stage = ConversationStage.ANSWERED
+            items.append(_text("Are you still facing this issue?"))
             items.append(_quick_replies_item())
 
     return items
@@ -436,30 +518,33 @@ async def _respond_after_selection(
 async def _handle_ticket_intent(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
     faq = faq_service.get_faq_by_id(session.matched_faq_id or "")
 
-    # Quick-reply button pressed
     if req.type == MessageInputType.CONFIRM_TICKET:
         if _ticket_limit_reached(session):
-            session.stage = ConversationStage.ENDED
-            return [_ticket_limit_reply()]
+            items = [_ticket_limit_reply()]
+            _reset_for_new_issue(session)
+            items.extend(_category_cards_items())
+            return items
         session.stage = ConversationStage.AWAITING_TICKET_CONFIRMATION
         session.ticket_description = session.original_message
         issue_name = faq.title11 if faq else "Support Request"
         return [_ticket_confirmation_item(session.ticket_description or "", issue_name)]
 
     if req.type == MessageInputType.CANCEL:
-        session.stage = ConversationStage.ENDED
-        return [_text("No problem! Is there anything else I can help you with?")]
+        return [_text("No problem!"), *_ask_more_help(session)]
 
-    # Free-text fallback: classify intent
+    # Free-text fallback
     wants_ticket = await ai_service.classify_ticket_intent(req.message or "")
     if wants_ticket:
+        if _ticket_limit_reached(session):
+            items = [_ticket_limit_reply()]
+            items.extend(_ask_more_help(session))
+            return items
         session.stage = ConversationStage.AWAITING_TICKET_CONFIRMATION
         session.ticket_description = session.original_message
         issue_name = faq.title11 if faq else "Support Request"
         return [_ticket_confirmation_item(session.ticket_description or "", issue_name)]
 
-    session.stage = ConversationStage.ENDED
-    return [_text("Alright, I'm glad I could help! Feel free to reach out if you need anything else.")]
+    return [_text("Alright, I'm glad I could help!"), *_ask_more_help(session)]
 
 
 # ---------------------------------------------------------------------------
@@ -468,25 +553,20 @@ async def _handle_ticket_intent(session: SessionState, req: ChatRequest) -> List
 
 async def _handle_ticket_confirmation(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
     if req.type == MessageInputType.CANCEL:
-        session.stage = ConversationStage.ENDED
-        return [_text("Ticket creation cancelled. Is there anything else I can help you with?")]
+        return [_text("Ticket creation cancelled."), *_ask_more_help(session)]
 
     if req.type == MessageInputType.EDIT_TICKET:
         session.stage = ConversationStage.AWAITING_TICKET_EDIT
-        return [_text(
-            "Sure! Please type the description you'd like to use for this support ticket:"
-        )]
+        return [_text("Sure! Please type the description you'd like to use for this support ticket:")]
 
     if req.type == MessageInputType.CONFIRM_TICKET:
         return _ask_call_consent(session)
 
-    # Free-text fallback
     text_lower = (req.message or "").lower()
     if any(w in text_lower for w in ["yes", "confirm", "create", "ok", "sure", "proceed"]):
         return _ask_call_consent(session)
     if any(w in text_lower for w in ["no", "cancel", "stop", "don't"]):
-        session.stage = ConversationStage.ENDED
-        return [_text("Ticket creation cancelled. Is there anything else I can help you with?")]
+        return [_text("Ticket creation cancelled."), *_ask_more_help(session)]
 
     return [_text("Please use the buttons below to confirm, edit, or cancel the ticket.")]
 
@@ -497,7 +577,7 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
         return [_error()]
 
     if not session.auth_token and not DUMMY_MODE:
-        session.stage = ConversationStage.ENDED
+        _reset_for_new_issue(session)
         return [_text(
             "I wasn't able to submit the ticket because your session token is missing. "
             "Please try reopening the support chat from the app."
@@ -510,21 +590,21 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
         raw_id = session.selected_call.get("id")
         if raw_id is not None:
             reference_entity_id = str(raw_id)
-            reference_entity_type = "booking"  # user call or listener session
+            reference_entity_type = "booking"
 
     elif session.selected_transaction:
         raw_id = session.selected_transaction.get("id")
         if raw_id is not None:
             reference_entity_id = str(raw_id)
-            if faq.type == IssueType.PAYOUT:
+            if faq_service.is_payout_faq(faq.id):
                 reference_entity_type = "dosttexpertpayout"
             elif session.user_type.value == "USER":
                 reference_entity_type = "order"
             else:
-                reference_entity_type = "booking"  # LISTENER earnings are booking-linked
+                reference_entity_type = "booking"
 
     try:
-        result = await dostt_client.create_support_ticket(
+        await dostt_client.create_support_ticket(
             token=session.auth_token,
             issue_id=str(faq.id),
             description=session.ticket_description or session.original_message or "",
@@ -535,16 +615,11 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
             consent_call=bool(session.consent_call),
         )
         session.tickets_raised += 1
-        session.stage = ConversationStage.TICKET_CREATED
+        issue_name = faq.title11
         return [
-            ResponseItem(
-                type=ResponseItemType.TICKET_CREATED,
-                data={"issue_name": faq.title11},
-            ),
-            _text(
-                "You can track your ticket in the Raised Tickets section under Help & Support. "
-                "Is there anything else I can help you with?"
-            ),
+            ResponseItem(type=ResponseItemType.TICKET_CREATED, data={"issue_name": issue_name}),
+            _text("You can track your ticket in the Raised Tickets section under Help & Support."),
+            *_ask_more_help(session),
         ]
     except httpx.HTTPStatusError as e:
         logger.error("Ticket creation HTTP error %s", e.response.status_code)
@@ -578,7 +653,7 @@ async def _handle_ticket_edit(session: SessionState, req: ChatRequest) -> List[R
 
 
 # ---------------------------------------------------------------------------
-# Call consent (chat-based, shown before ticket submission)
+# Call consent
 # ---------------------------------------------------------------------------
 
 def _ask_call_consent(session: SessionState) -> List[ResponseItem]:
@@ -615,7 +690,6 @@ async def _handle_call_consent(session: SessionState, req: ChatRequest) -> List[
         session.consent_call = False
         return await _submit_ticket(session)
 
-    # Free-text fallback
     msg = (req.message or "").lower()
     if any(w in msg for w in ["yes", "yeah", "sure", "ok", "please", "call"]):
         session.consent_call = True
@@ -628,13 +702,10 @@ async def _handle_call_consent(session: SessionState, req: ChatRequest) -> List[
 
 
 # ---------------------------------------------------------------------------
-# Fallback: no call/transaction data
+# Fallback: no call/transaction data available
 # ---------------------------------------------------------------------------
 
 async def _fallback_to_no_data(session: SessionState, faq, entity: str) -> List[ResponseItem]:
-    """
-    When we cannot fetch calls/transactions, answer directly without selection.
-    """
     answer_text = await ai_service.generate_initial_response(
         faq=faq,
         original_message=session.original_message or "",
@@ -644,14 +715,54 @@ async def _fallback_to_no_data(session: SessionState, faq, entity: str) -> List[
     items: List[ResponseItem] = [_text(answer_text)]
 
     if faq.feedback_type == FeedbackType.FEEDBACK_ONLY:
-        session.stage = ConversationStage.ENDED
-        items.append(_text("Hope that helps! If you have any other issue, feel free to ask."))
+        items.extend(_ask_more_help(session))
 
     elif faq.feedback_type in (FeedbackType.RAISE_COMPLAINT_ONLY, FeedbackType.BOTH):
-        session.stage = ConversationStage.ANSWERED
-        items.append(_quick_replies_item())
+        if _ticket_limit_reached(session):
+            items.append(_ticket_limit_reply())
+            items.extend(_ask_more_help(session))
+        else:
+            session.stage = ConversationStage.ANSWERED
+            items.append(_text("Are you still facing this issue?"))
+            items.append(_quick_replies_item())
 
     return items
+
+
+# ---------------------------------------------------------------------------
+# More help prompt
+# ---------------------------------------------------------------------------
+
+def _ask_more_help(session: SessionState) -> List[ResponseItem]:
+    _reset_for_new_issue(session)
+    session.stage = ConversationStage.AWAITING_MORE_HELP_RESPONSE
+    return [
+        _text("Is there anything else I can help you with?"),
+        ResponseItem(
+            type=ResponseItemType.QUICK_REPLIES,
+            data={
+                "options": [
+                    {"id": "more_help_yes", "label": "Yes, I need help"},
+                    {"id": "more_help_no", "label": "No thanks"},
+                ]
+            },
+        ),
+    ]
+
+
+async def _handle_more_help_response(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
+    if req.type == MessageInputType.MORE_HELP_YES:
+        _reset_for_new_issue(session)
+        return _category_cards_items()
+
+    if req.type == MessageInputType.MORE_HELP_NO:
+        session.stage = ConversationStage.ENDED
+        return [ResponseItem(
+            type=ResponseItemType.CHAT_ENDED,
+            content="Thank you for letting me help. You can close the chat window.",
+        )]
+
+    return [_text("Please use the buttons above to continue.")]
 
 
 # ---------------------------------------------------------------------------
@@ -691,6 +802,53 @@ def _quick_replies_item() -> ResponseItem:
     )
 
 
+def _category_cards_items() -> List[ResponseItem]:
+    return [
+        ResponseItem(
+            type=ResponseItemType.CATEGORY_CARDS,
+            data={
+                "options": [
+                    {"id": "calls", "label": "Recent Calls", "icon": "phone"},
+                    {"id": "transactions", "label": "Recent Transactions", "icon": "wallet"},
+                    {"id": "other", "label": "Other Issues", "icon": "chat"},
+                ]
+            },
+        )
+    ]
+
+
+def _reset_for_new_issue(session: SessionState) -> None:
+    session.matched_faq_id = None
+    session.original_message = None
+    session.selected_call = None
+    session.selected_transaction = None
+    session.ticket_description = None
+    session.consent_call = None
+    session.selected_category = None
+    session.selected_transaction_subtype = None
+    session.stage = ConversationStage.AWAITING_CATEGORY_SELECTION
+
+
+def _ticket_limit_reached(session: SessionState) -> bool:
+    return session.tickets_raised >= MAX_TICKETS_PER_SESSION
+
+
+def _ticket_limit_reply() -> ResponseItem:
+    return _text(
+        f"You can raise up to {MAX_TICKETS_PER_SESSION} tickets per chat session, "
+        f"and you have already used all {MAX_TICKETS_PER_SESSION}. "
+        "To raise more, please open a new support chat. "
+        "You can track your existing tickets in the Raised Tickets section under Help & Support."
+    )
+
+
+def _out_of_scope_reply() -> str:
+    return (
+        "I'm sorry, I couldn't find a solution for that specific issue. "
+        "Please try one of the categories below, or raise a ticket through Recent Calls or Transactions."
+    )
+
+
 def _call_summary(call: Dict[str, Any]) -> str:
     expert = call.get("expert", {})
     name = expert.get("name", "listener") if isinstance(expert, dict) else "listener"
@@ -726,7 +884,6 @@ def _transaction_summary(tx: Dict[str, Any]) -> str:
 
 
 async def _resolve_call(session: SessionState, call_id: Optional[str]) -> Optional[Dict[str, Any]]:
-    """Try to find the call from a fresh API fetch."""
     if not call_id:
         return None
     if not session.auth_token and not DUMMY_MODE:
@@ -748,7 +905,8 @@ async def _resolve_transaction(session: SessionState, tx_id: Optional[str]) -> O
         return None
     try:
         faq = faq_service.get_faq_by_id(session.matched_faq_id or "")
-        if faq and faq.type == IssueType.PAYOUT:
+        is_payout = (faq_service.is_payout_faq(faq.id) if faq else False) or session.selected_transaction_subtype == "payouts"
+        if is_payout:
             items = await dostt_client.get_listener_payouts(session.auth_token, limit=5)
         elif session.user_type.value == "LISTENER":
             items = await dostt_client.get_listener_earnings(session.auth_token, limit=5)
@@ -758,28 +916,3 @@ async def _resolve_transaction(session: SessionState, tx_id: Optional[str]) -> O
         return found or {"id": tx_id}
     except Exception:
         return {"id": tx_id}
-
-
-def _find_by_id(item_id: Optional[str], session: SessionState, key: str) -> Optional[Dict[str, Any]]:
-    """Placeholder for client-side selected item lookup."""
-    return None
-
-
-def _ticket_limit_reached(session: SessionState) -> bool:
-    return session.tickets_raised >= MAX_TICKETS_PER_SESSION
-
-
-def _ticket_limit_reply() -> ResponseItem:
-    return _text(
-        f"You can raise up to {MAX_TICKETS_PER_SESSION} tickets per chat session, "
-        f"and you have already used all {MAX_TICKETS_PER_SESSION}. "
-        "To raise more, please open a new support chat. "
-        "You can track your existing tickets in the Raised Tickets section under Help & Support."
-    )
-
-
-def _out_of_scope_reply() -> str:
-    return (
-        "I'm here to help with Dostt app support queries only. "
-        "Feel free to ask me anything about your calls, payments, account, or any other issue!"
-    )

@@ -6,8 +6,13 @@ from datetime import datetime
 
 class ConversationStage(str, Enum):
     INITIAL = "INITIAL"
+    AWAITING_CATEGORY_SELECTION = "AWAITING_CATEGORY_SELECTION"
+    AWAITING_TRANSACTION_SUBTYPE = "AWAITING_TRANSACTION_SUBTYPE"
     AWAITING_CALL_SELECTION = "AWAITING_CALL_SELECTION"
     AWAITING_TRANSACTION_SELECTION = "AWAITING_TRANSACTION_SELECTION"
+    AWAITING_FAQ_SELECTION = "AWAITING_FAQ_SELECTION"
+    AWAITING_OTHER_TEXT = "AWAITING_OTHER_TEXT"
+    AWAITING_MORE_HELP_RESPONSE = "AWAITING_MORE_HELP_RESPONSE"
     ANSWERED = "ANSWERED"
     AWAITING_TICKET_CONFIRMATION = "AWAITING_TICKET_CONFIRMATION"
     AWAITING_TICKET_EDIT = "AWAITING_TICKET_EDIT"
@@ -38,7 +43,9 @@ class SessionState(BaseModel):
     ticket_description: Optional[str] = None
     consent_call: Optional[bool] = None
     tickets_raised: int = 0
-    stage: ConversationStage = ConversationStage.INITIAL
+    selected_category: Optional[str] = None
+    selected_transaction_subtype: Optional[str] = None
+    stage: ConversationStage = ConversationStage.AWAITING_CATEGORY_SELECTION
     messages: List[ChatMessage] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.now)
     last_activity: datetime = Field(default_factory=datetime.now)

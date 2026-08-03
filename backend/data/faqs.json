@@ -84,7 +84,7 @@
     "id": 529,
     "name": "Earning not matching with call duration",
     "visibility": 1,
-    "type": 1,
+    "type": 2,
     "title11": "Why is my earning less than the call duration ?",
     "answer": "<p>Your earning is calculated based on the actual duration of the call you attended. However, in some cases, the displayed duration on the app may differ from the payable duration. Deductions may happen due to the following reasons:</p>\n<ul>\n<li>Actual call duration (as recorded on the system) is shorter than what appears on the app.</li>\n<li>Face was not visible during the call.</li>\n<li>You were not responsive or inactive during parts of the call.</li>\n<li>Customer raised a concern about the call and requested a refund.</li>\n</ul>",
     "feedback_type": 3
@@ -372,7 +372,7 @@
     "id": 336,
     "name": "Withdrawal Amount Not Received",
     "visibility": 1,
-    "type": 4,
+    "type": 2,
     "title11": "Why did I not receive my withdrawal amount?",
     "answer": "<p>Withdrawals are usually instant, and you should receive the amount within a few minutes. However, sometimes there may be delays due to bank server issues. Please wait a few hours and try again.</p>\n<p>If the issue persists after multiple attempts, kindly raise a support ticket. Make sure to include all relevant details, such as your UPI ID and screenshots. Our team will be happy to assist you.</p>",
     "feedback_type": 3

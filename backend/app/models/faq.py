@@ -12,9 +12,8 @@ class Visibility(IntEnum):
 class IssueType(IntEnum):
     OTHER = 0
     CALL = 1
-    PAYMENT = 2   # USER coin transactions / LISTENER earnings (booking-tied)
+    PAYMENT = 2   # coin transactions, earnings, payouts — all financial issues
     ALL = 3       # General FAQ — treated as OTHER in conversation flow
-    PAYOUT = 4    # LISTENER withdrawal to bank/UPI (dosttexpertpayout)
 
 
 class FeedbackType(IntEnum):

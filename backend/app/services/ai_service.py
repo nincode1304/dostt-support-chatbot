@@ -9,6 +9,7 @@ Responsibilities:
 The backend orchestrates the conversation flow; AI only generates text.
 """
 
+import asyncio
 import json
 import logging
 import re
@@ -76,37 +77,41 @@ async def identify_faq(
         'Output the JSON object only, no other text.'
     )
 
-    try:
-        response = await _client.aio.models.generate_content(
-            model=settings.GEMINI_MODEL,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema={
-                    "type": "OBJECT",
-                    "properties": {
-                        "id": {"type": "NUMBER", "nullable": True},
-                        "confidence": {"type": "STRING"},
+    for attempt in range(3):
+        try:
+            response = await _client.aio.models.generate_content(
+                model=settings.GEMINI_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema={
+                        "type": "OBJECT",
+                        "properties": {
+                            "id": {"type": "NUMBER", "nullable": True},
+                            "confidence": {"type": "STRING"},
+                        },
+                        "required": ["id", "confidence"],
                     },
-                    "required": ["id", "confidence"],
-                },
-                max_output_tokens=1024,
-                temperature=0.0,
-            ),
-        )
-        if not response.text:
-            logger.warning("identify_faq: empty response from model")
+                    max_output_tokens=1024,
+                    temperature=0.0,
+                ),
+            )
+            if not response.text:
+                logger.warning("identify_faq: empty response from model")
+                return None
+            data = json.loads(response.text)
+            faq_id = data.get("id")
+            confidence = data.get("confidence", "LOW")
+            if faq_id is not None and confidence != "NONE":
+                logger.debug("FAQ matched: id=%s (%s)", faq_id, confidence)
+                return str(int(faq_id))
             return None
-        data = json.loads(response.text)
-        faq_id = data.get("id")
-        confidence = data.get("confidence", "LOW")
-        if faq_id is not None and confidence != "NONE":
-            logger.debug("FAQ matched: id=%s (%s)", faq_id, confidence)
-            return str(int(faq_id))
-        return None
-    except Exception as e:
-        logger.error("identify_faq error: %s", e)
-        return None
+        except Exception as e:
+            if ("503" in str(e) or "UNAVAILABLE" in str(e)) and attempt < 2:
+                await asyncio.sleep(2 ** attempt)
+                continue
+            logger.error("identify_faq error: %s", e)
+            return None
 
 
 # ---------------------------------------------------------------------------
@@ -189,7 +194,7 @@ async def generate_post_selection_response(
         instruction = (
             "Using only the key facts given, explain the answer in very simple, easy words. "
             "Mention the specific call or transaction in 1 short sentence if it helps. "
-            "Write like you are talking to someone who does not know much English. 2 sentences max."
+            "Write like you are talking to someone who does not know much English. 3 sentences max."
         )
     elif faq.feedback_type == FeedbackType.RAISE_COMPLAINT_ONLY:
         instruction = (
@@ -198,10 +203,10 @@ async def generate_post_selection_response(
         )
     else:  # BOTH
         instruction = (
-            "In 1 simple sentence, show that you understand the user's problem with this specific item. "
-            "In 1 more simple sentence, explain the answer using only the key facts given. "
-            "Use the exact time periods and numbers from the key facts — do not change them. "
-            "Use very easy words. Do not mention tickets or next steps."
+            "First, in 1 simple sentence, acknowledge the user's problem with this specific call or transaction. "
+            "Then explain the answer fully using only the key facts given — use 2 to 3 sentences. "
+            "Use the exact time periods, numbers, and amounts from the key facts — do not change them. "
+            "Use very easy words. Do not mention tickets, refunds, or next steps."
         )
 
     prompt = f"{_APP_CONTEXT}\n\n{context}\n\nInstruction: {instruction}"
@@ -263,24 +268,29 @@ async def _call_gemini(
 ) -> str:
     contents = _format_history(history)
     contents.append(types.Content(role="user", parts=[types.Part(text=user_prompt)]))
-    try:
-        response = await _client.aio.models.generate_content(
-            model=settings.GEMINI_MODEL,
-            contents=contents,
-            config=types.GenerateContentConfig(
-                system_instruction=_SYSTEM_PROMPT,
-                max_output_tokens=max_tokens,
-                temperature=0.5,
-            ),
-        )
-        candidate = response.candidates[0] if response.candidates else None
-        finish = candidate.finish_reason if candidate else "UNKNOWN"
-        text = response.text
-        logger.info("Model response | finish_reason=%s | text=%r", finish, text)
-        if not text:
-            logger.warning("Empty response from model, finish_reason=%s", finish)
-            raise ValueError(f"Model returned empty response (finish_reason={finish})")
-        return text.strip()
-    except Exception as e:
-        logger.error("Gemini API error: %s", e)
-        raise
+    for attempt in range(3):
+        try:
+            response = await _client.aio.models.generate_content(
+                model=settings.GEMINI_MODEL,
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    system_instruction=_SYSTEM_PROMPT,
+                    max_output_tokens=max_tokens,
+                    temperature=0.5,
+                ),
+            )
+            candidate = response.candidates[0] if response.candidates else None
+            finish = candidate.finish_reason if candidate else "UNKNOWN"
+            text = response.text
+            logger.info("Model response | finish_reason=%s | text=%r", finish, text)
+            if not text:
+                logger.warning("Empty response from model, finish_reason=%s", finish)
+                raise ValueError(f"Model returned empty response (finish_reason={finish})")
+            return text.strip()
+        except Exception as e:
+            if ("503" in str(e) or "UNAVAILABLE" in str(e)) and attempt < 2:
+                logger.warning("Gemini 503 on attempt %d, retrying in %ds", attempt + 1, 2 ** attempt)
+                await asyncio.sleep(2 ** attempt)
+                continue
+            logger.error("Gemini API error: %s", e)
+            raise

@@ -5,7 +5,11 @@ from pathlib import Path
 from typing import List, Optional
 
 from app.config import settings
-from app.models.faq import FAQ, Visibility
+from app.models.faq import FAQ, IssueType, Visibility
+
+# FAQ IDs that belong to the LISTENER payouts (withdrawal) flow.
+# All are type=2 in the system; this set distinguishes them from earnings FAQs.
+_PAYOUT_FAQ_IDS: frozenset[int] = frozenset({336, 337})
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +92,32 @@ def get_faq_by_id(faq_id: str) -> Optional[FAQ]:
         return next((f for f in _faqs if f.id == id_int), None)
     except (ValueError, TypeError):
         return None
+
+
+def get_faqs_by_issue_type_and_user_type(issue_type: IssueType, user_type: str) -> List[FAQ]:
+    if user_type.upper() == "USER":
+        visible = [f for f in _faqs if f.visibility in (Visibility.CUSTOMER, Visibility.BOTH)]
+    else:
+        visible = [f for f in _faqs if f.visibility in (Visibility.EXPERT, Visibility.BOTH)]
+    return [f for f in visible if f.type == issue_type]
+
+
+def is_payout_faq(faq_id: int) -> bool:
+    return faq_id in _PAYOUT_FAQ_IDS
+
+
+def get_listener_payout_faqs() -> List[FAQ]:
+    """FAQs shown in the LISTENER My Payouts / Withdrawals flow."""
+    return [f for f in _faqs if f.id in _PAYOUT_FAQ_IDS
+            and f.visibility in (Visibility.EXPERT, Visibility.BOTH)]
+
+
+def get_listener_earnings_faqs() -> List[FAQ]:
+    """FAQs shown in the LISTENER My Earnings flow (type=2, not in payout set)."""
+    return [f for f in _faqs
+            if f.type == IssueType.PAYMENT
+            and f.visibility in (Visibility.EXPERT, Visibility.BOTH)
+            and f.id not in _PAYOUT_FAQ_IDS]
 
 
 def get_all_faqs() -> List[FAQ]:
