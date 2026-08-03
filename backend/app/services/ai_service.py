@@ -77,37 +77,44 @@ async def identify_faq(
         'Output the JSON object only, no other text.'
     )
 
-    try:
-        response = await _client.aio.models.generate_content(
-            model=settings.GEMINI_MODEL,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema={
-                    "type": "OBJECT",
-                    "properties": {
-                        "id": {"type": "NUMBER", "nullable": True},
-                        "confidence": {"type": "STRING"},
+    for attempt in range(3):
+        try:
+            response = await _client.aio.models.generate_content(
+                model=settings.GEMINI_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema={
+                        "type": "OBJECT",
+                        "properties": {
+                            "id": {"type": "NUMBER", "nullable": True},
+                            "confidence": {"type": "STRING"},
+                        },
+                        "required": ["id", "confidence"],
                     },
-                    "required": ["id", "confidence"],
-                },
-                max_output_tokens=1024,
-                temperature=0.0,
-            ),
-        )
-        if not response.text:
-            logger.warning("identify_faq: empty response from model")
+                    max_output_tokens=1024,
+                    temperature=0.0,
+                ),
+            )
+            if not response.text:
+                logger.warning("identify_faq: empty response from model")
+                return None
+            data = json.loads(response.text)
+            faq_id = data.get("id")
+            confidence = data.get("confidence", "LOW")
+            if faq_id is not None and confidence != "NONE":
+                logger.debug("FAQ matched: id=%s (%s)", faq_id, confidence)
+                return str(int(faq_id))
             return None
-        data = json.loads(response.text)
-        faq_id = data.get("id")
-        confidence = data.get("confidence", "LOW")
-        if faq_id is not None and confidence != "NONE":
-            logger.debug("FAQ matched: id=%s (%s)", faq_id, confidence)
-            return str(int(faq_id))
-        return None
-    except Exception as e:
-        logger.error("identify_faq error: %s", e)
-        return None
+        except Exception as e:
+            is_503 = "503" in str(e) or "UNAVAILABLE" in str(e)
+            if is_503 and attempt < 2:
+                wait = 2 ** attempt
+                logger.warning("identify_faq 503, retrying in %ss (attempt %d/2)", wait, attempt + 1)
+                await asyncio.sleep(wait)
+                continue
+            logger.error("identify_faq error: %s", e)
+            raise
 
 
 # ---------------------------------------------------------------------------

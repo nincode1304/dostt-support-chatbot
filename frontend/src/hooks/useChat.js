@@ -51,12 +51,17 @@ export function useChat(token, userType) {
         });
         if (!res.ok) {
           const body = await res.json().catch(() => ({}));
-          throw new Error(body.detail || `HTTP ${res.status}`);
+          if (res.status === 404) {
+            appendErrorMessage("Your session has expired. Please close and reopen the chat to start again.");
+          } else {
+            appendErrorMessage("Sorry, I am not able to help you at the moment. Please try through the Help & Support section in the app for now.");
+          }
+          return;
         }
         const data = await res.json();
         processResponseItems(data.items);
       } catch (e) {
-        appendErrorMessage("Something went wrong. Please try again.");
+        appendErrorMessage("Sorry, I am not able to help you at the moment. Please try through the Help & Support section in the app for now.");
       } finally {
         setIsLoading(false);
       }
