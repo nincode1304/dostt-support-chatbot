@@ -1,4 +1,55 @@
-export default function Header() {
+import { useEffect, useRef, useState } from "react";
+
+const ALL_LANGUAGES = [
+  "English", "Hindi", "Tamil", "Telugu", "Malayalam",
+  "Kannada", "Marathi", "Punjabi", "Bengali", "Gujarati", "Odia",
+];
+
+const LANG_LETTER = {
+  English:   "E",
+  Hindi:     "ह",
+  Tamil:     "த",
+  Telugu:    "తె",
+  Malayalam: "മ",
+  Kannada:   "ಕ",
+  Marathi:   "म",
+  Punjabi:   "ਪ",
+  Bengali:   "ব",
+  Gujarati:  "ગ",
+  Odia:      "ଓ",
+};
+
+export default function Header({ language = "English", onLanguageChange, initLanguage }) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  // In production initLanguage is set → show only English + that language
+  // In test mode initLanguage is null → show all languages
+  const availableLanguages = initLanguage
+    ? Array.from(new Set(["English", initLanguage]))
+    : ALL_LANGUAGES;
+
+  // Close on outside click/touch
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
+  }, [open]);
+
+  const handleSelect = (lang) => {
+    setOpen(false);
+    if (lang !== language) onLanguageChange?.(lang);
+  };
+
   return (
     <div className="header">
       <div className="header-avatar-wrap">
@@ -9,15 +60,49 @@ export default function Header() {
         </div>
         <span className="header-online-dot" />
       </div>
+
       <div className="header-info">
         <div className="header-name">Dostt Support</div>
         <div className="header-status">Online</div>
       </div>
-      <button className="header-menu-btn" aria-label="More options">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/>
-        </svg>
-      </button>
+
+      <div className="lang-selector" ref={containerRef}>
+        <button
+          className={`lang-selector-btn${open ? " open" : ""}`}
+          onClick={() => setOpen((p) => !p)}
+          aria-label="Select language"
+          aria-expanded={open}
+        >
+          <span className="lang-badge">{LANG_LETTER[language] ?? language[0]}</span>
+          <span className="lang-label">{language}</span>
+          {/* Chevron */}
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className={`lang-chevron${open ? " flipped" : ""}`}>
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+
+        {open && (
+          <div className="lang-dropdown" role="listbox">
+            {availableLanguages.map((lang) => (
+              <button
+                key={lang}
+                className={`lang-option${lang === language ? " active" : ""}`}
+                role="option"
+                aria-selected={lang === language}
+                onClick={() => handleSelect(lang)}
+              >
+                <span className="lang-option-letter">{LANG_LETTER[lang] ?? lang[0]}</span>
+                {lang}
+                {lang === language && (
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="lang-check">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

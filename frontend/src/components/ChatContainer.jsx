@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import Message from "./Message";
 import TypingIndicator from "./TypingIndicator";
+import { t } from "../translations";
 
 const INTERACTIVE_TYPES = new Set([
   "quick_replies", "category_cards", "faq_cards",
@@ -11,6 +12,7 @@ const INTERACTIVE_TYPES = new Set([
 export default function ChatContainer({
   messages,
   isLoading,
+  language,
   onSelectCategory,
   onSelectTransactionSubtype,
   onSelectFaq,
@@ -35,12 +37,13 @@ export default function ChatContainer({
 
   return (
     <div className="chat-container" role="log" aria-live="polite" aria-label="Conversation">
-      <div className="date-divider"><span>Today</span></div>
+      <div className="date-divider"><span>{t(language, "today")}</span></div>
       {messages.map((msg, i) => (
         <Message
           key={msg.id}
           msg={msg}
           isActive={i === lastInteractiveIdx}
+          language={language}
           onSelectCategory={onSelectCategory}
           onSelectTransactionSubtype={onSelectTransactionSubtype}
           onSelectFaq={onSelectFaq}

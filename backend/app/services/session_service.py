@@ -12,16 +12,19 @@ logger = logging.getLogger(__name__)
 _sessions: Dict[str, SessionState] = {}
 
 
-def create_session(auth_token: Optional[str], user_type: str) -> SessionState:
+def create_session(auth_token: Optional[str], user_type: str, language: str = "English", platform: str = "Android", app_version_code: str = "131") -> SessionState:
     session_id = str(uuid.uuid4())
     parsed_type = UserType.LISTENER if user_type.upper() == "LISTENER" else UserType.USER
     session = SessionState(
         session_id=session_id,
         auth_token=auth_token,
         user_type=parsed_type,
+        language=language,
+        platform=platform,
+        app_version_code=app_version_code,
     )
     _sessions[session_id] = session
-    logger.debug("Created session %s for user_type=%s", session_id, parsed_type)
+    logger.debug("Created session %s for user_type=%s language=%s platform=%s", session_id, parsed_type, language, platform)
     return session
 
 

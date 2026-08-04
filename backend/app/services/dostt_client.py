@@ -192,11 +192,13 @@ _DUMMY_LISTENER_SESSIONS = [
 ]
 
 
-def _auth_headers(token: str, service_type: str = "1") -> Dict[str, str]:
+def _auth_headers(token: str, service_type: str = "1", platform: str = "Android", app_version_code: str = "131") -> Dict[str, str]:
     return {
         **_BASE_HEADERS,
         "JWT-AUTHORIZATION": f"Bearer {token}",
         "Service-Type": service_type,
+        "X-Platform-Type": platform,
+        "app-version-code": app_version_code,
     }
 
 
@@ -204,7 +206,7 @@ def _auth_headers(token: str, service_type: str = "1") -> Dict[str, str]:
 # Calls (Users)
 # ---------------------------------------------------------------------------
 
-async def get_recent_calls(token: str, limit: int = 5) -> List[Dict[str, Any]]:
+async def get_recent_calls(token: str, limit: int = 5, platform: str = "Android", app_version_code: str = "131") -> List[Dict[str, Any]]:
     if DUMMY_MODE:
         logger.info("DUMMY_MODE: returning %d fake calls", min(limit, len(_DUMMY_CALLS)))
         return _DUMMY_CALLS[:limit]
@@ -212,7 +214,7 @@ async def get_recent_calls(token: str, limit: int = 5) -> List[Dict[str, Any]]:
     url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/bookings/customers/"
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, headers=_auth_headers(token))
+            resp = await client.get(url, headers=_auth_headers(token, platform=platform, app_version_code=app_version_code))
         resp.raise_for_status()
         return resp.json().get("results", [])[:limit]
     except httpx.HTTPStatusError as e:
@@ -227,7 +229,7 @@ async def get_recent_calls(token: str, limit: int = 5) -> List[Dict[str, Any]]:
 # Transactions (Users)
 # ---------------------------------------------------------------------------
 
-async def get_recent_transactions(token: str, limit: int = 5) -> List[Dict[str, Any]]:
+async def get_recent_transactions(token: str, limit: int = 5, platform: str = "Android", app_version_code: str = "131") -> List[Dict[str, Any]]:
     if DUMMY_MODE:
         logger.info("DUMMY_MODE: returning %d fake transactions", min(limit, len(_DUMMY_TRANSACTIONS)))
         return _DUMMY_TRANSACTIONS[:limit]
@@ -235,7 +237,7 @@ async def get_recent_transactions(token: str, limit: int = 5) -> List[Dict[str, 
     url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/bookings/transactions/"
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, headers=_auth_headers(token))
+            resp = await client.get(url, headers=_auth_headers(token, platform=platform, app_version_code=app_version_code))
         resp.raise_for_status()
         return resp.json().get("results", [])[:limit]
     except httpx.HTTPStatusError as e:
@@ -250,7 +252,7 @@ async def get_recent_transactions(token: str, limit: int = 5) -> List[Dict[str, 
 # Listener Sessions
 # ---------------------------------------------------------------------------
 
-async def get_recent_listener_sessions(token: str, limit: int = 5) -> List[Dict[str, Any]]:
+async def get_recent_listener_sessions(token: str, limit: int = 5, platform: str = "Android", app_version_code: str = "131") -> List[Dict[str, Any]]:
     if DUMMY_MODE:
         logger.info("DUMMY_MODE: returning %d fake listener sessions", min(limit, len(_DUMMY_LISTENER_SESSIONS)))
         return _DUMMY_LISTENER_SESSIONS[:limit]
@@ -258,7 +260,7 @@ async def get_recent_listener_sessions(token: str, limit: int = 5) -> List[Dict[
     url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/bookings/experts/"
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, headers=_auth_headers(token))
+            resp = await client.get(url, headers=_auth_headers(token, platform=platform, app_version_code=app_version_code))
         resp.raise_for_status()
         return resp.json().get("results", [])[:limit]
     except httpx.HTTPStatusError as e:
@@ -304,7 +306,7 @@ _DUMMY_EARNINGS = [
 ]
 
 
-async def get_listener_earnings(token: str, limit: int = 5) -> List[Dict[str, Any]]:
+async def get_listener_earnings(token: str, limit: int = 5, platform: str = "Android", app_version_code: str = "131") -> List[Dict[str, Any]]:
     if DUMMY_MODE:
         logger.info("DUMMY_MODE: returning %d fake earnings", min(limit, len(_DUMMY_EARNINGS)))
         return _DUMMY_EARNINGS[:limit]
@@ -312,7 +314,7 @@ async def get_listener_earnings(token: str, limit: int = 5) -> List[Dict[str, An
     url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/payments/earnings/"
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, headers=_auth_headers(token))
+            resp = await client.get(url, headers=_auth_headers(token, platform=platform, app_version_code=app_version_code))
         resp.raise_for_status()
         return resp.json().get("results", [])[:limit]
     except httpx.HTTPStatusError as e:
@@ -343,7 +345,7 @@ _DUMMY_PAYOUTS = [
 ]
 
 
-async def get_listener_payouts(token: str, limit: int = 5) -> List[Dict[str, Any]]:
+async def get_listener_payouts(token: str, limit: int = 5, platform: str = "Android", app_version_code: str = "131") -> List[Dict[str, Any]]:
     if DUMMY_MODE:
         logger.info("DUMMY_MODE: returning %d fake payouts", min(limit, len(_DUMMY_PAYOUTS)))
         return _DUMMY_PAYOUTS[:limit]
@@ -351,7 +353,7 @@ async def get_listener_payouts(token: str, limit: int = 5) -> List[Dict[str, Any
     url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/payments/payouts/"
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, headers=_auth_headers(token))
+            resp = await client.get(url, headers=_auth_headers(token, platform=platform, app_version_code=app_version_code))
         resp.raise_for_status()
         return resp.json().get("results", [])[:limit]
     except httpx.HTTPStatusError as e:
@@ -376,6 +378,8 @@ async def create_support_ticket(
     user_type: str = "USER",
     consent_call: bool = False,
     language: str = "2",
+    platform: str = "Android",
+    app_version_code: str = "131",
 ) -> Dict[str, Any]:
     if DUMMY_MODE:
         import random, string
@@ -415,7 +419,7 @@ async def create_support_ticket(
             resp = await client.post(
                 url,
                 files=form,
-                headers=_auth_headers(token, service_type=service_type),
+                headers=_auth_headers(token, service_type=service_type, platform=platform, app_version_code=app_version_code),
             )
         resp.raise_for_status()
         return resp.json()

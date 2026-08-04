@@ -17,6 +17,7 @@ class MessageInputType(str, Enum):
     CONSENT_NO = "consent_no"
     MORE_HELP_YES = "more_help_yes"
     MORE_HELP_NO = "more_help_no"
+    SET_LANGUAGE = "set_language"
 
 
 class ResponseItemType(str, Enum):
@@ -47,6 +48,9 @@ class ResponseItem(BaseModel):
 class InitSessionRequest(BaseModel):
     auth_token: Optional[str] = None
     user_type: str = "USER"
+    language: Optional[str] = None
+    platform: Optional[str] = None
+    app_version_code: Optional[str] = None
 
 
 class InitSessionResponse(BaseModel):
@@ -62,6 +66,7 @@ class ChatRequest(BaseModel):
     selected_id: Optional[str] = Field(default=None, max_length=64)
     edited_description: Optional[str] = Field(default=None, max_length=2000)
     consent_call: Optional[bool] = None
+    language: Optional[str] = Field(default=None, max_length=64)
 
 
 class ChatResponse(BaseModel):

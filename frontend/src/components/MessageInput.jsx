@@ -34,7 +34,6 @@ export default function MessageInput({ onSend, disabled, placeholder = "Type a m
         <button
           className="restart-inline-btn"
           onClick={onRestart}
-          disabled={disabled}
           aria-label="Restart chat"
           title="Restart chat"
         >

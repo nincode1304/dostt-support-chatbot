@@ -3,14 +3,17 @@ import Header from "./components/Header";
 import MessageInput from "./components/MessageInput";
 import { useBridge } from "./hooks/useBridge";
 import { useChat } from "./hooks/useChat";
+import { t } from "./translations";
 
 export default function App() {
-  const { token, userType } = useBridge();
+  const { token, userType, initLanguage, platform, appVersionCode } = useBridge();
 
   const {
     messages,
     isLoading,
     error,
+    language,
+    setLanguage,
     sendText,
     addUserMessage,
     moreHelpYes,
@@ -27,7 +30,7 @@ export default function App() {
     consentYes,
     consentNo,
     sessionId,
-  } = useChat(token, userType);
+  } = useChat(token, userType, initLanguage, platform, appVersionCode);
 
   function handleQuickReply(optionId, label) {
     if (optionId === "confirm_ticket") {
@@ -73,19 +76,20 @@ export default function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header language={language} onLanguageChange={setLanguage} initLanguage={initLanguage} />
 
       {error && <div className="error-banner">{error}</div>}
 
       {loading ? (
         <div className="loading-screen">
           <div className="loading-spinner" aria-label="Loading" />
-          <span>Connecting to support…</span>
+          <span>{t(language, "connecting")}</span>
         </div>
       ) : (
         <ChatContainer
           messages={messages}
           isLoading={isLoading}
+          language={language}
           onSelectCategory={selectCategory}
           onSelectTransactionSubtype={selectTransactionSubtype}
           onSelectFaq={selectFaq}
@@ -101,7 +105,7 @@ export default function App() {
       <MessageInput
         onSend={sendText}
         disabled={isLoading || loading || awaitingSelection}
-        placeholder={isChatEnded ? "This chat has ended" : awaitingSelection ? "Please select an option above" : "Type a message..."}
+        placeholder={isChatEnded ? t(language, "chat_ended_placeholder") : awaitingSelection ? t(language, "select_option") : t(language, "type_message")}
         showRestart={!!sessionId && !loading}
         onRestart={restartChat}
       />

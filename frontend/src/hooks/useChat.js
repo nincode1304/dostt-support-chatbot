@@ -2,11 +2,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const API_BASE = "/api";
 
-export function useChat(token, userType) {
+export function useChat(token, userType, initLanguage, platform, appVersionCode) {
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [language, setLanguageState] = useState("English");
+  const languageRef = useRef("English");
   const initialized = useRef(false);
 
   // Init session on mount
@@ -16,6 +18,20 @@ export function useChat(token, userType) {
     initSession(token, userType);
   }, [token, userType]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Sync initLanguage from the app's INIT message once session is ready
+  useEffect(() => {
+    if (!initLanguage || !sessionId) return;
+    if (initLanguage === languageRef.current) return;
+    languageRef.current = initLanguage;
+    setLanguageState(initLanguage);
+    // Silently update the backend session — no bot message expected
+    fetch(`${API_BASE}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id: sessionId, type: "set_language", language: initLanguage }),
+    }).catch(() => {});
+  }, [initLanguage, sessionId]);
+
   const initSession = useCallback(
     async (tok, ut) => {
       setIsLoading(true);
@@ -23,7 +39,7 @@ export function useChat(token, userType) {
         const res = await fetch(`${API_BASE}/session/init`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ auth_token: tok, user_type: ut }),
+          body: JSON.stringify({ auth_token: tok, user_type: ut, language: languageRef.current, platform, app_version_code: appVersionCode }),
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
@@ -125,6 +141,29 @@ export function useChat(token, userType) {
     [sendMessage]
   );
 
+  const setLanguage = useCallback(
+    async (lang) => {
+      if (!sessionId) return;
+      languageRef.current = lang;
+      setLanguageState(lang);
+      try {
+        const res = await fetch(`${API_BASE}/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: sessionId, type: "set_language", language: lang }),
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        // Backend returns items only when user is still on the first step — clear and re-greet
+        if (data.items?.length) {
+          setMessages([]);
+          processResponseItems(data.items);
+        }
+      } catch {}
+    },
+    [sessionId]
+  );
+
   const restartChat = useCallback(() => {
     setMessages([]);
     setSessionId(null);
@@ -180,7 +219,7 @@ export function useChat(token, userType) {
     items.forEach((item, i) => {
       setTimeout(() => {
         setMessages((prev) => [...prev, { id: uid(), role: "bot", ...item }]);
-      }, i * 300);
+      }, i * 500);
     });
     if (items.some((item) => item.type === "error")) {
       const tok = token;
@@ -199,6 +238,8 @@ export function useChat(token, userType) {
     isLoading,
     error,
     sessionId,
+    language,
+    setLanguage,
     sendText,
     addUserMessage: appendUserMessage,
     moreHelpYes,

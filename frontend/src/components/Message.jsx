@@ -5,6 +5,7 @@ import QuickReplies from "./QuickReplies";
 import TicketConfirmation from "./TicketConfirmation";
 import TransactionSelector from "./TransactionSelector";
 import TransactionSubtypeSelector from "./TransactionSubtypeSelector";
+import { t } from "../translations";
 
 const BotLogo = () => (
   <svg viewBox="0 0 802 671" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +29,7 @@ function renderContent(text) {
   ));
 }
 
-export default function Message({ msg, isActive, onSelectCategory, onSelectTransactionSubtype, onSelectFaq, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
+export default function Message({ msg, isActive, language, onSelectCategory, onSelectTransactionSubtype, onSelectFaq, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
   const now = Date.now();
 
   if (msg.type === "text" || msg.type === "chat_ended") {
@@ -115,6 +116,7 @@ export default function Message({ msg, isActive, onSelectCategory, onSelectTrans
         <TicketConfirmation
           data={msg.data || {}}
           disabled={!isActive}
+          language={language}
           onConfirm={onConfirmTicket}
           onEdit={onEditTicket}
           onCancel={onCancelAction}
@@ -124,7 +126,7 @@ export default function Message({ msg, isActive, onSelectCategory, onSelectTrans
   }
 
   if (msg.type === "ticket_created") {
-    const { issue_name } = msg.data || {};
+    const { issue_name, title, hint } = msg.data || {};
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
@@ -135,10 +137,10 @@ export default function Message({ msg, isActive, onSelectCategory, onSelectTrans
             </svg>
           </div>
           <div className="ticket-created-info">
-            <div className="ticket-created-title">Ticket Created Successfully</div>
+            <div className="ticket-created-title">{title || t(language, "ticket_created_title")}</div>
             {issue_name && <div className="ticket-created-issue">{issue_name}</div>}
             <div className="ticket-created-hint">
-              Check the Raised Tickets section in Help &amp; Support to track it.
+              {hint || t(language, "ticket_created_hint")}
             </div>
           </div>
         </div>

@@ -36,6 +36,9 @@ class SessionState(BaseModel):
     session_id: str
     user_type: UserType = UserType.USER
     auth_token: Optional[str] = None
+    language: str = "English"
+    platform: str = "Android"
+    app_version_code: str = "131"
     matched_faq_id: Optional[str] = None
     selected_call: Optional[Dict[str, Any]] = None
     selected_transaction: Optional[Dict[str, Any]] = None

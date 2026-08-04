@@ -54,6 +54,33 @@ Dostt app context:
 - Listeners complete KYC and receive payouts via UPI.
 """
 
+# Roman-script example per language so the model knows what we expect
+_ROMAN_EXAMPLES: dict[str, str] = {
+    "Hindi":     "Example: 'Aapka ticket ban gaya hai.' — NOT Devanagari characters.",
+    "Tamil":     "Example: 'Ungal ticket uruvakkappattathu.' — NOT Tamil script characters.",
+    "Telugu":    "Example: 'Mee ticket create ayyindi.' — NOT Telugu script characters.",
+    "Malayalam": "Example: 'Ningalude ticket create cheythu.' — NOT Malayalam script characters.",
+    "Kannada":   "Example: 'Nimma ticket create agide.' — NOT Kannada script characters.",
+    "Marathi":   "Example: 'Tumcha ticket tayar zhala aahe.' — NOT Devanagari characters.",
+    "Punjabi":   "Example: 'Tera ticket ban gaya hai.' — NOT Gurmukhi script characters.",
+    "Bengali":   "Example: 'Apnar ticket toiri hoyeche.' — NOT Bengali script characters.",
+    "Gujarati":  "Example: 'Tamaro ticket taiyar thayo chhe.' — NOT Gujarati script characters.",
+    "Odia":      "Example: 'Apananka ticket toiri hoi gala.' — NOT Odia script characters.",
+}
+
+
+def _language_instruction(language: str) -> str:
+    """Return the Roman-script language instruction to append to every AI prompt."""
+    if language == "English":
+        return ""
+    example = _ROMAN_EXAMPLES.get(language, f"Write {language} words using English letters only.")
+    return (
+        f"\n\nLANGUAGE INSTRUCTION: Write your ENTIRE response in {language} using ONLY Roman script "
+        f"(English alphabet A–Z). NEVER output native script or Unicode characters for {language}. "
+        f"Every word must be spelled with English letters. {example} "
+        f"Use simple {language} vocabulary suitable for everyday speakers with basic literacy."
+    )
+
 
 # ---------------------------------------------------------------------------
 # 1. FAQ identification
@@ -179,7 +206,7 @@ async def generate_initial_response(
                 "Do not mention tickets or next steps."
             )
 
-    prompt = f"{_APP_CONTEXT}\n\n{context}\n\nInstruction: {instruction}"
+    prompt = f"{_APP_CONTEXT}\n\n{context}\n\nInstruction: {instruction}{_language_instruction(session.language)}"
     return await _call_gemini(prompt, session.messages)
 
 
@@ -223,7 +250,7 @@ async def generate_post_selection_response(
             "Do not mention tickets, complaints, or next steps."
         )
 
-    prompt = f"{_APP_CONTEXT}\n\n{context}\n\nInstruction: {instruction}"
+    prompt = f"{_APP_CONTEXT}\n\n{context}\n\nInstruction: {instruction}{_language_instruction(session.language)}"
     return await _call_gemini(prompt, session.messages)
 
 
