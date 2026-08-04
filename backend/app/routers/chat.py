@@ -789,7 +789,7 @@ def _ask_more_help(session: SessionState) -> List[ResponseItem]:
 async def _handle_more_help_response(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
     if req.type == MessageInputType.MORE_HELP_YES:
         _reset_for_new_issue(session)
-        return _category_cards_items()
+        return [_text("Sure! What would you like help with?"), *_category_cards_items()]
 
     if req.type == MessageInputType.MORE_HELP_NO:
         session.stage = ConversationStage.ENDED
