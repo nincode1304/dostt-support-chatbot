@@ -156,9 +156,11 @@ async def generate_initial_response(
     if faq.type in (IssueType.CALL, IssueType.PAYMENT):
         entity = "calls" if faq.type == IssueType.CALL else "transactions"
         instruction = (
-            f"In 1 simple sentence, tell the user you understand their problem. "
-            f"In 1 more simple sentence, tell them you are showing their recent {entity} so they can pick the right one. "
-            f"Use very easy words. Do NOT answer the question yet."
+            f"Write exactly 2 sentences. "
+            f"Sentence 1: Say you are sorry to hear about their problem and that you want to help. "
+            f"Sentence 2: Tell them you are showing their recent {entity} and ask them to pick the one they are talking about. "
+            f"Use very simple, easy words. "
+            f"IMPORTANT: Do NOT repeat or echo the user's question. Write in your own caring words only."
         )
     else:
         if faq.feedback_type == FeedbackType.FEEDBACK_ONLY:
@@ -202,8 +204,11 @@ async def generate_post_selection_response(
         )
     elif faq.feedback_type == FeedbackType.RAISE_COMPLAINT_ONLY:
         instruction = (
-            "In 1 simple sentence, show that you understand the user's problem with this specific item. "
-            "Use very easy words. Do not mention tickets or next steps."
+            "Write 2 to 3 short sentences. "
+            "Sentence 1: Say sorry and mention the specific call or transaction (name, date, or amount). "
+            "Sentence 2: Say you take this very seriously and you want to make sure this gets fixed for them. "
+            "Sentence 3 (optional): Say one small reassuring thing, like that this should not have happened. "
+            "Use very simple, caring words. Do not mention tickets, complaints, or next steps."
         )
     else:  # BOTH
         instruction = (

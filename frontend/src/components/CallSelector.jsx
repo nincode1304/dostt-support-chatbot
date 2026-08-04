@@ -1,13 +1,16 @@
 import { useState } from "react";
 
-export default function CallSelector({ data, onSelect }) {
+export default function CallSelector({ data, onSelect, disabled: parentDisabled }) {
   const { calls = [], prompt } = data;
   const [selected, setSelected] = useState(null);
 
   function handleSelect(call) {
-    if (selected) return; // Already selected — prevent double-tap
+    if (selected || parentDisabled) return;
     setSelected(call.id);
-    onSelect(call.id);
+    const person = call.expert || call.customer || {};
+    const name = (person.name || "Unknown").replace(/_/g, " ");
+    const label = call.booking_date ? `${name} · ${call.booking_date}` : name;
+    onSelect(call.id, label);
   }
 
   return (
@@ -24,9 +27,9 @@ export default function CallSelector({ data, onSelect }) {
           return (
             <button
               key={call.id}
-              className={`call-card${isSelected ? " selected" : ""}`}
+              className={`call-card${isSelected ? " selected" : ""}${(parentDisabled || (!!selected && !isSelected)) ? " faded" : ""}`}
               onClick={() => handleSelect(call)}
-              disabled={!!selected}
+              disabled={parentDisabled || !!selected}
               aria-label={`Select call — ${displayName}`}
             >
               <div className="call-card-icon">

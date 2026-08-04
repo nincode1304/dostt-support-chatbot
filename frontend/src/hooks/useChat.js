@@ -75,12 +75,18 @@ export function useChat(token, userType) {
   );
 
   const selectCall = useCallback(
-    (callId) => sendMessage({ type: "select_call", selected_id: String(callId) }),
+    (callId, label) => {
+      if (label) appendUserMessage(label);
+      sendMessage({ type: "select_call", selected_id: String(callId) });
+    },
     [sendMessage]
   );
 
   const selectTransaction = useCallback(
-    (txId) => sendMessage({ type: "select_transaction", selected_id: String(txId) }),
+    (txId, label) => {
+      if (label) appendUserMessage(label);
+      sendMessage({ type: "select_transaction", selected_id: String(txId) });
+    },
     [sendMessage]
   );
 
@@ -127,17 +133,26 @@ export function useChat(token, userType) {
   }, [initSession, token, userType]);
 
   const selectCategory = useCallback(
-    (categoryId) => sendMessage({ type: "select_category", selected_id: categoryId }),
+    (categoryId, label) => {
+      if (label) appendUserMessage(label);
+      sendMessage({ type: "select_category", selected_id: categoryId });
+    },
     [sendMessage]
   );
 
   const selectTransactionSubtype = useCallback(
-    (subtypeId) => sendMessage({ type: "select_transaction_subtype", selected_id: subtypeId }),
+    (subtypeId, label) => {
+      if (label) appendUserMessage(label);
+      sendMessage({ type: "select_transaction_subtype", selected_id: subtypeId });
+    },
     [sendMessage]
   );
 
   const selectFaq = useCallback(
-    (faqId) => sendMessage({ type: "select_faq", selected_id: String(faqId) }),
+    (faqId, label) => {
+      if (label) appendUserMessage(label);
+      sendMessage({ type: "select_faq", selected_id: String(faqId) });
+    },
     [sendMessage]
   );
 
@@ -185,6 +200,7 @@ export function useChat(token, userType) {
     error,
     sessionId,
     sendText,
+    addUserMessage: appendUserMessage,
     moreHelpYes,
     moreHelpNo,
     restartChat,

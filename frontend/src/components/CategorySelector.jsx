@@ -18,24 +18,26 @@ const ICONS = {
   ),
 };
 
-export default function CategorySelector({ data, onSelect }) {
+export default function CategorySelector({ data, onSelect, disabled: parentDisabled }) {
   const { options = [] } = data;
   const [selected, setSelected] = useState(null);
 
   function handleClick(opt) {
-    if (selected) return;
+    if (selected || parentDisabled) return;
     setSelected(opt.id);
-    onSelect(opt.id);
+    onSelect(opt.id, opt.label);
   }
+
+  const isDisabled = parentDisabled || !!selected;
 
   return (
     <div className="category-selector">
       {options.map((opt) => (
         <button
           key={opt.id}
-          className={`category-card${selected === opt.id ? " selected" : ""}${selected && selected !== opt.id ? " faded" : ""}`}
+          className={`category-card${selected === opt.id ? " selected" : ""}${(isDisabled && selected !== opt.id) ? " faded" : ""}`}
           onClick={() => handleClick(opt)}
-          disabled={!!selected}
+          disabled={isDisabled}
           aria-label={opt.label}
         >
           <span className="category-icon">{ICONS[opt.icon] || ICONS.chat}</span>

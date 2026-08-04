@@ -1,13 +1,18 @@
 import { useState } from "react";
 
-export default function TransactionSelector({ data, onSelect }) {
+export default function TransactionSelector({ data, onSelect, disabled: parentDisabled }) {
   const { transactions = [], prompt } = data;
   const [selected, setSelected] = useState(null);
 
   function handleSelect(tx) {
-    if (selected) return;
+    if (selected || parentDisabled) return;
     setSelected(tx.id);
-    onSelect(tx.id);
+    const credit = isCredit(tx);
+    const coinsText = tx.coins != null && tx.coins !== 0
+      ? ` · ${credit ? "+" : "−"}${tx.coins} coins`
+      : "";
+    const label = `${typeLabel(tx)}${coinsText}`;
+    onSelect(tx.id, label);
   }
 
   function isCredit(tx) {
@@ -47,9 +52,9 @@ export default function TransactionSelector({ data, onSelect }) {
           return (
             <button
               key={tx.id}
-              className={`transaction-card${isSelected ? " selected" : ""}`}
+              className={`transaction-card${isSelected ? " selected" : ""}${(parentDisabled || (!!selected && !isSelected)) ? " faded" : ""}`}
               onClick={() => handleSelect(tx)}
-              disabled={!!selected}
+              disabled={parentDisabled || !!selected}
               aria-label={`Select transaction ${typeLabel(tx)}`}
             >
               <div className={`transaction-card-icon ${credit ? "credit" : "debit"}`}>

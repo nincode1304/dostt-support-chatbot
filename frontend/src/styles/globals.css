@@ -2,42 +2,45 @@
    Design tokens
    ========================================================= */
 :root {
-  --color-primary: #7C3AED;
-  --color-primary-dark: #5B21B6;
-  --color-primary-light: #A78BFA;
-  --color-primary-surface: #1E1444;
+  --color-primary: #7352E8;
+  --color-primary-dark: #5538C4;
+  --color-primary-light: #967CF2;
+  --color-primary-surface: #241A5A;
 
-  --color-bg: #0D0A1A;
-  --color-surface: #1A1530;
-  --color-surface-elevated: #221C3E;
+  --color-bg: #181926;
+  --color-surface: #1F2133;
+  --color-surface-elevated: #272940;
 
-  --color-text-primary: #F0EEFF;
-  --color-text-secondary: #A78BFA;
-  --color-text-muted: #6B5FA8;
+  --color-text-primary: #ECEEFF;
+  --color-text-secondary: #8A8BA8;
+  --color-text-muted: #5A5C78;
   --color-text-on-primary: #FFFFFF;
 
-  --color-border: #2A1F52;
-  --color-border-light: #1E1640;
+  --color-border: #2C2E46;
+  --color-border-light: #21233A;
 
-  --color-success: #34D399;
-  --color-success-surface: #0A2E22;
+  --color-success: #3ECF8E;
+  --color-success-surface: #1A3D2C;
   --color-warning: #FBBF24;
-  --color-error: #F87171;
-  --color-error-surface: #2E0A0A;
+  --color-error: #E8706A;
+  --color-error-surface: #3A1E1E;
 
-  --color-user-bubble: #7C3AED;
+  --color-user-bubble: #6440E0;
   --color-user-bubble-text: #FFFFFF;
-  --color-bot-bubble: #1A1530;
-  --color-bot-bubble-text: #F0EEFF;
+  --color-bot-bubble: #252638;
+  --color-bot-bubble-text: #ECEEFF;
+
+  --color-header-bg: #13141F;
+  --color-online: #4ADE80;
 
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
-  --shadow-card: 0 2px 8px rgba(0,0,0,0.4), 0 1px 4px rgba(124,58,237,0.15);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.2);
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-size-xs: 11px;
@@ -45,7 +48,7 @@
   --font-size-md: 15px;
   --font-size-lg: 17px;
 
-  --header-height: 60px;
+  --header-height: 62px;
   --input-bar-height: 68px;
 
   --anim-fast: 150ms ease;
@@ -93,30 +96,51 @@ a { color: inherit; text-decoration: none; }
 .header {
   flex-shrink: 0;
   height: var(--header-height);
-  background: #120E24;
+  background: var(--color-header-bg);
   border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 0 16px;
   padding-top: env(safe-area-inset-top, 0px);
-  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 0 var(--color-border), 0 4px 20px rgba(0,0,0,0.4);
   position: relative;
   z-index: 10;
 }
 
-.header-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.header-avatar-wrap {
+  position: relative;
   flex-shrink: 0;
 }
 
-.header-avatar svg { width: 22px; height: 22px; fill: white; }
+.header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-avatar svg { width: 20px; height: 20px; fill: white; }
+
+.header-online-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-online);
+  border: 2px solid var(--color-header-bg);
+  animation: pulse-status 2s infinite;
+}
+
+@keyframes pulse-status {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
 
 .header-info { flex: 1; min-width: 0; }
 
@@ -129,24 +153,27 @@ a { color: inherit; text-decoration: none; }
 
 .header-status {
   font-size: var(--font-size-xs);
-  color: rgba(255,255,255,0.8);
+  color: var(--color-online);
   margin-top: 2px;
+  font-weight: 500;
+}
+
+.header-menu-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 4px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4ADE80;
-  animation: pulse-status 2s infinite;
-}
-
-@keyframes pulse-status {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+.header-menu-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 /* =========================================================
@@ -219,7 +246,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--color-user-bubble);
   color: var(--color-user-bubble-text);
   border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(100,64,224,0.3);
 }
 
 .message-row.bot .message-bubble {
@@ -238,27 +265,26 @@ a { color: inherit; text-decoration: none; }
 .message-time {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  margin-top: 3px;
+  margin-top: 4px;
   padding: 0 2px;
 }
 
 .message-row.user .message-time { text-align: right; }
 
-/* Date divider */
+/* Date divider — pill chip */
 .date-divider {
-  text-align: center;
-  margin: 12px 0;
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
   display: flex;
-  align-items: center;
-  gap: 8px;
+  justify-content: center;
+  margin: 8px 0 14px;
 }
-.date-divider::before, .date-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--color-border);
+.date-divider::before, .date-divider::after { display: none; }
+.date-divider span {
+  background: var(--color-surface);
+  border-radius: var(--radius-full);
+  padding: 4px 14px;
+  font-size: var(--font-size-xs);
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.2px;
 }
 
 /* =========================================================
@@ -275,11 +301,11 @@ a { color: inherit; text-decoration: none; }
 .typing-bubble {
   background: var(--color-bot-bubble);
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
-  padding: 12px 16px;
+  padding: 13px 18px;
   box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .typing-dot {
@@ -324,7 +350,7 @@ a { color: inherit; text-decoration: none; }
 
 .call-card {
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 12px 14px;
   display: flex;
@@ -338,7 +364,7 @@ a { color: inherit; text-decoration: none; }
 
 .call-card:active, .call-card:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 4px 16px rgba(124,58,237,0.25);
+  box-shadow: 0 4px 16px rgba(115,82,232,0.2);
   transform: translateY(-1px);
 }
 
@@ -411,7 +437,7 @@ a { color: inherit; text-decoration: none; }
 
 .transaction-card {
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 12px 14px;
   display: flex;
@@ -425,7 +451,7 @@ a { color: inherit; text-decoration: none; }
 
 .transaction-card:active, .transaction-card:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 4px 16px rgba(124,58,237,0.25);
+  box-shadow: 0 4px 16px rgba(115,82,232,0.2);
   transform: translateY(-1px);
 }
 
@@ -490,7 +516,7 @@ a { color: inherit; text-decoration: none; }
    ========================================================= */
 .ticket-confirmation-card {
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 16px;
   box-shadow: var(--shadow-card);
@@ -521,21 +547,23 @@ a { color: inherit; text-decoration: none; }
 }
 
 .ticket-card-issue-name {
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-  font-weight: 500;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  font-weight: 700;
   margin-bottom: 10px;
+  line-height: 1.4;
 }
 
 .ticket-card-description {
-  background: var(--color-bg);
+  background: rgba(255,255,255,0.05);
   border-radius: var(--radius-sm);
   padding: 10px 12px;
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   line-height: 1.5;
   margin-bottom: 14px;
-  border-left: 3px solid var(--color-primary-light);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
 }
 
 .ticket-card-actions {
@@ -562,21 +590,29 @@ a { color: inherit; text-decoration: none; }
 }
 
 .btn-edit {
-  background: var(--color-primary-surface);
-  color: var(--color-primary);
+  background: rgba(255,255,255,0.08);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
 }
 
 .btn-cancel {
-  background: var(--color-error-surface);
-  color: var(--color-error);
+  background: transparent;
+  color: rgba(232,112,106,0.75);
+  border: 1.5px solid rgba(232,112,106,0.45);
+}
+
+.ticket-confirmation-card.stale .btn,
+.ticket-confirmation-card.stale {
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 /* =========================================================
    Ticket created success card
    ========================================================= */
 .ticket-created-card {
-  background: var(--color-success-surface);
-  border: 1.5px solid rgba(16,185,129,0.25);
+  background: var(--color-surface);
+  border: 1px solid rgba(62,207,142,0.2);
   border-radius: var(--radius-md);
   padding: 16px;
   display: flex;
@@ -637,31 +673,39 @@ a { color: inherit; text-decoration: none; }
 }
 
 .consent-disclaimer {
-  font-size: 10px;
-  line-height: 1.4;
-  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
   margin: 0;
-  padding: 0 2px;
-  opacity: 0.75;
+  padding: 6px 10px;
+  background: rgba(115,82,232,0.08);
+  border-left: 2px solid rgba(115,82,232,0.4);
+  border-radius: 4px;
 }
 
 .quick-reply-btn {
-  padding: 8px 16px;
+  padding: 9px 18px;
   border-radius: var(--radius-full);
-  background: var(--color-surface);
-  color: var(--color-primary);
-  border: 1.5px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1.5px solid rgba(115,82,232,0.7);
   font-size: var(--font-size-sm);
   font-weight: 500;
-  transition: background var(--anim-fast), color var(--anim-fast), transform var(--anim-fast);
+  transition: background var(--anim-fast), border-color var(--anim-fast), transform var(--anim-fast);
   -webkit-tap-highlight-color: transparent;
-  box-shadow: var(--shadow-sm);
 }
 
 .quick-reply-btn:active, .quick-reply-btn:hover {
   background: var(--color-primary);
+  border-color: var(--color-primary);
   color: white;
   transform: translateY(-1px);
+}
+
+.quick-reply-btn.stale,
+.quick-reply-btn:disabled {
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 /* =========================================================
@@ -669,22 +713,22 @@ a { color: inherit; text-decoration: none; }
    ========================================================= */
 .input-bar {
   flex-shrink: 0;
-  background: #120E24;
+  background: var(--color-header-bg);
   border-top: 1px solid var(--color-border);
-  padding: 10px 12px;
+  padding: 10px 14px;
   padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
   display: flex;
   align-items: flex-end;
-  gap: 8px;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.4);
+  gap: 10px;
+  box-shadow: 0 -1px 0 var(--color-border);
 }
 
 .input-field {
   flex: 1;
-  background: #1A1530;
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 10px 18px;
   font-size: var(--font-size-md);
   color: var(--color-text-primary);
   resize: none;
@@ -692,12 +736,15 @@ a { color: inherit; text-decoration: none; }
   max-height: 120px;
   min-height: 42px;
   line-height: 1.4;
-  transition: border-color var(--anim-fast);
+  transition: border-color var(--anim-fast), background var(--anim-fast);
   -webkit-appearance: none;
 }
 
 .input-field::placeholder { color: var(--color-text-muted); }
-.input-field:focus { border-color: var(--color-primary-light); }
+.input-field:focus {
+  border-color: var(--color-primary);
+  background: var(--color-surface-elevated);
+}
 
 .send-btn {
   width: 42px;
@@ -710,7 +757,7 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
   flex-shrink: 0;
   transition: background var(--anim-fast), transform var(--anim-fast), opacity var(--anim-fast);
-  box-shadow: 0 2px 12px rgba(124,58,237,0.5);
+  box-shadow: 0 2px 10px rgba(115,82,232,0.45);
 }
 
 .send-btn:active { transform: scale(0.93); opacity: 0.85; }
@@ -775,7 +822,7 @@ a { color: inherit; text-decoration: none; }
   padding: 12px 14px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   color: var(--color-text-primary);
   cursor: pointer;
   text-align: left;
@@ -843,7 +890,7 @@ a { color: inherit; text-decoration: none; }
   padding: 12px 16px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   color: var(--color-text-primary);
   cursor: pointer;
   font-size: var(--font-size-md);
@@ -890,7 +937,7 @@ a { color: inherit; text-decoration: none; }
   padding: 10px 14px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   color: var(--color-text-primary);
   cursor: pointer;
   text-align: left;
@@ -957,7 +1004,7 @@ a { color: inherit; text-decoration: none; }
 .restart-chip {
   font-size: 10px;
   line-height: 1;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 100px;
   border: 1px solid var(--color-border);
   background: transparent;
@@ -965,15 +1012,16 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s;
   user-select: none;
+  letter-spacing: 0.2px;
 }
 
 .restart-chip:hover:not(:disabled) {
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-light);
 }
 
 .restart-chip:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 

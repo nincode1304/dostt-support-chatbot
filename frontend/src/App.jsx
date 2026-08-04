@@ -12,6 +12,7 @@ export default function App() {
     isLoading,
     error,
     sendText,
+    addUserMessage,
     moreHelpYes,
     moreHelpNo,
     restartChat,
@@ -28,21 +29,28 @@ export default function App() {
     sessionId,
   } = useChat(token, userType);
 
-  function handleQuickReply(optionId) {
+  function handleQuickReply(optionId, label) {
     if (optionId === "confirm_ticket") {
+      if (label) addUserMessage(label);
       confirmTicket();
     } else if (optionId === "cancel") {
+      if (label) addUserMessage(label);
       cancelAction();
     } else if (optionId === "consent_yes") {
+      if (label) addUserMessage(label);
       consentYes();
     } else if (optionId === "consent_no") {
+      if (label) addUserMessage(label);
       consentNo();
     } else if (optionId === "more_help_yes") {
+      if (label) addUserMessage(label);
       moreHelpYes();
     } else if (optionId === "more_help_no") {
+      if (label) addUserMessage(label);
       moreHelpNo();
     } else {
-      sendText(optionId);
+      // sendText handles its own appendUserMessage internally
+      sendText(label || optionId);
     }
   }
 

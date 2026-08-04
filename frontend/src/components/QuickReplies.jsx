@@ -1,14 +1,16 @@
 import { useState } from "react";
 
-export default function QuickReplies({ data, onSelect }) {
+export default function QuickReplies({ data, onSelect, disabled: parentDisabled }) {
   const { options = [], disclaimer } = data;
   const [selected, setSelected] = useState(null);
 
   function handleClick(opt) {
-    if (selected) return;
+    if (selected || parentDisabled) return;
     setSelected(opt.id);
-    onSelect(opt.id);
+    onSelect(opt.id, opt.label);
   }
+
+  const isDisabled = parentDisabled || !!selected;
 
   return (
     <div className="quick-replies-wrapper">
@@ -16,9 +18,9 @@ export default function QuickReplies({ data, onSelect }) {
         {options.map((opt) => (
           <button
             key={opt.id}
-            className="quick-reply-btn"
+            className={`quick-reply-btn${isDisabled && selected !== opt.id ? " stale" : ""}`}
             onClick={() => handleClick(opt)}
-            disabled={!!selected}
+            disabled={isDisabled}
             aria-label={opt.label}
           >
             {opt.label}

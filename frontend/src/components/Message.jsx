@@ -22,7 +22,7 @@ function renderContent(text) {
   ));
 }
 
-export default function Message({ msg, onSelectCategory, onSelectTransactionSubtype, onSelectFaq, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
+export default function Message({ msg, isActive, onSelectCategory, onSelectTransactionSubtype, onSelectFaq, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
   const now = Date.now();
 
   if (msg.type === "text" || msg.type === "chat_ended") {
@@ -63,7 +63,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
-        <CategorySelector data={msg.data || {}} onSelect={onSelectCategory} />
+        <CategorySelector data={msg.data || {}} onSelect={onSelectCategory} disabled={!isActive} />
       </div>
     );
   }
@@ -72,7 +72,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
-        <TransactionSubtypeSelector data={msg.data || {}} onSelect={onSelectTransactionSubtype} />
+        <TransactionSubtypeSelector data={msg.data || {}} onSelect={onSelectTransactionSubtype} disabled={!isActive} />
       </div>
     );
   }
@@ -81,7 +81,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
-        <FaqSelector data={msg.data || {}} onSelect={onSelectFaq} />
+        <FaqSelector data={msg.data || {}} onSelect={onSelectFaq} disabled={!isActive} />
       </div>
     );
   }
@@ -90,7 +90,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
-        <CallSelector data={msg.data || {}} onSelect={onSelectCall} />
+        <CallSelector data={msg.data || {}} onSelect={onSelectCall} disabled={!isActive} />
       </div>
     );
   }
@@ -99,7 +99,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
-        <TransactionSelector data={msg.data || {}} onSelect={onSelectTransaction} />
+        <TransactionSelector data={msg.data || {}} onSelect={onSelectTransaction} disabled={!isActive} />
       </div>
     );
   }
@@ -110,6 +110,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
         <div className="bot-avatar-spacer" />
         <TicketConfirmation
           data={msg.data || {}}
+          disabled={!isActive}
           onConfirm={onConfirmTicket}
           onEdit={onEditTicket}
           onCancel={onCancelAction}
@@ -148,6 +149,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
         <QuickReplies
           data={msg.data || {}}
           onSelect={onQuickReply}
+          disabled={!isActive}
         />
       </div>
     );
