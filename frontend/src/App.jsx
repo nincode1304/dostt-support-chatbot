@@ -98,18 +98,12 @@ export default function App() {
         />
       )}
 
-      {sessionId && !loading && (
-        <div className="restart-bar">
-          <button className="restart-chip" onClick={restartChat} disabled={isLoading}>
-            ↩ Restart chat
-          </button>
-        </div>
-      )}
-
       <MessageInput
         onSend={sendText}
         disabled={isLoading || loading || awaitingSelection}
         placeholder={isChatEnded ? "This chat has ended" : awaitingSelection ? "Please select an option above" : "Type a message..."}
+        showRestart={!!sessionId && !loading}
+        onRestart={restartChat}
       />
     </div>
   );

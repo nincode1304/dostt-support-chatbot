@@ -995,33 +995,35 @@ a { color: inherit; text-decoration: none; }
    Restart chip
    ========================================================= */
 
-.restart-bar {
-  padding: 4px 12px 0;
+.restart-inline-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
-}
-
-.restart-chip {
-  font-size: 10px;
-  line-height: 1;
-  padding: 4px 10px;
-  border-radius: 100px;
-  border: 1px solid var(--color-border);
-  background: transparent;
+  justify-content: center;
+  flex-shrink: 0;
   color: var(--color-text-muted);
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-  user-select: none;
-  letter-spacing: 0.2px;
+  transition: border-color var(--anim-fast), color var(--anim-fast), background var(--anim-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.restart-chip:hover:not(:disabled) {
+.restart-inline-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.restart-inline-btn:hover:not(:disabled) {
   border-color: var(--color-primary);
   color: var(--color-primary-light);
+  background: rgba(115,82,232,0.08);
 }
 
-.restart-chip:disabled {
-  opacity: 0.35;
+.restart-inline-btn:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
