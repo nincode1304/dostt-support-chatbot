@@ -162,10 +162,11 @@ export function useChat(token, userType) {
 
   function processResponseItems(items) {
     if (!items?.length) return;
-    setMessages((prev) => [
-      ...prev,
-      ...items.map((item) => ({ id: uid(), role: "bot", ...item })),
-    ]);
+    items.forEach((item, i) => {
+      setTimeout(() => {
+        setMessages((prev) => [...prev, { id: uid(), role: "bot", ...item }]);
+      }, i * 300);
+    });
     if (items.some((item) => item.type === "error")) {
       const tok = token;
       const ut = userType;

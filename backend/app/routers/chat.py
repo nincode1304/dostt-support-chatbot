@@ -210,6 +210,13 @@ async def _handle_call_selection(session: SessionState, req: ChatRequest) -> Lis
         return [_text("I couldn't find that call. Please select one of the calls shown above.")]
 
     session.selected_call = selected_call
+
+    if session.preselected_faq_id:
+        faq = faq_service.get_faq_by_id(session.preselected_faq_id)
+        session.preselected_faq_id = None
+        if faq:
+            return await _respond_after_selection(session, faq, _call_summary(selected_call))
+
     return _show_faq_cards(session)
 
 
@@ -349,6 +356,13 @@ async def _handle_transaction_selection(session: SessionState, req: ChatRequest)
         return [_text("I couldn't find that transaction. Please select one from the list above.")]
 
     session.selected_transaction = selected_tx
+
+    if session.preselected_faq_id:
+        faq = faq_service.get_faq_by_id(session.preselected_faq_id)
+        session.preselected_faq_id = None
+        if faq:
+            return await _respond_after_selection(session, faq, _transaction_summary(selected_tx))
+
     return _show_faq_cards(session)
 
 
@@ -419,28 +433,54 @@ async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[Re
     if not req.message:
         return [_text("Please type your question and I'll do my best to help.")]
 
-    other_faqs = faq_service.get_faqs_by_issue_type_and_user_type(
-        IssueType.OTHER, session.user_type.value
-    )
-    issue_id = await ai_service.identify_faq(req.message, session.user_type.value, other_faqs)
+    # Match against the full FAQ database visible to this user type
+    all_faqs = faq_service.get_faqs_for_user_type(session.user_type.value)
+    issue_id = await ai_service.identify_faq(req.message, session.user_type.value, all_faqs)
+    faq = faq_service.get_faq_by_id(issue_id) if issue_id else None
 
-    if not issue_id:
-        _reset_for_new_issue(session)
-        return [
-            _text(_out_of_scope_reply()),
-            *_category_cards_items(),
-        ]
-
-    faq = faq_service.get_faq_by_id(issue_id)
     if not faq:
-        _reset_for_new_issue(session)
+        if session.other_retry_count == 0:
+            session.other_retry_count = 1
+            # Stay in AWAITING_OTHER_TEXT so the next message retries
+            return [_text(
+                "I couldn't quite understand that. "
+                "Could you rephrase or give a little more detail?"
+            )]
+        # Second failure — give up and direct to app support
+        session.other_retry_count = 0
         return [
-            _text(_out_of_scope_reply()),
-            *_category_cards_items(),
+            _text(
+                "I'm sorry, I couldn't identify the issue you're facing. "
+                "Please raise a support ticket through the Help & Support section "
+                "in the Dostt app and our support team will assist you further."
+            ),
+            *_ask_more_help(session),
         ]
 
-    session.matched_faq_id = issue_id
+    session.matched_faq_id = str(faq.id)
     session.original_message = req.message
+    session.other_retry_count = 0
+
+    # CALL FAQ — transition into the guided call flow
+    if faq.type == IssueType.CALL:
+        session.selected_category = "calls"
+        session.preselected_faq_id = str(faq.id)
+        return await _start_call_category_flow(session)
+
+    # PAYMENT FAQ — transition into the appropriate payment flow
+    if faq.type == IssueType.PAYMENT:
+        session.selected_category = "transactions"
+        session.preselected_faq_id = str(faq.id)
+        if session.user_type.value == "LISTENER":
+            if faq_service.is_payout_faq(faq.id):
+                session.selected_transaction_subtype = "payouts"
+                return await _start_payout_flow(session)
+            else:
+                session.selected_transaction_subtype = "earnings"
+                return await _start_earnings_flow(session)
+        return await _start_user_transaction_flow(session)
+
+    # OTHER / ALL — answer directly
     return await _handle_other_issue(session, faq)
 
 
@@ -659,25 +699,21 @@ async def _handle_ticket_edit(session: SessionState, req: ChatRequest) -> List[R
 def _ask_call_consent(session: SessionState) -> List[ResponseItem]:
     session.stage = ConversationStage.AWAITING_CALL_CONSENT
     hour = (datetime.now(tz=timezone.utc) + _IST).hour
-    if 9 <= hour < 19:
-        question = "Would you like the Dostt team to call you to help resolve this?"
-    else:
-        question = (
-            "Would you like the Dostt team to call you? "
-            "Please note, by choosing Yes you agree that our support team "
+    off_hours = hour < 9 or hour >= 19
+    quick_reply_data: Dict[str, Any] = {
+        "options": [
+            {"id": "consent_yes", "label": "Yes, please call me"},
+            {"id": "consent_no", "label": "No thanks"},
+        ]
+    }
+    if off_hours:
+        quick_reply_data["disclaimer"] = (
+            "By submitting this request, you agree that our support team "
             "may reach out to you until 1:00 AM IST."
         )
     return [
-        _text(question),
-        ResponseItem(
-            type=ResponseItemType.QUICK_REPLIES,
-            data={
-                "options": [
-                    {"id": "consent_yes", "label": "Yes, please call me"},
-                    {"id": "consent_no", "label": "No thanks"},
-                ]
-            },
-        ),
+        _text("Would you like the Dostt team to call you to help resolve this?"),
+        ResponseItem(type=ResponseItemType.QUICK_REPLIES, data=quick_reply_data),
     ]
 
 
@@ -826,6 +862,8 @@ def _reset_for_new_issue(session: SessionState) -> None:
     session.consent_call = None
     session.selected_category = None
     session.selected_transaction_subtype = None
+    session.preselected_faq_id = None
+    session.other_retry_count = 0
     session.stage = ConversationStage.AWAITING_CATEGORY_SELECTION
 
 

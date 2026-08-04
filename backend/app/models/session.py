@@ -45,6 +45,8 @@ class SessionState(BaseModel):
     tickets_raised: int = 0
     selected_category: Optional[str] = None
     selected_transaction_subtype: Optional[str] = None
+    preselected_faq_id: Optional[str] = None  # FAQ matched from Other free-text, auto-used after entity selection
+    other_retry_count: int = 0
     stage: ConversationStage = ConversationStage.AWAITING_CATEGORY_SELECTION
     messages: List[ChatMessage] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.now)

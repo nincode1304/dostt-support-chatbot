@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function QuickReplies({ data, onSelect }) {
-  const { options = [] } = data;
+  const { options = [], disclaimer } = data;
   const [selected, setSelected] = useState(null);
 
   function handleClick(opt) {
@@ -11,18 +11,23 @@ export default function QuickReplies({ data, onSelect }) {
   }
 
   return (
-    <div className="quick-replies">
-      {options.map((opt) => (
-        <button
-          key={opt.id}
-          className="quick-reply-btn"
-          onClick={() => handleClick(opt)}
-          disabled={!!selected}
-          aria-label={opt.label}
-        >
-          {opt.label}
-        </button>
-      ))}
+    <div className="quick-replies-wrapper">
+      <div className="quick-replies">
+        {options.map((opt) => (
+          <button
+            key={opt.id}
+            className="quick-reply-btn"
+            onClick={() => handleClick(opt)}
+            disabled={!!selected}
+            aria-label={opt.label}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+      {disclaimer && (
+        <p className="consent-disclaimer">{disclaimer}</p>
+      )}
     </div>
   );
 }

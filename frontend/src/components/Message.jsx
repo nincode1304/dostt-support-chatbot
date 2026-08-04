@@ -12,6 +12,16 @@ function formatTime(ts) {
   return d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
 }
 
+function renderContent(text) {
+  // Break inline numbered items onto their own lines: " 1. Something" → newline before "1."
+  const formatted = text.replace(/ (?=\d{1,2}\. [A-Z])/g, "\n");
+  const lines = formatted.split("\n").filter((l) => l.trim() !== "");
+  if (lines.length <= 1) return text;
+  return lines.map((line, i) => (
+    <span key={i} className="msg-line">{line.trim()}</span>
+  ));
+}
+
 export default function Message({ msg, onSelectCategory, onSelectTransactionSubtype, onSelectFaq, onSelectCall, onSelectTransaction, onConfirmTicket, onEditTicket, onCancelAction, onQuickReply }) {
   const now = Date.now();
 
@@ -26,7 +36,7 @@ export default function Message({ msg, onSelectCategory, onSelectTransactionSubt
           </div>
         )}
         <div>
-          <div className="message-bubble">{msg.content}</div>
+          <div className="message-bubble">{renderContent(msg.content)}</div>
           <div className="message-time">{formatTime(now)}</div>
         </div>
       </div>
