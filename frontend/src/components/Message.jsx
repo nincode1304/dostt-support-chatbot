@@ -126,7 +126,7 @@ export default function Message({ msg, isActive, language, onSelectCategory, onS
   }
 
   if (msg.type === "ticket_created") {
-    const { issue_name, title, hint } = msg.data || {};
+    const { issue_name, title, hint, ticket_id } = msg.data || {};
     return (
       <div className="message-row bot">
         <div className="bot-avatar-spacer" />
@@ -139,6 +139,7 @@ export default function Message({ msg, isActive, language, onSelectCategory, onS
           <div className="ticket-created-info">
             <div className="ticket-created-title">{title || t(language, "ticket_created_title")}</div>
             {issue_name && <div className="ticket-created-issue">{issue_name}</div>}
+            {ticket_id && <div className="ticket-created-id">#{ticket_id}</div>}
             <div className="ticket-created-hint">
               {hint || t(language, "ticket_created_hint")}
             </div>

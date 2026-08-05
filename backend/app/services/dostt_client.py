@@ -414,6 +414,8 @@ async def create_support_ticket(
         form["reference_entity_type"] = (None, reference_entity_type)
 
     service_type = "1"  # both USER and LISTENER use Service-Type: 1
+    log_payload = {k: v[1] for k, v in form.items()}
+    logger.info("Ticket create REQUEST → url=%s payload=%s", url, log_payload)
     try:
         async with httpx.AsyncClient(timeout=15) as client:
             resp = await client.post(
@@ -421,10 +423,11 @@ async def create_support_ticket(
                 files=form,
                 headers=_auth_headers(token, service_type=service_type, platform=platform, app_version_code=app_version_code),
             )
+        logger.info("Ticket create RESPONSE → status=%s body=%s", resp.status_code, resp.text)
         resp.raise_for_status()
         return resp.json()
     except httpx.HTTPStatusError as e:
-        logger.error("Dostt ticket create HTTP %s: %s", e.response.status_code, e)
+        logger.error("Dostt ticket create HTTP %s: %s", e.response.status_code, e.response.text)
         raise
     except Exception as e:
         logger.error("Dostt ticket create error: %s", e)

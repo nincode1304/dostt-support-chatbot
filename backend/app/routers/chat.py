@@ -48,6 +48,11 @@ _ALLOWED_LANGUAGES = frozenset({
 @router.post("/session/init", response_model=InitSessionResponse)
 async def init_session(req: InitSessionRequest) -> InitSessionResponse:
     language = req.language if req.language in _ALLOWED_LANGUAGES else "English"
+    token_hint = f"{req.auth_token[:6]}…" if req.auth_token and len(req.auth_token) > 6 else "[empty]"
+    logger.info(
+        "Session init → user_type=%s language=%s platform=%s app_version_code=%s token=%s",
+        req.user_type, language, req.platform, req.app_version_code, token_hint,
+    )
     session = session_service.create_session(
         auth_token=req.auth_token,
         user_type=req.user_type,
@@ -649,7 +654,7 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
                 reference_entity_type = "booking"
 
     try:
-        await dostt_client.create_support_ticket(
+        result = await dostt_client.create_support_ticket(
             token=session.auth_token,
             issue_id=str(faq.id),
             description=session.ticket_description or session.original_message or "",
@@ -663,6 +668,7 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
         )
         session.tickets_raised += 1
         issue_name = get_faq_title(str(faq.id), lang, faq.title11)
+        ticket_id = result.get("ticket_id") if isinstance(result, dict) else None
         return [
             ResponseItem(
                 type=ResponseItemType.TICKET_CREATED,
@@ -670,15 +676,21 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
                     "issue_name": issue_name,
                     "title": t(lang, "ticket_created_title"),
                     "hint": t(lang, "ticket_track_hint"),
+                    **({"ticket_id": ticket_id} if ticket_id else {}),
                 },
             ),
             _text(t(lang, "ticket_track")),
             *_ask_more_help(session),
         ]
     except httpx.HTTPStatusError as e:
-        logger.error("Ticket creation HTTP error %s", e.response.status_code)
+        logger.error("Ticket creation HTTP error %s: %s", e.response.status_code, e.response.text)
+        try:
+            body = e.response.json()
+            user_msg = body.get("message") or body.get("detail") or body.get("error") or e.response.text
+        except Exception:
+            user_msg = e.response.text or t(lang, "ticket_api_error")
         session.stage = ConversationStage.ENDED
-        return [_text(t(lang, "ticket_api_error"))]
+        return [_text(str(user_msg))]
     except Exception as e:
         logger.error("Ticket creation error: %s", e)
         session.stage = ConversationStage.ENDED
