@@ -13,7 +13,11 @@ export default function MessageInput({ onSend, disabled, placeholder = "Type a m
 
   useEffect(() => {
     if (!disabled && textareaRef.current) {
-      textareaRef.current.focus();
+      // requestAnimationFrame gives iOS Safari a better chance of honouring
+      // programmatic focus when transitioning out of a disabled/readOnly state.
+      requestAnimationFrame(() => {
+        if (textareaRef.current) textareaRef.current.focus();
+      });
     }
   }, [disabled]);
 
