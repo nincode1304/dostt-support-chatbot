@@ -110,10 +110,8 @@ async def _dispatch(session: SessionState, req: ChatRequest) -> List[ResponseIte
     if req.type == MessageInputType.SET_LANGUAGE:
         if req.language and req.language in _ALLOWED_LANGUAGES:
             session.language = req.language
-        # Re-greet in the new language if user is still at the start (hasn't picked anything yet)
-        if session.stage in (ConversationStage.INITIAL, ConversationStage.AWAITING_CATEGORY_SELECTION):
-            return [_text(t(session.language, "greeting")), *_category_cards_items(session.language)]
-        return []
+        _reset_for_new_issue(session)
+        return [_text(t(session.language, "greeting")), *_category_cards_items(session.language)]
 
     stage = session.stage
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function MessageInput({ onSend, disabled, placeholder = "Type a message...", onRestart, showRestart }) {
+export default function MessageInput({ onSend, disabled, placeholder = "Type a message..." }) {
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
 
@@ -10,6 +10,12 @@ export default function MessageInput({ onSend, disabled, placeholder = "Type a m
       textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 120)}px`;
     }
   }, [text]);
+
+  useEffect(() => {
+    if (!disabled && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [disabled]);
 
   function handleKeyDown(e) {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -30,21 +36,9 @@ export default function MessageInput({ onSend, disabled, placeholder = "Type a m
 
   return (
     <div className="input-bar">
-      {showRestart && (
-        <button
-          className="restart-inline-btn"
-          onClick={onRestart}
-          aria-label="Restart chat"
-          title="Restart chat"
-        >
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
-          </svg>
-        </button>
-      )}
       <textarea
         ref={textareaRef}
-        className="input-field"
+        className={`input-field${!disabled ? " input-field--active" : ""}`}
         placeholder={placeholder}
         value={text}
         onChange={(e) => setText(e.target.value)}

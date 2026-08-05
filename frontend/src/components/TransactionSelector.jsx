@@ -42,53 +42,38 @@ export default function TransactionSelector({ data, onSelect, disabled: parentDi
   }
 
   return (
-    <div className="card-wrapper">
-      {prompt && <div className="card-prompt">{prompt}</div>}
-      <div className="transaction-cards">
-        {transactions.map((tx) => {
-          const credit = isCredit(tx);
-          const isSelected = selected === tx.id;
+    <div className="entity-selector">
+      {transactions.map((tx) => {
+        const credit = isCredit(tx);
+        const isSelected = selected === tx.id;
+        const meta = [formatDate(tx.created_on), tx.status != null ? statusLabel(tx.status) : null].filter(Boolean).join(" · ");
 
-          return (
-            <button
-              key={tx.id}
-              className={`transaction-card${isSelected ? " selected" : ""}${(parentDisabled || (!!selected && !isSelected)) ? " faded" : ""}`}
-              onClick={() => handleSelect(tx)}
-              disabled={parentDisabled || !!selected}
-              aria-label={`Select transaction ${typeLabel(tx)}`}
-            >
-              <div className={`transaction-card-icon ${credit ? "credit" : "debit"}`}>
-                {credit ? (
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                  </svg>
-                )}
-              </div>
-              <div className="transaction-card-info">
-                <div className="transaction-card-desc">{typeLabel(tx)}</div>
-                <div className="transaction-card-date">
-                  {formatDate(tx.created_on)}
-                  {tx.status != null && ` · ${statusLabel(tx.status)}`}
-                </div>
-              </div>
-              <div className="transaction-card-amount">
-                {tx.coins != null && tx.coins !== 0 && (
-                  <div className={`transaction-card-coins ${credit ? "credit" : "debit"}`}>
-                    {credit ? "+" : "−"}{tx.coins} coins
-                  </div>
-                )}
-                {tx.amount != null && (
-                  <div className="transaction-card-status">₹{tx.amount}</div>
-                )}
-              </div>
-            </button>
-          );
-        })}
-      </div>
+        return (
+          <button
+            key={tx.id}
+            className={`entity-card${isSelected ? " selected" : ""}${(parentDisabled || (!!selected && !isSelected)) ? " faded" : ""}`}
+            onClick={() => handleSelect(tx)}
+            disabled={parentDisabled || !!selected}
+            aria-label={`Select transaction ${typeLabel(tx)}`}
+          >
+            <span className="entity-card-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+              </svg>
+            </span>
+            <span className="entity-card-body">
+              <span className="entity-card-title">{typeLabel(tx)}</span>
+              {meta && <span className="entity-card-meta">{meta}</span>}
+            </span>
+            {tx.amount != null && (
+              <span className="entity-card-value">₹{tx.amount}</span>
+            )}
+            <svg className="entity-card-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        );
+      })}
     </div>
   );
 }

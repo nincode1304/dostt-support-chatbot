@@ -22,8 +22,11 @@ export default function FaqSelector({ data, onSelect, disabled: parentDisabled }
           disabled={isDisabled}
           aria-label={faq.title}
         >
+          <span className="faq-card-icon">?</span>
           <span className="faq-card-title">{faq.title}</span>
-          <span className="faq-card-arrow">›</span>
+          <svg className="faq-card-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
         </button>
       ))}
     </div>

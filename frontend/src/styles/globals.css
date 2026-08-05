@@ -25,7 +25,7 @@
   --color-error: #E8706A;
   --color-error-surface: #3A1E1E;
 
-  --color-user-bubble: #6440E0;
+  --color-user-bubble: #4A3A96;
   --color-user-bubble-text: #FFFFFF;
   --color-bot-bubble: #252638;
   --color-bot-bubble-text: #ECEEFF;
@@ -241,16 +241,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .lang-badge {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
+  font-size: 18px;
   font-weight: 700;
+  color: var(--color-text-primary);
   flex-shrink: 0;
   line-height: 1;
   font-family: var(--font-sans);
@@ -423,14 +416,14 @@ a { color: inherit; text-decoration: none; }
   background: var(--color-user-bubble);
   color: var(--color-user-bubble-text);
   border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg);
-  box-shadow: 0 2px 8px rgba(100,64,224,0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.25);
 }
 
 .message-row.bot .message-bubble {
   background: var(--color-bot-bubble);
   color: var(--color-bot-bubble-text);
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.25);
 }
 
 .message-row.bot.message-error .message-bubble {
@@ -503,190 +496,108 @@ a { color: inherit; text-decoration: none; }
 /* =========================================================
    Card components (shared base)
    ========================================================= */
-.card-wrapper {
-  width: 100%;
-  margin-bottom: 4px;
-  animation: slide-in var(--anim-slow);
-}
-
-.card-prompt {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  margin-bottom: 10px;
-  padding-left: 2px;
-}
 
 /* =========================================================
-   Call cards
+   Entity cards (calls + transactions) — match category card style
    ========================================================= */
-.call-cards {
+.entity-selector {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  max-width: 300px;
+  animation: slide-in var(--anim-slow);
 }
 
-.call-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
+.entity-card {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
   cursor: pointer;
-  transition: border-color var(--anim-fast), box-shadow var(--anim-fast), transform var(--anim-fast);
+  text-align: left;
+  transition: border-color var(--anim-fast), background var(--anim-fast), opacity var(--anim-fast), transform var(--anim-fast);
   box-shadow: var(--shadow-card);
   -webkit-tap-highlight-color: transparent;
 }
 
-.call-card:active, .call-card:hover {
+.entity-card:hover:not(:disabled),
+.entity-card:active:not(:disabled) {
   border-color: var(--color-primary);
-  box-shadow: 0 4px 16px rgba(115,82,232,0.2);
+  background: var(--color-primary-surface);
   transform: translateY(-1px);
 }
 
-.call-card.selected {
+.entity-card.selected {
   border-color: var(--color-primary);
   background: var(--color-primary-surface);
 }
 
-.call-card-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--color-primary-surface);
+.entity-card.faded { opacity: 0.38; }
+
+.entity-card-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
+  color: var(--color-primary);
 }
 
-.call-card-icon svg { width: 22px; height: 22px; fill: var(--color-primary); }
+.entity-card-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
 
-.call-card-info { flex: 1; min-width: 0; }
+.entity-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-.call-card-name {
-  font-size: var(--font-size-md);
-  font-weight: 600;
+.entity-card-title {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
   color: var(--color-text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.call-card-meta {
-  font-size: var(--font-size-sm);
+.entity-card-meta {
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  margin-top: 2px;
 }
 
-.call-card-right {
-  text-align: right;
+.entity-card-value {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-primary);
   flex-shrink: 0;
 }
 
-.call-card-coins {
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--color-primary);
-}
-
-.call-card-type {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  margin-top: 2px;
-}
-
-.call-card-ticket-badge {
-  font-size: 10px;
-  background: var(--color-warning);
-  color: white;
-  border-radius: var(--radius-full);
-  padding: 1px 6px;
-  margin-top: 2px;
-  display: inline-block;
+.entity-card-arrow {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
 }
 
 /* =========================================================
    Transaction cards
    ========================================================= */
-.transaction-cards { display: flex; flex-direction: column; gap: 8px; }
-
-.transaction-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color var(--anim-fast), box-shadow var(--anim-fast), transform var(--anim-fast);
-  box-shadow: var(--shadow-card);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.transaction-card:active, .transaction-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 16px rgba(115,82,232,0.2);
-  transform: translateY(-1px);
-}
-
-.transaction-card-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.transaction-card-icon.credit {
-  background: var(--color-success-surface);
-}
-.transaction-card-icon.credit svg { fill: var(--color-success); }
-
-.transaction-card-icon.debit {
-  background: var(--color-error-surface);
-}
-.transaction-card-icon.debit svg { fill: var(--color-error); }
-
-.transaction-card-icon svg { width: 22px; height: 22px; }
-
-.transaction-card-info { flex: 1; min-width: 0; }
-
-.transaction-card-desc {
-  font-size: var(--font-size-md);
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-.transaction-card-date {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  margin-top: 2px;
-}
-
-.transaction-card-amount {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.transaction-card-coins {
-  font-size: var(--font-size-md);
-  font-weight: 700;
-}
-
-.transaction-card-coins.credit { color: var(--color-success); }
-.transaction-card-coins.debit  { color: var(--color-error); }
-
-.transaction-card-status {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  margin-top: 2px;
-  text-transform: capitalize;
-}
 
 /* =========================================================
    Ticket confirmation card
@@ -918,9 +829,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 .input-field::placeholder { color: var(--color-text-muted); }
-.input-field:focus {
+.input-field:focus { outline: none; }
+
+.input-field--active {
   border-color: var(--color-primary);
   background: var(--color-surface-elevated);
+  box-shadow: 0 0 0 3px rgba(115,82,232,0.15);
 }
 
 .send-btn {
@@ -1100,43 +1014,66 @@ a { color: inherit; text-decoration: none; }
 .faq-selector {
   display: flex;
   flex-direction: column;
-  gap: 6px;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
   animation: slide-in var(--anim-slow);
 }
 
 .faq-card {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  gap: 12px;
+  padding: 14px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border-light);
   color: var(--color-text-primary);
   cursor: pointer;
   text-align: left;
-  transition: border-color var(--anim-fast), background var(--anim-fast), opacity var(--anim-fast), transform var(--anim-fast);
-  box-shadow: var(--shadow-card);
+  transition: background var(--anim-fast), opacity var(--anim-fast);
   -webkit-tap-highlight-color: transparent;
+}
+
+.faq-card:last-child {
+  border-bottom: none;
 }
 
 .faq-card:hover:not(:disabled),
 .faq-card:active:not(:disabled) {
-  border-color: var(--color-primary);
-  background: var(--color-primary-surface);
-  transform: translateY(-1px);
+  background: rgba(115,82,232,0.08);
 }
 
 .faq-card.selected {
-  border-color: var(--color-primary);
   background: var(--color-primary-surface);
 }
 
 .faq-card.faded {
   opacity: 0.38;
+}
+
+.faq-card-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.faq-card.selected .faq-card-icon {
+  background: rgba(115,82,232,0.25);
+  color: var(--color-primary-light);
 }
 
 .faq-card-title {
@@ -1147,8 +1084,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 .faq-card-arrow {
-  font-size: 18px;
-  color: var(--color-text-muted);
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   flex-shrink: 0;
 }
 
@@ -1172,36 +1114,40 @@ a { color: inherit; text-decoration: none; }
    Restart chip
    ========================================================= */
 
-.restart-inline-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid var(--color-border);
+.chat-top-bar {
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding: 10px 16px 0;
   flex-shrink: 0;
-  color: var(--color-text-muted);
-  transition: border-color var(--anim-fast), color var(--anim-fast), background var(--anim-fast);
+}
+
+.restart-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 7px 16px 7px 12px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
   -webkit-tap-highlight-color: transparent;
+  transition: background var(--anim-fast), color var(--anim-fast), border-color var(--anim-fast);
 }
 
-.restart-inline-btn svg {
-  width: 16px;
-  height: 16px;
+.restart-pill-btn svg {
+  width: 13px;
+  height: 13px;
   fill: currentColor;
+  flex-shrink: 0;
 }
 
-.restart-inline-btn:hover:not(:disabled) {
-  border-color: var(--color-primary);
-  color: var(--color-primary-light);
-  background: rgba(115,82,232,0.08);
-}
-
-.restart-inline-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.restart-pill-btn:hover {
+  background: rgba(115,82,232,0.12);
+  border-color: rgba(115,82,232,0.35);
+  color: var(--color-text-primary);
 }
 
 /* =========================================================
