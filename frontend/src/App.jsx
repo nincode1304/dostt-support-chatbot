@@ -6,7 +6,7 @@ import { useChat } from "./hooks/useChat";
 import { t } from "./translations";
 
 export default function App() {
-  const { token, userType, initLanguage, platform, appVersionCode } = useBridge();
+  const { token, userType, initLanguage, platform, appVersionCode, send: sendToNative } = useBridge();
 
   const {
     messages,

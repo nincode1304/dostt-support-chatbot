@@ -1,22 +1,32 @@
 /**
  * WebView bridge: reads auth context passed by the Dostt mobile app.
  *
- * userType  → from URL path (/user or /listener), set by the app when opening the WebView
- * token     → NEVER in the URL; comes only via postMessage({ type: "INIT", token: "..." })
- *             sent by the native app after the WebView loads
+ * All context (token, userType, language, platform, app_version_code) comes
+ * via postMessage({ type: "INIT", ... }) sent by the native app after webviewReady.
  */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useBridge() {
-  const [bridgeData, setBridgeData] = useState(() => ({
-    token: null,
-    userType: readUserTypeFromPath(),
-    initLanguage: null,  // null = test mode (all languages), string = production mode (English + that language)
-    platform: null,
-    appVersionCode: null,
-  }));
+  const isInWebView = !!window.ReactNativeWebView;
+
+  const [bridgeData, setBridgeData] = useState(() =>
+    isInWebView
+      ? { token: null, userType: null, initLanguage: null, platform: null, appVersionCode: null }
+      : { token: "dev", userType: "USER", initLanguage: null, platform: "web", appVersionCode: null }
+  );
+
+  const send = useCallback((name, payload = null) => {
+    if (!window.ReactNativeWebView) {
+      console.warn(`not in WebView, dropped: ${name}`);
+      return;
+    }
+    window.ReactNativeWebView.postMessage(JSON.stringify({ name, payload }));
+  }, []);
 
   useEffect(() => {
+    // Tell native the page is ready to receive INIT
+    send("webviewReady");
+
     const handler = (event) => {
       try {
         const msg =
@@ -26,8 +36,8 @@ export function useBridge() {
           setBridgeData((prev) => {
             if (prev.token) return prev;
             return {
-              ...prev,
               token: msg.token,
+              userType: msg.user_type || "USER",
               initLanguage: msg.language || null,
               platform: msg.platform || null,
               appVersionCode: msg.app_version_code || null,
@@ -40,14 +50,12 @@ export function useBridge() {
     };
 
     window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
+    document.addEventListener("message", handler); // Android WebView fix
+    return () => {
+      window.removeEventListener("message", handler);
+      document.removeEventListener("message", handler);
+    };
   }, []);
 
-  return bridgeData;
-}
-
-function readUserTypeFromPath() {
-  const path = window.location.pathname.toLowerCase();
-  if (path.startsWith("/listener")) return "LISTENER";
-  return "USER"; // /user or any other path defaults to USER
+  return { ...bridgeData, send };
 }

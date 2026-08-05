@@ -12,8 +12,9 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
   const languageRef = useRef("English");
   const initialized = useRef(false);
 
-  // Init session on mount
+  // Init session once token arrives from the native bridge
   useEffect(() => {
+    if (!token) return;
     if (initialized.current) return;
     initialized.current = true;
     initSession(token, userType);
