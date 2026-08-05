@@ -21,7 +21,14 @@ const LANG_LETTER = {
 
 export default function Header({ language = "English", onLanguageChange, initLanguage }) {
   const [open, setOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    const show = setTimeout(() => setShowTooltip(true), 600);
+    const hide = setTimeout(() => setShowTooltip(false), 2600);
+    return () => { clearTimeout(show); clearTimeout(hide); };
+  }, []);
 
   // In production initLanguage is set → show only English + that language
   // In test mode initLanguage is null → show all languages
@@ -67,6 +74,9 @@ export default function Header({ language = "English", onLanguageChange, initLan
       </div>
 
       <div className="lang-selector" ref={containerRef}>
+        {showTooltip && (
+          <div className="lang-tooltip">Try in your own language</div>
+        )}
         <button
           className={`lang-selector-btn${open ? " open" : ""}`}
           onClick={() => setOpen((p) => !p)}
