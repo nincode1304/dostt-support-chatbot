@@ -689,10 +689,22 @@ a { color: inherit; text-decoration: none; }
   border: 1.5px solid rgba(232,112,106,0.45);
 }
 
-.ticket-confirmation-card.stale .btn,
-.ticket-confirmation-card.stale {
-  opacity: 0.45;
+.ticket-confirmation-card.stale .ticket-card-header,
+.ticket-confirmation-card.stale .ticket-card-label,
+.ticket-confirmation-card.stale .ticket-card-issue-name,
+.ticket-confirmation-card.stale .ticket-card-description {
+  opacity: 0.5;
+}
+
+.ticket-confirmation-card.stale .btn-confirm,
+.ticket-confirmation-card.stale .btn-edit {
+  opacity: 0.35;
   pointer-events: none;
+}
+
+.ticket-confirmation-card.stale .btn-cancel {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* =========================================================

@@ -25,7 +25,7 @@ export default function TicketConfirmation({ data, disabled, language, onConfirm
         <button className="btn btn-edit" onClick={onEdit} disabled={disabled} aria-label="Edit ticket description">
           {t(language, "edit_btn")}
         </button>
-        <button className="btn btn-cancel" onClick={onCancel} disabled={disabled} aria-label="Cancel ticket creation">
+        <button className="btn btn-cancel" onClick={onCancel} aria-label="Cancel ticket creation">
           {t(language, "cancel_btn")}
         </button>
       </div>

@@ -691,6 +691,9 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
 
 async def _handle_ticket_edit(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
     lang = session.language
+    if req.type == MessageInputType.CANCEL:
+        _reset_for_new_issue(session)
+        return [_text(t(lang, "ticket_cancelled")), *_ask_more_help(session)]
     if not req.message:
         return [_text(t(lang, "edit_ticket_prompt"))]
 

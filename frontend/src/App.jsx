@@ -11,6 +11,7 @@ export default function App() {
   const {
     messages,
     isLoading,
+    isTyping,
     error,
     language,
     setLanguage,
@@ -99,7 +100,7 @@ export default function App() {
       ) : (
         <ChatContainer
           messages={messages}
-          isLoading={isLoading}
+          isLoading={isLoading || isTyping}
           language={language}
           onSelectCategory={selectCategory}
           onSelectTransactionSubtype={selectTransactionSubtype}
@@ -115,7 +116,7 @@ export default function App() {
 
       <MessageInput
         onSend={sendText}
-        disabled={isLoading || loading || awaitingSelection}
+        disabled={isLoading || loading || isTyping || awaitingSelection}
         placeholder={isChatEnded ? t(language, "chat_ended_placeholder") : awaitingSelection ? t(language, "select_option") : t(language, "type_message")}
       />
     </div>

@@ -6,6 +6,7 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState(null);
   const [language, setLanguageState] = useState("English");
   const languageRef = useRef("English");
@@ -44,8 +45,10 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         setSessionId(data.session_id);
-        appendBotText(data.greeting);
-        processResponseItems(data.items || []);
+        processResponseItems([
+          { type: "text", content: data.greeting },
+          ...(data.items || []),
+        ]);
       } catch (e) {
         setError("Could not connect to support. Please try again.");
       } finally {
@@ -214,28 +217,23 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
     ]);
   }
 
+  const TYPING_DELAY = 1000;
+
   function processResponseItems(items) {
     if (!items?.length) return;
+    setIsTyping(true);
     items.forEach((item, i) => {
       setTimeout(() => {
         setMessages((prev) => [...prev, { id: uid(), role: "bot", ...item }]);
-      }, i * 500);
+        if (i === items.length - 1) setIsTyping(false);
+      }, (i + 1) * TYPING_DELAY);
     });
-    if (items.some((item) => item.type === "error")) {
-      const tok = token;
-      const ut = userType;
-      setTimeout(() => {
-        setMessages([]);
-        setSessionId(null);
-        setIsLoading(true);
-        initSession(tok, ut);
-      }, 5000);
-    }
   }
 
   return {
     messages,
     isLoading,
+    isTyping,
     error,
     sessionId,
     language,

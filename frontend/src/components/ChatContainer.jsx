@@ -29,10 +29,14 @@ export default function ChatContainer({
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
-  // Only the last interactive message in the list stays active
+  // Only activate an interactive card if the very last message is itself interactive.
+  // If the last message is text (e.g. edit prompt), all prior cards go stale.
+  const lastMsg = messages[messages.length - 1];
   let lastInteractiveIdx = -1;
-  for (let i = messages.length - 1; i >= 0; i--) {
-    if (INTERACTIVE_TYPES.has(messages[i].type)) { lastInteractiveIdx = i; break; }
+  if (lastMsg && INTERACTIVE_TYPES.has(lastMsg.type)) {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (INTERACTIVE_TYPES.has(messages[i].type)) { lastInteractiveIdx = i; break; }
+    }
   }
 
   return (
