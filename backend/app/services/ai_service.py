@@ -119,29 +119,38 @@ async def identify_faq(
         max_output_tokens=1024,
         temperature=0.0,
     )
-    for model in (settings.GEMINI_MODEL, settings.GEMINI_FALLBACK_MODEL):
-        try:
-            response = await _client.aio.models.generate_content(
-                model=model, contents=prompt, config=faq_config,
-            )
-            if not response.text:
-                logger.warning("identify_faq: empty response from model")
-                return None
-            data = json.loads(response.text)
-            faq_id = data.get("id")
-            confidence = data.get("confidence", "LOW")
-            if faq_id is not None and confidence != "NONE":
-                logger.debug("FAQ matched: id=%s (%s)", faq_id, confidence)
-                return str(int(faq_id))
+    async def _try_faq(model):
+        response = await _client.aio.models.generate_content(
+            model=model, contents=prompt, config=faq_config,
+        )
+        if not response.text:
+            logger.warning("identify_faq: empty response from model")
             return None
+        data = json.loads(response.text)
+        faq_id = data.get("id")
+        confidence = data.get("confidence", "LOW")
+        if faq_id is not None and confidence != "NONE":
+            logger.debug("FAQ matched: id=%s (%s)", faq_id, confidence)
+            return str(int(faq_id))
+        return None
+
+    for attempt in range(3):
+        try:
+            return await _try_faq(settings.GEMINI_MODEL)
         except Exception as e:
             if "503" in str(e) or "UNAVAILABLE" in str(e):
-                logger.warning("identify_faq: %s unavailable, trying fallback", model)
+                logger.warning("identify_faq: primary 503, attempt %d/3", attempt + 1)
+                await asyncio.sleep([1, 2, 2][attempt])
                 continue
             logger.error("identify_faq error: %s", e)
             return None
-    logger.error("identify_faq: all models unavailable")
-    return None
+
+    logger.warning("identify_faq: primary exhausted, trying fallback")
+    try:
+        return await _try_faq(settings.GEMINI_FALLBACK_MODEL)
+    except Exception as e:
+        logger.error("identify_faq: fallback error: %s", e)
+        return None
 
 
 # ---------------------------------------------------------------------------
@@ -315,26 +324,35 @@ async def _call_gemini(
         max_output_tokens=max_tokens,
         temperature=0.5,
     )
+    async def _try_gemini(model):
+        response = await _client.aio.models.generate_content(
+            model=model, contents=contents, config=gemini_config,
+        )
+        candidate = response.candidates[0] if response.candidates else None
+        finish = candidate.finish_reason if candidate else "UNKNOWN"
+        text = response.text
+        logger.info("Model response | model=%s | finish_reason=%s | text=%r", model, finish, text)
+        if not text:
+            logger.warning("Empty response from model, finish_reason=%s", finish)
+            raise ValueError(f"Model returned empty response (finish_reason={finish})")
+        return text.strip()
+
     last_exc = None
-    for model in (settings.GEMINI_MODEL, settings.GEMINI_FALLBACK_MODEL):
+    for attempt in range(3):
         try:
-            response = await _client.aio.models.generate_content(
-                model=model, contents=contents, config=gemini_config,
-            )
-            candidate = response.candidates[0] if response.candidates else None
-            finish = candidate.finish_reason if candidate else "UNKNOWN"
-            text = response.text
-            logger.info("Model response | model=%s | finish_reason=%s | text=%r", model, finish, text)
-            if not text:
-                logger.warning("Empty response from model, finish_reason=%s", finish)
-                raise ValueError(f"Model returned empty response (finish_reason={finish})")
-            return text.strip()
+            return await _try_gemini(settings.GEMINI_MODEL)
         except Exception as e:
             if "503" in str(e) or "UNAVAILABLE" in str(e):
-                logger.warning("_call_gemini: %s unavailable, trying fallback", model)
+                logger.warning("_call_gemini: primary 503, attempt %d/3", attempt + 1)
                 last_exc = e
+                await asyncio.sleep([1, 2, 2][attempt])
                 continue
             logger.error("Gemini API error: %s", e)
             raise
-    logger.error("_call_gemini: all models unavailable")
-    raise last_exc
+
+    logger.warning("_call_gemini: primary exhausted after 3 attempts, trying fallback")
+    try:
+        return await _try_gemini(settings.GEMINI_FALLBACK_MODEL)
+    except Exception as e:
+        logger.error("_call_gemini: fallback error: %s", e)
+        raise

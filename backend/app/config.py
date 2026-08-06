@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str
     DOSTT_API_BASE_URL: str = "https://testdostt.getlokalapp.com"
     GEMINI_MODEL: str = "gemini-3.5-flash"
-    GEMINI_FALLBACK_MODEL: str = "gemini-2.0-flash"
+    GEMINI_FALLBACK_MODEL: str = "gemini-3.5-flash-lite"
     SESSION_TTL_SECONDS: int = 3600
     FAQ_FILE_PATH: str = str(Path(__file__).parent.parent / "data" / "faqs.json")
     MAX_RECENT_CALLS: int = 5
