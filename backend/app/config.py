@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     GEMINI_FALLBACK_MODEL: str = "gemini-3.5-flash-lite"
     SESSION_TTL_SECONDS: int = 3600
     APP_ENV: str = "production"  # "staging" or "production"
+    DUMMY_MODE: bool = False
     MAX_RECENT_CALLS: int = 5
     MAX_RECENT_TRANSACTIONS: int = 5
 

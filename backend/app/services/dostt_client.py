@@ -1,8 +1,7 @@
 """
 Dostt API client.
 
-Set DUMMY_MODE = True to use hardcoded test data (no real API calls).
-Set DUMMY_MODE = False once a live token is available from the WebView.
+Set DUMMY_MODE=true in .env to use hardcoded test data (no real API calls).
 
 Endpoints (same for staging and production):
   USER:
@@ -29,9 +28,7 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
-# ── Toggle this to switch between dummy and real API ─────────────────────────
-DUMMY_MODE = True
-# ─────────────────────────────────────────────────────────────────────────────
+DUMMY_MODE = settings.DUMMY_MODE
 
 _BASE_HEADERS = {
     "Accept": "application/json, text/plain, */*",

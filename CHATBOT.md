@@ -300,7 +300,7 @@ To switch to production: set `APP_ENV=production` in `.env` and restart the back
 | Flag | File | Default | Purpose |
 |---|---|---|---|
 | `APP_ENV` | `.env` | `production` | Switches between staging and production environments |
-| `DUMMY_MODE` | `dostt_client.py` | `False` | Returns hardcoded fake data instead of hitting the Dostt API |
+| `DUMMY_MODE` | `.env` | `false` | Returns hardcoded fake data instead of hitting the Dostt API |
 | `GEMINI_MODEL` | `.env` / config | `gemini-3.5-flash` | Primary AI model |
 | `GEMINI_FALLBACK_MODEL` | `.env` / config | `gemini-3.5-flash-lite` | Fallback AI model after 3 failed retries |
 | `SESSION_TTL_SECONDS` | config | `3600` | Session expiry (1 hour) |
