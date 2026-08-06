@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { logEvent, AnalyticsEvents } from "../analytics";
 
 const API_BASE = "/api";
 
@@ -46,6 +47,12 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         setSessionId(data.session_id);
+        logEvent(AnalyticsEvents.SESSION_STARTED, {
+          session_id: data.session_id,
+          user_type: ut,
+          language: languageRef.current,
+          platform,
+        });
         processResponseItems([
           { type: "text", content: data.greeting },
           ...(data.items || []),
@@ -169,11 +176,12 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
   );
 
   const restartChat = useCallback(() => {
+    logEvent(AnalyticsEvents.SESSION_TERMINATED, { session_id: sessionId, reason: "restart" });
     setMessages([]);
     setSessionId(null);
     setIsLoading(true);
     initSession(token, userType);
-  }, [initSession, token, userType]);
+  }, [initSession, token, userType, sessionId]);
 
   const selectCategory = useCallback(
     (categoryId, label) => {
@@ -226,6 +234,13 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
     items.forEach((item, i) => {
       setTimeout(() => {
         setMessages((prev) => [...prev, { id: uid(), role: "bot", ...item }]);
+        if (item.type === "ticket_created") {
+          logEvent(AnalyticsEvents.TICKET_CREATED, {
+            session_id: sessionId,
+            ticket_id: item.data?.ticket_id ?? null,
+            issue_name: item.data?.issue_name ?? null,
+          });
+        }
         if (i === items.length - 1) setIsTyping(false);
       }, (i + 1) * TYPING_DELAY);
     });
