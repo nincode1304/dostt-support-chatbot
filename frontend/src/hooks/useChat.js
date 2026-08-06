@@ -3,7 +3,7 @@ import { logEvent, AnalyticsEvents } from "../analytics";
 
 const API_BASE = "/api";
 
-export function useChat(token, userType, initLanguage, platform, appVersionCode) {
+export function useChat(token, userType, platform, appVersionCode) {
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,19 +21,6 @@ export function useChat(token, userType, initLanguage, platform, appVersionCode)
     initSession(token, userType);
   }, [token, userType]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Sync initLanguage from the app's INIT message once session is ready
-  useEffect(() => {
-    if (!initLanguage || !sessionId) return;
-    if (initLanguage === languageRef.current) return;
-    languageRef.current = initLanguage;
-    setLanguageState(initLanguage);
-    // Silently update the backend session — no bot message expected
-    fetch(`${API_BASE}/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ session_id: sessionId, type: "set_language", language: initLanguage }),
-    }).catch(() => {});
-  }, [initLanguage, sessionId]);
 
   const initSession = useCallback(
     async (tok, ut) => {

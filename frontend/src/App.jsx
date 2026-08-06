@@ -31,7 +31,7 @@ export default function App() {
     consentYes,
     consentNo,
     sessionId,
-  } = useChat(token, userType, initLanguage, platform, appVersionCode);
+  } = useChat(token, userType, platform, appVersionCode);
 
   function handleQuickReply(optionId, label) {
     if (optionId === "confirm_ticket") {

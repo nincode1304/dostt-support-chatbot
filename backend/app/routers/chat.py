@@ -204,7 +204,7 @@ async def _start_call_category_flow(session: SessionState) -> List[ResponseItem]
         calls = []
 
     if not calls:
-        return _show_faq_cards(session)
+        return _no_recent_activity(session)
 
     session.stage = ConversationStage.AWAITING_CALL_SELECTION
     return [
@@ -289,7 +289,7 @@ async def _start_user_transaction_flow(session: SessionState) -> List[ResponseIt
         transactions = []
 
     if not transactions:
-        return _show_faq_cards(session)
+        return _no_recent_activity(session)
 
     session.stage = ConversationStage.AWAITING_TRANSACTION_SELECTION
     return [
@@ -318,7 +318,7 @@ async def _start_earnings_flow(session: SessionState) -> List[ResponseItem]:
         transactions = []
 
     if not transactions:
-        return _show_faq_cards(session)
+        return _no_recent_activity(session)
 
     session.stage = ConversationStage.AWAITING_TRANSACTION_SELECTION
     return [
@@ -347,7 +347,7 @@ async def _start_payout_flow(session: SessionState) -> List[ResponseItem]:
         payouts = []
 
     if not payouts:
-        return _show_faq_cards(session)
+        return _no_recent_activity(session)
 
     session.stage = ConversationStage.AWAITING_TRANSACTION_SELECTION
     return [
@@ -794,6 +794,14 @@ async def _fallback_to_no_data(session: SessionState, faq, entity: str) -> List[
             items.append(_quick_replies_item(lang))
 
     return items
+
+
+# ---------------------------------------------------------------------------
+# No recent activity
+# ---------------------------------------------------------------------------
+
+def _no_recent_activity(session: SessionState) -> List[ResponseItem]:
+    return [_text(t(session.language, "no_recent_activity")), *_ask_more_help(session)]
 
 
 # ---------------------------------------------------------------------------

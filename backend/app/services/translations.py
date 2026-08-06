@@ -60,6 +60,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Something went wrong while creating the ticket. Please try again.",
         "generic_error": "Something went wrong. Please try again.",
         "unhandled_error": "We're sorry, something went wrong on our end. Please try again or raise a ticket — our team will be happy to help.",
+        "no_recent_activity": "I could not find any recent activity related to your account at the moment.",
     },
 
     "Hindi": {
@@ -116,6 +117,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket create karte waqt kuch gadbad ho gayi. Kripya dobara try karein.",
         "generic_error": "Kuch gadbad ho gayi. Kripya dobara try karein.",
         "unhandled_error": "Maafi chahte hain, hamare end par kuch gadbad ho gayi. Kripya dobara try karein ya ticket raise karein — hamari team aapki madad karegi.",
+        "no_recent_activity": "Is waqt aapke account se judi koi recent activity nahi mili.",
     },
 
     "Tamil": {
@@ -172,6 +174,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket create seyyum podhu oru problem vandhadhu. Meedundhu try pannunga.",
         "generic_error": "Oru problem vandhadhu. Meedundhu try pannunga.",
         "unhandled_error": "Manikkanam, engal pangu-il oru problem vandhadhu. Meedundhu try pannunga illa ticket raise pannunga — team udhavi seyyum.",
+        "no_recent_activity": "Ippodhku ungal account-thodara recent activity ennalum kaana mudiyavillai.",
     },
 
     "Telugu": {
@@ -228,6 +231,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket create cheyyadanilo oka samasya vachindi. Daya chesi malli try cheyandi.",
         "generic_error": "Oka samasya vachindi. Daya chesi malli try cheyandi.",
         "unhandled_error": "Chintistunnamu, maaTi vaipu nundi oka samasya vachindi. Daya chesi malli try cheyandi kaadha ticket raise cheyandi — maaTi team saayam chestundi.",
+        "no_recent_activity": "Ipputiki mee account ki sambandhincchina recent activity emi dorakaledu.",
     },
 
     "Malayalam": {
@@ -284,6 +288,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket create cheyyunna samayam oru samasya undaayi. Daya cheytu veenum try cheyyu.",
         "generic_error": "Oru samasya undaayi. Daya cheytu veenum try cheyyu.",
         "unhandled_error": "Kshamichu, nangalude bhagathhu ninnu oru samasya undaayi. Daya cheytu veenum try cheyyu alla ticket raise cheyyu — team saayichirukkum.",
+        "no_recent_activity": "Ippol ningalude account-umayi bandappetta recent activity onnumaay kaanam kittunilla.",
     },
 
     "Kannada": {
@@ -340,6 +345,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket create maaduvaga oka samasye bandide. Dayavittu matte try maadi.",
         "generic_error": "Oka samasye bandide. Dayavittu matte try maadi.",
         "unhandled_error": "Kshamisiri, namma kade ninda oka samasye bandide. Dayavittu matte try maadi illa ticket raise maadi — team sahaaya maaduttaare.",
+        "no_recent_activity": "Ippaga nimma account-ge sambandhisida yaavudaadaru recent activity kaana sigalilla.",
     },
 
     "Marathi": {
@@ -396,6 +402,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket banataanaa ek samasya aali. Kripayaa parat try karaa.",
         "generic_error": "Kahi tari gadbad jhali. Kripayaa parat try karaa.",
         "unhandled_error": "Kshama asaavii, aamchyaa baajune kahi tari chukley. Kripayaa parat try karaa ya ticket raise karaa — aamchi team madad kareil.",
+        "no_recent_activity": "Saadhyaa tumchyaa account-shii sambandhit koi recent activity saapdalii naahi.",
     },
 
     "Punjabi": {
@@ -452,6 +459,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket create karde waqt kuch gadbad ho gayi. Kirpaa karke dobara try karo.",
         "generic_error": "Kuch gadbad ho gayi. Kirpaa karke dobara try karo.",
         "unhandled_error": "Maafi mangde haan, saadi taraf ton kuch gadbad ho gayi. Kirpaa karke dobara try karo ya ticket raise karo — saadi team madad karegi.",
+        "no_recent_activity": "Is wele tuhade account naal judi koi recent activity nahi labbi.",
     },
 
     "Bengali": {
@@ -508,6 +516,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket toiri korte giye ekta samasya holo. Dayaa kore abar try korun.",
         "generic_error": "Ekta samasya hoyeche. Dayaa kore abar try korun.",
         "unhandled_error": "Kshomaa korun, aamaader theke ekta samasya hoyeche. Dayaa kore abar try korun ba ticket raise korun — aamaader team sahajjo korbe.",
+        "no_recent_activity": "Ekhon apnar account-er sathe samparkhito kono recent activity pawa gelo na.",
     },
 
     "Gujarati": {
@@ -564,6 +573,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket banaavataa ek samasya aavi. Krupa kari phir try karo.",
         "generic_error": "Koi samasya aavi. Krupa kari phir try karo.",
         "unhandled_error": "Maafi maagiye chhe, aamaari taraf thi ek samasya aavi. Krupa kari phir try karo ya ticket raise karo — amari team madad karshee.",
+        "no_recent_activity": "Abhi tamara account sathe sambandhit koi pan recent activity madhi nahi.",
     },
 
     "Odia": {
@@ -620,6 +630,7 @@ _T: Dict[str, Dict[str, str]] = {
         "ticket_error": "Ticket toiri kariba bele gote samasya hoigala. Krupa kari aau ekaa baar try karantu.",
         "generic_error": "Gote samasya hoigala. Krupa kari aau try karantu.",
         "unhandled_error": "Kshama karantu, aamaara paakhu-ru gote samasya hoigala. Krupa kari aau try karantu naahi hole ticket raise karantu — team sahajya karibe.",
+        "no_recent_activity": "Eebe aapananka account sathe sambandhita kono recent activity milila naahi.",
     },
 }
 
