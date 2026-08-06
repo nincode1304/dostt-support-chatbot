@@ -30,7 +30,7 @@ from app.config import settings
 logger = logging.getLogger(__name__)
 
 # ── Toggle this to switch between dummy and real API ─────────────────────────
-DUMMY_MODE = False
+DUMMY_MODE = True
 # ─────────────────────────────────────────────────────────────────────────────
 
 _BASE_HEADERS = {
