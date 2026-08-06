@@ -1,0 +1,506 @@
+[
+  {
+    "id": 46,
+    "name": "Account Deletion",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How do I delete my Account.",
+    "answer": "<ul>\n<li><strong>If you wish to delete your account, please follow these steps:</strong><br><strong>- </strong>Open the app and go to your Profile section.<br>- Scroll down and tap on Account Settings.<br>- Select Delete Account.<br>- Follow the on-screen instructions to complete the process.<br>Note: After deleting your account, please avoid logging into the Dostt app for 30 days. If you log in during this period, your account will be restored with your previous details.</li>\n</ul>",
+    "feedback_type": 3
+  },
+  {
+    "id": 47,
+    "name": "Gender Change",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How do I change my gender",
+    "answer": "<p>You have the option to switch to Listeners directly from your account. <br><br>When you click on &ldquo;Switch to Listener&rdquo;, you will be redirected to the Access Request page. <br><br>Once your request is submitted, our onboarding team will review it and get in touch with you over a call to complete the access process.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 37,
+    "name": "Change Language",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Change my language",
+    "answer": "<p><strong>We would like to inform you that you can change the app language by following the steps below: </strong></p>\n<ol>\n<li>Open the app and go to your Profile section.</li>\n<li>Tap on the Language option.</li>\n<li>Choose your preferred language from the list.</li>\n<li>Confirm your selection to apply the changes. &nbsp;</li>\n</ol>\n<p><br>If you face any issues while changing the language, feel free to reach out to us again. We&rsquo;re happy to help!<br>Thank you for your support.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 36,
+    "name": "No Dostt Online Dostt Not Picking Call",
+    "visibility": 0,
+    "type": 1,
+    "title11": "No Dostt Online Dostt Not Picking Call ?",
+    "answer": "<p><strong>We would like to inform you that you can change the app language by following the steps below: </strong></p>\n<ol>\n<li>Open the app and go to your Profile section.</li>\n<li>Tap on the Language option.</li>\n<li>Choose your preferred language from the list.</li>\n<li>Confirm your selection to apply the changes. &nbsp;</li>\n</ol>\n<p><br>If you face any issues while changing the language, feel free to reach out to us again. We&rsquo;re happy to help!<br>Thank you for your support.</p>\n<p><strong>We would like to inform you that you can change the app language by following the steps below: </strong></p>\n<ol>\n<li>Open the app and go to your Profile section.</li>\n<li>Tap on the Language option.</li>\n<li>Choose your preferred language from the list.</li>\n<li>Confirm your selection to apply the changes. &nbsp;</li>\n</ol>\n<p><br>If you face any issues while changing the language, feel free to reach out to us again. We&rsquo;re happy to help!<br>Thank you for your support.</p>\n<p>&nbsp;</p>\n<p><strong>We would like to inform you that you can change the app language by following the steps below: </strong></p>\n<ol>\n<li>Open the app and go to your Profile section.</li>\n<li>Tap on the Language option.</li>\n<li>Choose your preferred language from the list.</li>\n<li>Confirm your selection to apply the changes. &nbsp;</li>\n</ol>\n<p><br>If you face any issues while changing the language, feel free to reach out to us again. We&rsquo;re happy to help!<br>Thank you for your support.</p>\n<p><strong>We would like to inform you that you can change the app language by following the steps below: </strong></p>\n<ol>\n<li>Open the app and go to your Profile section.</li>\n<li>Tap on the Language option.</li>\n<li>Choose your preferred language from the list.</li>\n<li>Confirm your selection to apply the changes. &nbsp;</li>\n</ol>\n<p><br>If you face any issues while changing the language, feel free to reach out to us again. We&rsquo;re happy to help!<br>Thank you for your support.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 48,
+    "name": "Delete History",
+    "visibility": 0,
+    "type": 0,
+    "title11": "How do I delete my call History",
+    "answer": "<p>Currently, the app does not provide an option to delete your call history or any call logs. All calls and interactions are stored to help maintain a seamless experience and ensure accurate account activity. We understand that privacy and control over your data are important, and we&rsquo;re continuously working to improve our features.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 49,
+    "name": "App Usage Guidance",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How do make calls and how to add coins",
+    "answer": "<p>1. User needs to recharge their account to purchase coins from the &ldquo;Account&rdquo; section. <br><br>2. Coins can be used to make audio or video calls to available Dostt .</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 34,
+    "name": "exp p block",
+    "visibility": 2,
+    "type": 0,
+    "title11": "exp p block",
+    "answer": "<p>If you violate community guidelines you will receive a warrning</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 50,
+    "name": "Audio Issue",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Why am I not able to hear anything on call",
+    "answer": "<p>Apologies for the inconvenience caused. <br><br>If you are experiencing audio issues during a call, please raise a support ticket using the link below. <br><br>Provide a detailed description of the issue, including what kind of problem you are facing (e.g., no sound, distorted audio, or one-way audio) and any other relevant details. <br><br>Our team will review your case and assist you in resolving the issue as quickly as possible.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 51,
+    "name": "Video Issue",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Why is the video not working during my call ?",
+    "answer": "<p>As an app feature, if your face or the Listener&rsquo;s face is not in front of the phone, the camera feed is automatically turned off for both of you. Additionally, a weak internet connection can affect video quality.</p>\n<p>If you believe this is a technical issue, please raise a support ticket and provide a detailed description of the problem, such as no video, blurred video, distorted video, or lagging video. <br><br>Our team will review your case and assist in resolving it promptly.\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 72,
+    "name": "KYC",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Iâve already completed PAN/KYC verification. Why do I need to verify again?",
+    "answer": "<p>If you are being asked to re-verify your PAN/KYC even after completing it, this is because to increase security, we periodically improve our verification criteria.<br><br>If you are still seeing this prompt, please re-verify again with the correct details.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 52,
+    "name": "App Related Issue",
+    "visibility": 2,
+    "type": 0,
+    "title11": "App freezes or closes unexpectedly, how can I fix it ?",
+    "answer": "<p>Please make sure you are using the latest version of the app. To update the app, follow these steps :<br><br>For Android:<br><br>1.&nbsp; Open the Google Play Store.<br>2.&nbsp; Search for Dostt.<br>3.&nbsp; Tap Update if an update is available.</p>\n<p>For iOS:<br><br>1.&nbsp; Open the App Store.<br>2.&nbsp; Tap your profile icon at the top right.<br>3.&nbsp; Scroll to see pending updates and release notes.<br>4.&nbsp; Tap Update next to Dostt if an update is available.</p>\n<p>If the issue persists after updating, please raise a support ticket by clicking the link below and provide all the details of exactly what is happening. <br><br>Our team will review your case and assist you promptly.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 61,
+    "name": "OTP",
+    "visibility": 2,
+    "type": 0,
+    "title11": "I shared my OTP with some person and amount is withdrawal from my account",
+    "answer": "<p>For your safety and security, you should never share your OTP (One-Time Password) or any other sensitive account information with anyone &mdash; including friends, family, or strangers. OTPs are strictly personal and are meant to verify your identity during transactions.</p>\n<p>If an OTP is shared with someone else and a transaction occurs as a result, we are not liable for any loss incurred. Please note that all withdrawals and transactions using a shared OTP are considered authorized by the account holder, and we cannot reverse them.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 62,
+    "name": "Account is Permanent Blocked",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Why is my account blocked ?",
+    "answer": "<p>\"Please be informed that your account has been blocked due to a policy violation, following careful validation. As a result, you will no longer be able to perform any activities on the app.</p>\n<p>If you believe this action was taken in error, you may appeal against the account suspension. Our team will conduct an independent final review, but if the violation is confirmed, the account will not be reinstated. The final decision rests with the company.</p>\n<p>Thank you for your understanding.\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 41,
+    "name": "testing issue details",
+    "visibility": 2,
+    "type": 3,
+    "title11": "Test issue detail for dynamic answers ?",
+    "answer": "<p data-start=\"73\" data-end=\"889\"><strong>1: </strong>We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<ul>\n<li data-start=\"73\" data-end=\"889\">It is also recommended that you pick up calls within 7 seconds</li>\n<li data-start=\"73\" data-end=\"889\">It is also recommended that you pick up calls within 7 seconds</li>\n<li data-start=\"73\" data-end=\"889\">It is also recommended that you pick up calls within 7 seconds\n<ul>\n<li data-start=\"73\" data-end=\"889\">It is also recommended that you pick up calls within 7 seconds</li>\n<li data-start=\"73\" data-end=\"889\">It is also recommended that you pick up calls within 7 seconds</li>\n</ul>\n</li>\n</ul>\n<p data-start=\"891\" data-end=\"1452\"><strong><em>2:</em> </strong>We see that you have received {{total_bookings}} calls in the last <span style=\"text-decoration: underline;\">24 hours</span> of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p data-start=\"1454\" data-end=\"2010\"><strong><span style=\"text-decoration: underline;\">3:</span> </strong>We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p data-start=\"2012\" data-end=\"2313\"><strong>4: </strong>Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p data-start=\"2315\" data-end=\"3131\"><strong>5:</strong> We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p data-start=\"3133\" data-end=\"3694\"><strong>6:</strong> We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p data-start=\"3696\" data-end=\"4252\"><strong>7</strong>: We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p data-start=\"4254\" data-end=\"4638\"><strong>default: </strong>Calls depend on users who are online, be patient and stay active on the app. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 63,
+    "name": "Account Suspended",
+    "visibility": 2,
+    "type": 0,
+    "title11": "When will be suspension revoked ?",
+    "answer": "<p>We are sorry for the inconvenience caused, however we would want to know is the timer seen on the screen,<br>If yes<br>If Yes:\" Please wait for the timer to be cooled down and your account would be active post that, However We kindly request you to ensure compliance with our platform guidelines to avoid such issues in the future and also to avoid account blocking\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 43,
+    "name": "My Account recieved Warning",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Not getting calls ?",
+    "answer": "<p>1: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>2: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>3: We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>4: Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>5: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>6: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>7: We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>8: Calls depend on users who are online, be patient and stay active on the app. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>9: We request you to please ensure that you are available on the app by keeping the video or audio buttons toggled ON for at least 30 minutes. Also, kindly check your notification settings to ensure you don't miss any call alerts. To maximize your opportunities on Dostt, we recommend staying active during peak hours, especially between 6PM and 4AM, when call volume is at its highest. Being consistent and responsive during this time can greatly increase your visibility and chances of receiving more calls. Feel free to reach out if you need any further guidance, we're happy to help! Thank you for your patience.</p>\n<p>default: We request you to please ensure that you are available on the app by keeping the video or audio buttons toggled ON for at least 30 minutes. Also, kindly check your notification settings to ensure you don't miss any call alerts. To maximize your opportunities on Dostt, we recommend staying active during peak hours, especially between 6PM and 4AM, when call volume is at its highest. Being consistent and responsive during this time can greatly increase your visibility and chances of receiving more calls. Feel free to reach out if you need any further guidance, we're happy to help! Thank you for your patience.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 53,
+    "name": "Dostt was Rude",
+    "visibility": 2,
+    "type": 1,
+    "title11": "What should I do if a Listener is rude?",
+    "answer": "<p>Thank you for reporting this issue and helping us improve the in-app experience. If you encountered a rude Listener, you can report them by following these steps:<br><br>- Go to the session for which Listener was rude.<br>- Tap the three dots on the right side of the call.<br>- Select Report User.<br>- Choose the appropriate reason for your report.<br><br>Our Trust and Safety team will review the case and take appropriate action within 24&ndash;48 hours.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 54,
+    "name": "Asking for Personal Info",
+    "visibility": 0,
+    "type": 0,
+    "title11": "What should I do if a Listener asks for my personal information ?",
+    "answer": "<p>We would like to clarify that our platform never asks customers to share sensitive personal information, such as phone numbers, social media IDs (Instagram, Facebook, Twitter, Snapchat, etc.), passwords, OTPs, or payment details over calls or messages.</p>\n<p>For your safety, please do not share any such information, as it can put your account and personal data at risk of misuse.</p>\n<p>If someone requests this information from you via call or message, report it immediately&nbsp;<br>- Go to the session for which Listener was asking for personal Information.<br>- Tap the three dots on the right side of the call.<br>- Select Report User.<br>- Choose the appropriate reason for your report. Our team will investigate the issue and take appropriate action to protect users.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 55,
+    "name": "Dostt not showing Face",
+    "visibility": 2,
+    "type": 1,
+    "title11": "What should I do if a Listener is not showing their face on a video call ?",
+    "answer": "<p>If a Listener is not in the camera frame, the video feed is automatically paused. <br><br>This feature is designed to protect you from suspicious or unsafe activities. We apologize for the inconvenience caused.</p>\n<p>If you notice that a Listener is not showing their face for an extended period, you can raise a request. <br><br>Our team will review the case and take appropriate action within 24&ndash;48 hours.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 35,
+    "name": "Change gender: Male to Female",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Change gender: Male to Female",
+    "answer": "<p>Calls depend on users who are online, be patient and stay active on the app. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 56,
+    "name": "Unable to Pick calls",
+    "visibility": 2,
+    "type": 1,
+    "title11": "Why am In not able to pick call",
+    "answer": "<p>We would like to inform you of the following updates regarding call handling:</p>\n<p>1. Calls must be answered within 7 seconds after ringing starts.<br>2. If a call is not accepted within this time frame, it will be automatically marked as missed or disconnected.<br>3. Please keep the app active and ensure a stable internet connection at all times.<br>4. To avoid interruptions, kindly enable notifications and allow call permissions.<br><br>These steps will help ensure a smooth and uninterrupted experience.&nbsp;</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 58,
+    "name": "Negative Balance",
+    "visibility": 2,
+    "type": 2,
+    "title11": "Why is my account balance negative ?",
+    "answer": "<p>Please check your recent transactions to identify the cause of negative balance and raise a ticket with link below contact our support team with relevant details, and we will help resolve it promptly.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 42,
+    "name": "test3",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Recharged but coins not added ?",
+    "answer": "<h3>The standard Lorem Ipsum passage, used since the 1500s</h3>\n<p>\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>\n<h3>Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC</h3>\n<p>\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 38,
+    "name": "Change gender",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Change gender: Male to Female ?",
+    "answer": "<div>\n<div>à¤®à¤¾à¤¨à¤ Lorem Ipsum à¤à¤¨à¥à¤à¥à¤à¥à¤¦, à¤¸à¤¨ 1500 à¤¸à¥ à¤à¤¸à¥à¤¤à¥à¤®à¤¾à¤² à¤®à¥à¤</div>\n<div>\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</div>\n<br>\n<div>\"de Finibus Bonorum et Malorum\", à¤à¤¾ à¤à¤à¤¡ 1.10.32, Cicero à¤¦à¥à¤µà¤¾à¤°à¤¾ 45 BC à¤®à¥ à¤²à¤¿à¤à¤¾ à¤à¤¯à¤¾.</div>\n<div>\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"</div>\n<br>\n<div>1914; H. Rackham à¤¦à¥à¤µà¤¾à¤°à¤¾ à¤à¤¨à¥à¤µà¤¾à¤¦</div>\n<div>\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?\"</div>\n<br>\n<div>\"de Finibus Bonorum et Malorum\", à¤à¤¾ à¤à¤à¤¡ 1.10.33, Cicero à¤¦à¥à¤µà¤¾à¤°à¤¾ 45 BC à¤®à¥ à¤²à¤¿à¤à¤¾ à¤à¤¯à¤¾.</div>\n<div>\"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.\"</div>\n<br>\n<div>1914; H. Rackham à¤¦à¥à¤µà¤¾à¤°à¤¾ à¤à¤¨à¥à¤µà¤¾à¤¦</div>\n<div>\"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.\"</div>\n</div>",
+    "feedback_type": 1
+  },
+  {
+    "id": 44,
+    "name": "testing recent payments",
+    "visibility": 2,
+    "type": 2,
+    "title11": "testing recent payments ?",
+    "answer": "<h3>à¤®à¤¾à¤¨à¤ Lorem Ipsum à¤à¤¨à¥à¤à¥à¤à¥à¤¦, à¤¸à¤¨ 1500 à¤¸à¥ à¤à¤¸à¥à¤¤à¥à¤®à¤¾à¤² à¤®à¥à¤</h3>\n<p>\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>\n<h3>\"de Finibus Bonorum et Malorum\", à¤à¤¾ à¤à¤à¤¡ 1.10.32, Cicero à¤¦à¥à¤µà¤¾à¤°à¤¾ 45 BC à¤®à¥ à¤²à¤¿à¤à¤¾ à¤à¤¯à¤¾.</h3>\n<p>\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"</p>\n<h3>1914; H. Rackham à¤¦à¥à¤µà¤¾à¤°à¤¾ à¤à¤¨à¥à¤µà¤¾à¤¦</h3>\n<p>\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?\"</p>\n<h3>\"de Finibus Bonorum et Malorum\", à¤à¤¾ à¤à¤à¤¡ 1.10.33, Cicero à¤¦à¥à¤µà¤¾à¤°à¤¾ 45 BC à¤®à¥ à¤²à¤¿à¤à¤¾ à¤à¤¯à¤¾.</h3>\n<p>\"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.\"</p>\n<h3>1914; H. Rackham à¤¦à¥à¤µà¤¾à¤°à¤¾ à¤à¤¨à¥à¤µà¤¾à¤¦</h3>\n<p>\"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.\"</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 59,
+    "name": "Change UPI Details",
+    "visibility": 2,
+    "type": 2,
+    "title11": "How do I add/change my UPI ID ?",
+    "answer": "<p>You can add up to 3 UPI IDs in the app for withdrawals. To add a UPI ID, follow these steps :<br><br>- Go to the Wallet or Withdrawal section in the app.<br>- Tap on &ldquo;Add UPI ID.&rdquo;<br>- Enter your UPI ID and ensure that the name given in your PAN for KYC matches the bank account holder name.<br>- Once the name is confirmed, your UPI ID will be successfully added.</p>\n<p>If you have already added 3 UPI IDs, please wait 24 hours before adding another UPI ID that matches your bank details and KYC documents.(Note:- you cannot add more than 5 UPI IDs in a year)&nbsp;</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 60,
+    "name": "Behavior Issue",
+    "visibility": 2,
+    "type": 0,
+    "title11": "What to do if user is behaving inappropriately ?",
+    "answer": "<p>We strive to keep our platform safe for everyone. <br><br>If you encounter behaviour that feels intolerable, please report it by clicking on the Call Details and Report button.</p>\n<p>Our Trust and Safety team will review the case and take appropriate action within 24&ndash;48 hours. <br><br>Thank you for helping us improve the in-app experience.</p>\n<p>If you notice similar issues with the same user, please use the Report option against their User ID in the call logs for faster validation.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 64,
+    "name": "Video Not enabled",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Why am I not able to get video calls ?",
+    "answer": "<p>\"Initially, we enable audio calls only for all listeners. Since video calls earn more money, this feature is unlocked for users who meet certain performance criteria.</p>\n<p>Our onboarding team reviews your performance, and if you are eligible, video calls will be enabled by the team. Until then, keep listening and improving your performance!\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 65,
+    "name": "Language Change/Add",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How to get call from other language ?",
+    "answer": "<p>\"We apologize for the inconvenience. Currently, the app does not support adding additional languages beyond the ones already available. Our team is continuously working to improve the platform, and we will consider expanding language options in future updates to provide a better experience for all users.</p>\n<p>Thank you for your understanding and patience\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 66,
+    "name": "Change User Name",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Need to change my User name",
+    "answer": "<p>Your username is created when you sign up and is generally not meant to be changed.</p>\n<p>If you have an urgent need to change your username, please raise a support ticket using the link below. <br><br>Our team will review your request and assist you further. Please note: we cannot guarantee that the username will be changed.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 67,
+    "name": "Delete Account",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How do I delete my account ?",
+    "answer": "<p>If you wish to delete your account, please follow these steps:</p>\n<p>Open the app and go to your Profile.<br>Tap on Switch to Dostt and then go to Account Settings under the Profile section.<br>Select the &ldquo;Delete Account&rdquo; option.<br>Follow the on-screen instructions to complete the process.</p>\n<p><em>Important&nbsp; :&nbsp; This will delete your account both as a user and a listener.&nbsp;After deleting your account, do not log in to the Dostt app for 30 days, as this may interfere with the deletion process.</em></p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 68,
+    "name": "Gender Change - Female to Male",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How to change my gender ?",
+    "answer": "<p>Your gender is selected when you create your account and is generally not meant to be changed.</p>\n<p>If you have an urgent need to update your gender, please raise a support ticket using the link below. Our team may call you for verification, and upon successful verification, your gender can be updated.</p>\n<p>Please note: we cannot guarantee that the change will be approved.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 69,
+    "name": "Gender Change - Male to Female",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How to change gender ?",
+    "answer": "<p>Apologies for the inconvenience caused. Kindly raise a ticket using the link below so that we can assist you further</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 71,
+    "name": "KYC - Enable",
+    "visibility": 2,
+    "type": 0,
+    "title11": "My PAN is showing as linked to another user. How do I resolve this ?",
+    "answer": "<p>If you see an error saying that your PAN is linked with another user, it means that the same PAN has already been used for KYC on our platform.</p>\n<p>What to do:<br>Double-check that you entered your PAN correctly.<br>If the PAN is indeed correct and you are the rightful owner, please raise a support ticket using the link below.<br>Provide relevant details PAN, and any supporting documents.</p>\n<p>Our Trust &amp; Support team will review your case and help resolve the issue.<br>Note: Each PAN can only be linked to one user account on our platform.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 40,
+    "name": "Why is the billed amount higher than my actual conversation?",
+    "visibility": 0,
+    "type": 3,
+    "title11": "Why is the billed amount higher than my actual conversation?",
+    "answer": "<h3>Listeners&rsquo; availability depends on several factors, including their login time, activity status, and ongoing sessions. Even if a Listener appears online, they may not be able to answer immediately due to reasons such as:<br><br>- They are already engaged in another call.<br>- They may have temporarily stepped away from their device.<br>- Time zone differences or personal schedules may limit their availability.<br>- High demand periods when many users are trying to connect simultaneously.<br><br>If you are unable to connect, we recommend:<br>- Waiting a few minutes and trying the same Listener again.<br>- Connecting with other available Listeners for a smoother experience.<br>- Ensuring your internet connection is stable, as connectivity issues can affect call initiation.<br><br>We aim to provide a seamless experience, and following these steps usually helps you connect with a Listener without delay.</h3>",
+    "feedback_type": 3
+  },
+  {
+    "id": 70,
+    "name": "KYC - limit",
+    "visibility": 2,
+    "type": 0,
+    "title11": "What is KYC and is this Mandatory ?",
+    "answer": "<p>KYC (Know Your Customer) is a verification process used to confirm your identity. <br><br>It helps us ensure that your account is secure, transactions are safe, and all payouts comply with government regulations.</p>\n<p>Yes, completing KYC is mandatory if your earning is high, for receiving payments on the Dostt app. <br><br>Accounts without KYC may face restrictions, including higher TDS deductions or limited access to certain features.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 45,
+    "name": "coins not debited",
+    "visibility": 2,
+    "type": 2,
+    "title11": "coins not debited ?",
+    "answer": "<h2>Lorem Ipsum à¤à¥à¤¯à¤¾ à¤¹à¥?</h2>\n<p><strong>Lorem Ipsum</strong>&nbsp;à¤à¤ªà¤¾à¤ à¤à¤° à¤à¤à¥à¤·à¤° à¤¯à¥à¤à¤¨ à¤à¤¦à¥à¤¯à¥à¤ à¤à¤¾ à¤à¤ à¤¸à¤¾à¤§à¤¾à¤°à¤£ à¤¡à¤®à¥ à¤ªà¤¾à¤  à¤¹à¥. Lorem Ipsum à¤¸à¤¨ à¥§à¥«à¥¦à¥¦ à¤à¥ à¤¬à¤¾à¤¦ à¤¸à¥ à¤à¤­à¥ à¤¤à¤ à¤à¤¸ à¤à¤¦à¥à¤¯à¥à¤ à¤à¤¾ à¤®à¤¾à¤¨à¤ à¤¡à¤®à¥ à¤ªà¤¾à¤  à¤®à¤¨ à¤à¤¯à¤¾, à¤à¤¬ à¤à¤ à¤à¤à¥à¤à¤¾à¤¤ à¤®à¥à¤¦à¥à¤°à¤ à¤¨à¥ à¤¨à¤®à¥à¤¨à¤¾ à¤²à¥à¤à¤° à¤à¤ à¤¨à¤®à¥à¤¨à¤¾ à¤à¤¿à¤¤à¤¾à¤¬ à¤¬à¤¨à¤¾à¤. à¤¯à¤¹ à¤¨ à¤à¥à¤µà¤² à¤ªà¤¾à¤à¤ à¤¸à¤¦à¤¿à¤¯à¥à¤ à¤¸à¥ à¤à¥à¤µà¤¿à¤¤ à¤°à¤¹à¤¾ à¤¬à¤²à¥à¤à¤¿ à¤à¤¸à¤¨à¥ à¤à¤²à¥à¤à¥à¤à¥à¤°à¥à¤¨à¤¿à¤ à¤®à¥à¤¡à¤¿à¤¯à¤¾ à¤®à¥à¤ à¤à¤²à¤¾à¤à¤ à¤²à¤à¤¾à¤¨à¥ à¤à¥ à¤¬à¤¾à¤¦ à¤­à¥ à¤®à¥à¤²à¤¤à¤ à¤à¤ªà¤°à¤¿à¤µà¤°à¥à¤¤à¤¿à¤¤ à¤°à¤¹à¤¾. à¤¯à¤¹ 1960 à¤à¥ à¤¦à¤¶à¤ à¤®à¥à¤ Letraset Lorem Ipsum à¤à¤à¤¶ à¤¯à¥à¤à¥à¤¤ à¤ªà¤¤à¥à¤° à¤à¥ à¤°à¤¿à¤²à¥à¤ à¤à¥ à¤¸à¤¾à¤¥ à¤²à¥à¤à¤ªà¥à¤°à¤¿à¤¯ à¤¹à¥à¤, à¤à¤° à¤¹à¤¾à¤² à¤¹à¥ à¤®à¥à¤ Aldus PageMaker Lorem Ipsum à¤à¥ à¤¸à¤à¤¸à¥à¤à¤°à¤£à¥à¤ à¤¸à¤¹à¤¿à¤¤ à¤¤à¤°à¤¹ à¤¡à¥à¤¸à¥à¤à¤à¥à¤ª à¤ªà¥à¤°à¤à¤¾à¤¶à¤¨ à¤¸à¥à¤«à¥à¤à¤µà¥à¤¯à¤° à¤à¥ à¤¸à¤¾à¤¥ à¤à¤§à¤¿à¤ à¤ªà¥à¤°à¤à¤²à¤¿à¤¤ à¤¹à¥à¤.</p>\n<h2>à¤¹à¤® à¤à¤¸à¥ à¤à¥à¤¯à¥à¤ à¤ªà¥à¤°à¤¯à¥à¤ à¤à¤°à¤¤à¥ à¤¹à¥à¤?</h2>\n<p>à¤¯à¤¹ à¤à¤ à¤²à¤à¤¬à¤¾ à¤¸à¥à¤¥à¤¾à¤ªà¤¿à¤¤ à¤¤à¤¥à¥à¤¯ à¤¹à¥ à¤à¤¿ à¤à¤¬ à¤à¤ à¤ªà¤¾à¤ à¤ à¤à¤ à¤ªà¥à¤·à¥à¤  à¤à¥ à¤à¤¾à¤à¥ à¤à¥ à¤¦à¥à¤à¥à¤à¤¾ à¤¤à¥ à¤ªà¤ à¤¨à¥à¤¯ à¤¸à¤¾à¤®à¤à¥à¤°à¥ à¤¸à¥ à¤µà¤¿à¤à¤²à¤¿à¤¤ à¤¹à¥ à¤à¤¾à¤à¤à¤¾. Lorem Ipsum à¤à¤¾ à¤à¤ªà¤¯à¥à¤ à¤à¤°à¤¨à¥ à¤à¤¾ à¤®à¥à¤¦à¥à¤¦à¤¾ à¤¯à¤¹ à¤¹à¥ à¤à¤¿ à¤à¤¸à¤®à¥à¤ à¤à¤ à¤à¤° à¤à¤§à¤¿à¤ à¤¯à¤¾ à¤à¤® à¤à¤à¥à¤·à¤°à¥à¤ à¤à¤¾ à¤¸à¤¾à¤®à¤¾à¤¨à¥à¤¯ à¤µà¤¿à¤¤à¤°à¤£ à¤à¤¿à¤¯à¤¾ à¤à¤¯à¤¾ à¤¹à¥, 'Content here, content here' à¤ªà¥à¤°à¤¯à¥à¤ à¤à¤°à¤¨à¥ à¤à¥ à¤à¤à¤¹ à¤à¤¸à¥ à¤ªà¤ à¤¨à¥à¤¯ English à¤à¥ à¤°à¥à¤ª à¤®à¥à¤ à¤ªà¥à¤°à¤¯à¥à¤ à¤à¤¿à¤¯à¤¾ à¤à¤¾à¤¯à¥. à¤à¤¬ à¤à¤ à¤¡à¥à¤¸à¥à¤à¤à¥à¤ª à¤ªà¥à¤°à¤à¤¾à¤¶à¤¨ à¤¸à¤à¤à¥à¤² à¤à¤° à¤µà¥à¤¬ à¤ªà¥à¤ à¤¸à¤à¤ªà¤¾à¤¦à¤ à¤à¤¨à¤à¥ à¤¡à¤¿à¤«à¤¼à¥à¤²à¥à¤ à¤®à¥à¤¡à¤² à¤ªà¤¾à¤  à¤à¥ à¤°à¥à¤ª à¤®à¥à¤ Lorem Ipsum à¤à¤ªà¤¯à¥à¤ à¤à¤°à¤¤à¥ à¤¹à¥à¤, à¤à¤° à¤à¤¬ \"Lorem Ipsum\" à¤à¥ à¤²à¤¿à¤ à¤à¥à¤ à¤à¤ªà¤¨à¥ à¤¶à¥à¤¶à¤µ à¤®à¥à¤ à¤à¤ à¤µà¥à¤¬ à¤¸à¤¾à¤à¤à¥à¤ à¤à¥ à¤à¤à¤¾à¤à¤° à¤à¤°à¤¤à¥ à¤¹à¥. à¤à¤¸à¤à¥ à¤µà¤¿à¤­à¤¿à¤¨à¥à¤¨ à¤¸à¤à¤¸à¥à¤à¤°à¤£à¥à¤ à¤à¤¾ à¤µà¤°à¥à¤·à¥à¤ à¤®à¥à¤ à¤µà¤¿à¤à¤¾à¤¸ à¤¹à¥à¤ à¤¹à¥, à¤à¤­à¥ à¤¦à¥à¤°à¥à¤à¤à¤¨à¤¾ à¤¸à¥, à¤¤à¥ à¤à¤­à¥ à¤ªà¥à¤°à¤¯à¥à¤à¤¨ à¤ªà¤° (à¤¹à¤¾à¤¸à¥à¤¯ à¤à¤° à¤²à¤à¤¾à¤µ à¤¡à¤¾à¤²à¤¨à¥ à¤à¥ à¤²à¤¿à¤).</p>\n<p>&nbsp;</p>\n<h2>à¤¯à¤¹ à¤à¤¹à¤¾à¤ à¤¸à¥ à¤à¤¤à¤¾ à¤¹à¥?</h2>\n<p>à¤à¤® à¤§à¤¾à¤°à¤£à¤¾ à¤à¥ à¤µà¤¿à¤ªà¤°à¥à¤¤ Lorem Ipsum à¤¬à¤¸ à¤¯à¤¾à¤¦à¥à¤à¥à¤à¤¿à¤ (random) à¤ªà¤¾à¤  à¤¨à¤¹à¥à¤ à¤¹à¥. à¤¯à¤¹ 45 à¤.à¤ªà¥. à¤¸à¥ à¤¶à¤¾à¤¸à¥à¤¤à¥à¤°à¥à¤¯ à¤²à¥à¤à¤¿à¤¨ à¤¸à¤¾à¤¹à¤¿à¤¤à¥à¤¯ à¤à¥ à¤à¤ à¤à¥à¤à¥à¥ à¤¸à¥ à¤à¥à¤¡à¤¼à¤¾ à¤¹à¥, à¤à¥ à¤à¤¸à¥ 2000 à¤µà¤°à¥à¤· à¤¸à¥ à¤à¤§à¤¿à¤ à¤ªà¥à¤°à¤¾à¤à¥à¤¨ à¤¬à¤¨à¤¾à¤¤à¤¾ à¤¹à¥. Richard McClintock, à¤¹à¥à¤®à¥à¤ªà¥à¤¡à¤¨-à¤µà¤°à¥à¤à¥à¤¨à¤¿à¤¯à¤¾ à¤®à¥à¤ à¤¸à¤¿à¤¡à¤¨à¥ à¤à¥à¤²à¥à¤ à¤®à¥à¤ à¤à¤ à¤²à¥à¤à¤¿à¤¨ à¤ªà¥à¤°à¥à¤«à¥à¤¸à¤° à¤¹à¥, à¤¨à¥ à¤à¤ Lorem à¤à¤ªà¥à¤¸à¥à¤® à¤®à¥à¤ à¤¸à¥ à¤à¤ à¤à¤° à¤à¤§à¤¿à¤ à¤à¤¸à¥à¤ªà¤·à¥à¤ à¤²à¥à¤à¤¿à¤¨ à¤¶à¤¬à¥à¤¦ à¤¦à¥à¤à¤¾ à¤à¤° à¤¶à¤¾à¤¸à¥à¤¤à¥à¤°à¥à¤¯ à¤¸à¤¾à¤¹à¤¿à¤¤à¥à¤¯ à¤à¥ à¤¶à¤¹à¤° à¤®à¥à¤ à¤à¤¾à¤¤à¥ à¤¹à¥à¤ à¤à¤¸à¤à¤¦à¥à¤¹à¤¦à¤¾à¤¸à¥à¤ªà¤ à¤¸à¥à¤°à¥à¤¤ à¤à¥ à¤à¥à¤ à¤à¥. Lorem Ipsum à¤¸à¤¿à¤¸à¤°à¥(Sisero) à¤¦à¥à¤µà¤¾à¤°à¤¾ \"De Finibus Bonorum et Malorum\" (à¤à¤à¥à¤à¤¾à¤ à¤à¤° à¤¬à¥à¤°à¤¾à¤ à¤à¥ à¤à¤°à¤® à¤¸à¥à¤®à¤¾) à¤à¥ 1.10.32 à¤à¤° 1.10.33 à¤µà¤°à¥à¤à¥à¤ à¤¸à¥ à¤à¤¤à¤¾ à¤¹à¥ à¤à¥ à¥ªà¥« BC à¤®à¥à¤ à¤²à¤¿à¤à¤¾ à¤à¤¯à¤¾ à¤¥à¤¾. à¤¯à¤¹ à¤ªà¥à¤¸à¥à¤¤à¤ \"à¤¨à¥à¤¤à¤¿à¤à¤¤à¤¾ à¤à¥ à¤¸à¤¿à¤¦à¥à¤§à¤¾à¤à¤¤\" à¤µà¤¿à¤·à¤¯ à¤ªà¤° à¤¨à¤¿à¤¬à¤à¤§, à¤à¥ à¤¨à¤µà¤à¤¾à¤à¤°à¤£ à¤à¥ à¤¦à¥à¤° à¤à¤¾ à¤à¤ à¤¬à¤¹à¥à¤¤ à¤²à¥à¤à¤ªà¥à¤°à¤¿à¤¯ à¤à¥à¤°à¤à¤¥ à¤¹à¥. Lorem Ipsum à¤à¥ à¤ªà¤¹à¤²à¥ à¤ªà¤à¤à¥à¤¤à¤¿, \"Lorem ipsum dolor sit amet..\", 1.10.32 à¤à¤à¤¡ à¤®à¥à¤ à¤à¤ à¤ªà¤à¤à¥à¤¤à¤¿ à¤¸à¥ à¤à¤¤à¥ à¤¹à¥.</p>\n<p>Lorem Ipsum à¤à¤¾ à¤®à¤¾à¤¨à¤ à¤¹à¤¿à¤¸à¥à¤¸à¤¾ à¤à¤¿à¤¸à¤à¥ à¤ªà¥à¤°à¤¤à¤¿à¤²à¤¿à¤ªà¤¿ à¤¸à¤¨ 1500 à¤¸à¥ à¤ªà¥à¤°à¤¯à¥à¤ à¤à¥ à¤à¤¾à¤¤à¥ à¤¹à¥, à¤°à¥à¤à¤¿ à¤°à¤à¤¨à¥ à¤µà¤¾à¤²à¥à¤ à¤à¥ à¤²à¤¿à¤ à¤¨à¥à¤à¥ à¤à¤ªà¤²à¤¬à¥à¤§ à¤¹à¥. Cicero à¤¦à¥à¤µà¤¾à¤°à¤¾ à¤²à¤¿à¤à¥ à¤à¤ \"de Finibus Bonorum et Malorum\" à¤à¥ à¤à¤à¤¡ 1.10.32 à¤à¤° 1.10.3 à¤­à¥ à¤à¤ªà¤¨à¥ à¤¸à¤à¥à¤ à¤®à¥à¤² à¤°à¥à¤ª à¤®à¥à¤ à¤à¤¤à¥à¤ªà¤¾à¤¦à¤¿à¤¤ à¤¹à¥à¤, à¤¸à¤¾à¤¥ à¤¹à¥ H. Rackham à¤¦à¥à¤µà¤¾à¤°à¤¾ 1914 à¤®à¥à¤ à¤à¤à¤à¥à¤°à¥à¤à¥ à¤®à¥à¤ à¤à¤¨à¥à¤µà¤¾à¤¦à¤¿à¤¤ à¤¸à¤à¤¸à¥à¤à¤°à¤£.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 29,
+    "name": "Not getting calls",
+    "visibility": 1,
+    "type": 1,
+    "title11": "Why am I Not getting Calls ?",
+    "answer": "<p>1: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>2: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>3: We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>4: Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>5: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>6: We see that you have received {{total_bookings}} calls in the last 24 hours of which you have only connected to {{finished_calls}} calls, with {{did_not_pick}} number of disconnects. We recommend that you be active and try to reduce the number of call disconnected. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>7: We see that you were online only for {{availability_last_72h}} hours in the last 72 hours. We recommend that you be live for more than 30 minutes per day inside app to get more calls. Note that 6pm to 4am is when you will get the highest number of calls. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>8: Calls depend on users who are online, be patient and stay active on the app. Ensure that your Audio and Video toggle are on when you are live. Ensure that your notifications are ON and you are responding to call notifications. It is also recommended that you pick up calls within 7 seconds. 6pm to 4am are the peak hours for this app, please try to be present at this time.</p>\n<p>9: We request you to please ensure that you are available on the app by keeping the video or audio buttons toggled ON for at least 30 minutes. Also, kindly check your notification settings to ensure you don't miss any call alerts. To maximize your opportunities on Dostt, we recommend staying active during peak hours, especially between 6PM and 4AM, when call volume is at its highest. Being consistent and responsive during this time can greatly increase your visibility and chances of receiving more calls. Feel free to reach out if you need any further guidance, we're happy to help! Thank you for your patience.</p>\n<p>default: We request you to please ensure that you are available on the app by keeping the video or audio buttons toggled ON for at least 30 minutes. Also, kindly check your notification settings to ensure you don't miss any call alerts. To maximize your opportunities on Dostt, we recommend staying active during peak hours, especially between 6PM and 4AM, when call volume is at its highest. Being consistent and responsive during this time can greatly increase your visibility and chances of receiving more calls. Feel free to reach out if you need any further guidance, we're happy to help! Thank you for your patience.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 73,
+    "name": "Tier",
+    "visibility": 2,
+    "type": 0,
+    "title11": "What is Tiers",
+    "answer": "<p>Please be informed that Tier range from Basic to Diamond, with earnings starting from â¹0.9 per minute for audio calls and â¹5 per minute for video calls.<br><br>&nbsp;To maintain or upgrade your tier, stay active, take more calls, and be consistent in your performance.</p>\n<p><br>Doing so will help boost both your visibility and overall earnings on the platform.\"\"\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 74,
+    "name": "Tiers",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How to increase my Tier ?",
+    "answer": "<p>Please be informed that Tier range from Basic to Diamond, with earnings starting from â¹0.9 per minute for audio calls and â¹5 per minute for video calls.<br><br>&nbsp;To maintain or upgrade your tier, stay active, take more calls, and be consistent in your performance.</p>\n<p><br>Doing so will help boost both your visibility and overall earnings on the platform.\"\"\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 75,
+    "name": "Competition",
+    "visibility": 2,
+    "type": 0,
+    "title11": "1What is competition and Where can I get information on this",
+    "answer": "<p>Hello [SDT&rsquo;s Name],</p>\n<p>Thank you for your interest in participating in our competitions! ð</p>\n<p>To get all the latest updates, details, and instructions, we recommend joining our official WhatsApp group for competitions. This will help you stay informed about upcoming contests, rules, and winners announcements.</p>\n<p>Please let us know if you need the link to join the group, and we&rsquo;ll be happy to share it with you.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 76,
+    "name": "Withdrawal Assistance and Guidance",
+    "visibility": 2,
+    "type": 0,
+    "title11": "How do I withdraw money from my wallet ?",
+    "answer": "<p>We would like to inform you that to proceed with a withdrawal, please ensure the following:</p>\n<p>- Your wallet balance is at least â¹50<br>- You have added and selected your UPI ID under the withdrawal section<br>- Your name is correctly displayed in the UPI details</p>\n<p>Once these steps are completed, you&rsquo;ll be able to successfully place a withdrawal request.</p>\n<p>If you need any assistance, feel free to reach out &mdash; we&rsquo;re here to help!</p>\n<p>Thank you for your understanding.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 78,
+    "name": "App Related",
+    "visibility": 2,
+    "type": 0,
+    "title11": "App freezes or closes unexpectedly, how can I fix it?",
+    "answer": "<p>\"\"\"Please make sure you are using the latest version of the app. To update the app, follow these steps:<br>For Android:<br>-Open the Google Play Store.<br>-Search for Dostt.<br>-Tap Update if an update is available.</p>\n<p>For iOS:<br>- Open the App Store.<br>- Tap your profile icon at the top right.<br>- Scroll to see pending updates and release notes.<br>- Tap Update next to Dostt if an update is available.</p>\n<p>If the issue persists after updating, please raise a support ticket by clicking the link below and provide all the details of exactly what is happening. Our team will review your case and assist you promptly.\"\"\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 79,
+    "name": "KYC-Enable",
+    "visibility": 1,
+    "type": 2,
+    "title11": "KYC-Enable",
+    "answer": "<p>If you see an error saying that your PAN is linked with another user, it means that the same PAN has already been used for KYC on our platform. If not kyc verified last time pan no check</p>\n<p>What to do:<br>Double-check that you entered your PAN correctly.<br>If the PAN is indeed correct and you are the rightful owner, please raise a support ticket using the link below.<br>Provide relevant details PAN, and any supporting documents.</p>\n<p>Our Trust &amp; Support team will review your case and help resolve the issue.<br>Note: Each PAN can only be linked to one user account on our platform.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 80,
+    "name": "TIER",
+    "visibility": 1,
+    "type": 1,
+    "title11": "TIER",
+    "answer": "<p>\"Please be informed that Tier range from Basic to Diamond, with earnings starting from â¹0.9 per minute for audio calls and â¹5 per minute for video calls.<br>And Goes upto â¹2 per minute for audio calls and â¹10 per minute for video calls based on your performance. To maintain or upgrade your tier, stay active, take more calls, and be consistent in your performance.</p>\n<p><br>Doing so will help boost both your visibility and overall earnings on the platform.\"</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 39,
+    "name": "Recharged but coins not added ?",
+    "visibility": 0,
+    "type": 2,
+    "title11": "Recharged but coins not added ?",
+    "answer": "<p>After reviewing the transaction we confirm that the order was successful and the coins from the transaction have been successfully added to your account.<br>Please close and reopen the app, as it may take up to 1 hour for the coin balance to reflect.<br>If you continue facing any issues, please raise a ticket along with a screenshot in the 'Help and Support' section on the Dostt App.&nbsp;<br>Thank you and have a great day ahead!!</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 82,
+    "name": "Recharged but Coins not added",
+    "visibility": 0,
+    "type": 2,
+    "title11": "Why havenât my coins been added after a recharge?",
+    "answer": "<p>1: We appreciate your patience regarding this matter. Please allow up to 72 hours for the coins to be credited to your account. If the coins are not reflected after this periodThe amount will be automatically refunded.The refund will be processed to your original payment method within 4-5 working days,We sincerely apologize for any inconvenience caused.</p>\n<p>2: We&rsquo;ve checked and confirmed that the coins from recharge transactions have been successfully added to your account. Please refresh the app and check your coin balance again. If you still face any issues, feel free to share a screenshot and we&rsquo;ll be happy to assist you further.</p>\n<p>3: It looks like your transaction has expired. Don't worry, money hasn't been debited from your account. If it was, it should reach you within 72-96 hours. If you still face any issues, feel free to share a screenshot and we&rsquo;ll be happy to assist you further.</p>\n<p>default: If you are still facing an issue please raise a ticket from the option below.<br><br></p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 77,
+    "name": "TDS Deduction Help",
+    "visibility": 2,
+    "type": 0,
+    "title11": "What is TDS and how much TDS is deducted for me ?",
+    "answer": "<p>1: TDS (Tax Deducted at Source) is a portion of your earnings that is automatically deducted as tax by the company before you receive your payout. Currently, TDS is applied based on your lifetime earnings on the Dostt app and your KYC verification status: <strong>As you are KYC verified the TDS is {{tds_percentage}}%. </strong></p>\n<p>If you are not KYC verified, a higher TDS will be applied.&nbsp;</p>\n<p>Note: TDS rates are subject to change according to the company&rsquo;s internal policies.</p>\n<p><br>2: TDS (Tax Deducted at Source) is a portion of your earnings that is automatically deducted as tax by the company before you receive your payout. Currently, TDS is applied based on your lifetime earnings on the Dostt app and your KYC verification status: <strong>As you are not KYC verified the TDS is {{tds_percentage}}. </strong></p>\n<p>If you become KYC verified a lower <strong>TDS of 1%</strong> will be applied.&nbsp;</p>\n<p>Note: TDS rates are subject to change according to the company&rsquo;s internal policies.</p>\n<p>default: TDS details are currently unavailable. Please contact support.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 81,
+    "name": "Withdrawal Amount not Received",
+    "visibility": 1,
+    "type": 0,
+    "title11": "Why hasnât my withdrawal reached my account yet?",
+    "answer": "<p>1: Hello, Sorry for the inconvenience caused. We are pleased to inform you that the specified amount has been successfully credited to your respective bank account. Please check your bank statement or online banking portal for confirmation. If you have any questions or require further assistance, please raise ticket from Help and Support in Dostt App Thank you for understanding.</p>\n<p>2: The amount has been successfully reverted to your wallet. You may now proceed to withdraw it at your convenience. For any assistance, feel free to contact our support team.</p>\n<p><br>3: We are sorry for the inconvenience caused, We&rsquo;d like to inform you that the payment has been successfully released from our side, but it appears to be stuck at the payment gateway or bank&rsquo;s end. Please allow up to 4-5 Working days for the amount to be processed and credited to your Wallet. If you have any questions or require further assistance, please raise ticket from Help and Support in Dostt App.</p>\n<p><br>4: We are sorry for the inconvenience. We were unable to complete your wallet to bank transfer. The amount will be credited back to your Dostt Wallet within 72 hours, after which you can reinitiate the withdrawal to your bank account. If you still face any issues, please raise a ticket using Help and Support in the Dostt app.Thank you for your understanding.</p>\n<p><br>5: We are sorry for the inconvenience. We were unable to complete your wallet to bank transfer. The amount will be credited back to your Dostt Wallet within 72 hours, after which you can reinitiate the withdrawal to your bank account. If you still face any issues, please raise a ticket using Help and Support in the Dostt app. Thank you for your understanding.</p>\n<p><br>default: Withdrawals are usually instant, and you should receive the amount within a few minutes. <br><br>However, sometimes there may be delays due to bank server issues. Please wait a few hours and try again.</p>\n<p>If the issue persists after multiple attempts, kindly raise a support ticket using the link below. Make sure to include all relevant details, such as your UPI ID and screenshots or screen recordings. <br><br>Our team will be happy to assist you.&nbsp;</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 83,
+    "name": "Earnings are not correct with call duration",
+    "visibility": 1,
+    "type": 2,
+    "title11": "Why my earnings are not correct with call duration?",
+    "answer": "<p>&lt;p&gt;Your earning is calculated based on the &lt;em&gt;actual&lt;/em&gt; duration of the call you attended. However, in some cases, the displayed duration on the app may differ from the payable duration. Deductions may happen due to the following reasons:&lt;/p&gt;<br>&lt;ul&gt;<br>&lt;li&gt;Actual call duration (as recorded on the system) is shorter than what appears on the app.&lt;/li&gt;<br>&lt;li&gt;Face was not visible during the call.&lt;/li&gt;<br>&lt;li&gt;You were not responsive or inactive during parts of the call.&lt;/li&gt;<br>&lt;li&gt;Customer raised a concern about the call and requested a refund.&lt;/li&gt;<br>&lt;/ul&gt;</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 101,
+    "name": "Bad ai dostt",
+    "visibility": 0,
+    "type": 0,
+    "title11": "AI Dostt said something wrong or offensive ?",
+    "answer": "<p>Dia is an AI and can sometimes respond in unexpected ways. Your feedback matters &mdash; tap \"Report this chat\" and our team will review the conversation. We take safety seriously and use these reports to improve Dia's responses. For anything that felt genuinely harmful, also use Safety &amp; Abuse.</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 104,
+    "name": "SDT Access Rejected",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Why was my Listener application rejected?",
+    "answer": "<p>Our team carefully reviews every Listener application based on factors such as <strong>current Listener demand</strong>, <strong>profile quality</strong>, and our <strong>platform requirements</strong>.</p>\n<p>If your application wasn't approved, it doesn't always mean there's an issue with your profile. Sometimes, we may not need additional Listeners at that time.</p>\n<p>Don't worry, your application details are safely stored with us. If we need more Listeners in the future and your profile is a good fit, our team may reach out to you to continue the onboarding process.</p>\n<p>Thank you for your interest in becoming a Listener on Dostt!</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 102,
+    "name": "SDT Access Request",
+    "visibility": 0,
+    "type": 0,
+    "title11": "Why is my Listener verification taking longer than expected?",
+    "answer": "<p>After you submit your application to become a Listener, our Verification Team reviews your profile.</p>\n<p>As part of the verification process, you will receive a <strong>verification call</strong> from our team.</p>\n<p>Sometimes, the verification process may take a little longer due to a high number of pending applications or additional checks required for your profile.</p>\n<p><strong>If you haven't received a verification call or any update for a long time</strong>, please raise a support ticket using the option below. Our team will check your application and help you as soon as possible.</p>",
+    "feedback_type": 2
+  },
+  {
+    "id": 103,
+    "name": "Become a Listener",
+    "visibility": 0,
+    "type": 0,
+    "title11": "How do I become a Listener on Dostt?",
+    "answer": "<p>Becoming a Listener on Dostt is easy!<br><br>- Open the Profile section in the Dostt app.<br>- Tap on Switch to Listener.<br>- Complete the required steps by:<br>- Recording your voice sample.<br>- Uploading a clear photo.<br>- Filling in the requested details about yourself.<br>- Submit your application.<br><br>Once you've submitted your application, our team will review it and contact you within 24 hours via a phone call to complete the verification process.<br><br>While you're waiting, you can continue using Dostt as usual and connect with other Dostts on the platform.<br><br>After your verification is complete and your profile is approved, you'll be able to start your journey as a Listener on Dostt.</p>",
+    "feedback_type": 1
+  },
+  {
+    "id": 105,
+    "name": "Random call is not working",
+    "visibility": 2,
+    "type": 0,
+    "title11": "Random call is not working",
+    "answer": "<p>RRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not working<br>Random call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not working<br>Random call is not working<br>Random call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not workingRandom call is not working<br>Random call is not workingRandom call is not working</p>",
+    "feedback_type": 3
+  },
+  {
+    "id": 106,
+    "name": "Voice is not audible",
+    "visibility": 2,
+    "type": 1,
+    "title11": "call voice not clear",
+    "answer": "<p>Hello, can you hear me clearly?</p>\n<ol>\n<li>Please confirm if my voice is audible.</li>\n<li>I am testing the call quality.</li>\n<li>This is a voice quality verification.</li>\n<li>There should not be any echo.</li>\n<li>There should not be any distortion.</li>\n<li>My voice should remain consistent.</li>\n<li>Please check for voice breaks.</li>\n<li>Check whether the audio is delayed.</li>\n<li>Verify the voice synchronization.</li>\n<li>Can you hear me without interruption?</li>\n<li>I am speaking at a normal pace.</li>\n<li>Now I am speaking slowly.</li>\n<li>Now I am speaking quickly.</li>\n<li>Testing microphone sensitivity.</li>\n<li>Testing speaker output.</li>\n<li>Please increase the volume.</li>\n<li>Please decrease the volume.</li>\n<li>Is there any background noise?</li>\n<li>I am moving farther from the microphone.</li>\n<li>I am moving closer to the microphone.</li>\n<li>Please confirm the voice clarity.</li>\n<li>Testing left speaker output.</li>\n<li>Testing right speaker output.</li>\n<li>Testing Bluetooth headset audio.</li>\n<li>Testing wired earphones.</li>\n<li>Testing loudspeaker mode.</li>\n<li>Testing normal receiver mode.</li>\n<li>Please mute your microphone.</li>\n<li>Please unmute your microphone.</li>\n<li>Testing mute and unmute functionality.</li>\n<li>Can you hear this sentence?</li>\n<li>This is another sample sentence.</li>\n<li>One two three four five.</li>\n<li>Six seven eight nine ten.</li>\n<li>Eleven twelve thirteen fourteen.</li>\n<li>Twenty twenty-one twenty-two.</li>\n<li>Ninety-nine one hundred.</li>\n<li>Testing numbers 1234567890.</li>\n<li>Testing special characters at hash dollar percent.</li>\n<li>The quick brown fox jumps over the lazy dog.</li>\n<li>Pack my box with five dozen liquor jugs.</li>\n<li>She sells seashells by the seashore.</li>\n<li>Peter Piper picked a peck of pickled peppers.</li>\n<li>Red lorry yellow lorry.</li>\n<li>Black background blue balloon.</li>\n<li>Fresh fried fish.</li>\n<li>Truly rural.</li>\n<li>Toy boat.</li>\n<li>Unique New York.</li>\n<li>This is the halfway point.</li>\n<li>Audio should remain stable.</li>\n<li>There should be no packet loss.</li>\n<li>Voice should not crack.</li>\n<li>Audio should not stutter.</li>\n<li>Voice should not be robotic.</li>\n<li>Network quality should remain stable.</li>\n<li>Testing on Wi-Fi.</li>\n<li>Testing on mobile data.</li>\n<li>Testing during network switching.</li>\n<li>Testing while receiving notifications.</li>\n<li>Testing after screen lock.</li>\n<li>Testing after screen unlock.</li>\n<li>Testing after app minimization.</li>\n<li>Testing after app resume.</li>\n<li>Voice should continue normally.</li>\n<li>Please speak continuously.</li>\n<li>Pause for three seconds.</li>\n<li>Resume speaking now.</li>\n<li>Testing long conversation.</li>\n<li>Testing short conversation.</li>\n<li>Checking for audio clipping.</li>\n<li>Checking for static noise.</li>\n<li>Checking for low volume.</li>\n<li>Checking for high volume.</li>\n<li>Can you repeat what I said?</li>\n<li>I can hear your response.</li>\n<li>Please speak loudly.</li>\n<li>Please speak softly.</li>\n<li>Testing environmental noise.</li>\n<li>Air conditioner noise test.</li>\n<li>Fan noise test.</li>\n<li>Traffic noise test.</li>\n<li>Keyboard typing noise test.</li>\n<li>Office environment test.</li>\n<li>Outdoor environment test.</li>\n<li>Indoor environment test.</li>\n<li>Silent room test.</li>\n<li>Testing voice after reconnect.</li>\n<li>Testing after internet fluctuation.</li>\n<li>Voice should recover automatically.</li>\n<li>No manual action should be required.</li>\n<li>The call should remain connected.</li>\n<li>Audio quality should remain excellent.</li>\n<li>Final audio verification.</li>\n<li>Almost complete.</li>\n<li>Last few sentences.</li>\n<li>Final voice quality confirmation.</li>\n<li>End of voice testing.</li>\n<li>Thank you, the call voice test is complete.</li>\n</ol>\n<p>This script is useful for testing:</p>\n<ul>\n<li>Voice clarity</li>\n<li>Echo</li>\n<li>Audio delay (latency)</li>\n<li>Voice breaks</li>\n<li>Distortion</li>\n<li>Packet loss</li>\n<li>Bluetooth/wired headset audio</li>\n<li>Speaker and receiver modes</li>\n<li>Network switching (Wi-Fi &harr; Mobile Data)</li>\n<li>Background noise handling</li>\n<li>Mute/Unmute functionality</li>\n<li>Long-duration call stability</li>\n</ul>\n\n\n\n\n\n&nbsp;\n\n\n\n\n\n\n\n\n\n\n&nbsp;\n\n\n\n\n\n\n\n\n\n&nbsp;\n\n\n\n\n\n\n\n\n\n\n\n&nbsp;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&nbsp;\n\n\n\n\n\n\n&nbsp;\n\n\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>\n</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p></p>",
+    "feedback_type": 3
+  }
+]

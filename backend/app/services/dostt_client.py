@@ -4,10 +4,10 @@ Dostt API client.
 Set DUMMY_MODE = True to use hardcoded test data (no real API calls).
 Set DUMMY_MODE = False once a live token is available from the WebView.
 
-Confirmed endpoints (from headers.py):
+Endpoints (same for staging and production):
   USER:
     GET  /help-and-support/bookings/customers/     -> call history
-    GET  /help-and-support/bookings/transactions/  -> coin transactions
+    GET  /help-and-support/payments/transactions   -> coin transactions
 
   LISTENER (listener JWT, Service-Type: 1):
     GET  /help-and-support/bookings/experts/       -> session history
@@ -15,7 +15,7 @@ Confirmed endpoints (from headers.py):
     GET  /help-and-support/payments/payouts/       -> payout history
 
   BOTH:
-    POST /help-and-support/tickets/                -> create ticket (TODO: confirm payload)
+    POST /help-and-support/tickets/                -> create ticket
 
 Auth: JWT-AUTHORIZATION: Bearer <token>
 """
@@ -234,7 +234,7 @@ async def get_recent_transactions(token: str, limit: int = 5, platform: str = "A
         logger.info("DUMMY_MODE: returning %d fake transactions", min(limit, len(_DUMMY_TRANSACTIONS)))
         return _DUMMY_TRANSACTIONS[:limit]
 
-    url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/bookings/transactions/"
+    url = f"{settings.DOSTT_API_BASE_URL}/help-and-support/payments/transactions"
     try:
         async with httpx.AsyncClient(timeout=10) as client:
             resp = await client.get(url, headers=_auth_headers(token, platform=platform, app_version_code=app_version_code))

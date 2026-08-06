@@ -7,9 +7,14 @@ from typing import List, Optional
 from app.config import settings
 from app.models.faq import FAQ, IssueType, Visibility
 
-# FAQ IDs that belong to the LISTENER payouts (withdrawal) flow.
-# All are type=2 in the system; this set distinguishes them from earnings FAQs.
-_PAYOUT_FAQ_IDS: frozenset[int] = frozenset({336, 337})
+# Production payout FAQ IDs (withdrawal + negative balance for LISTENER).
+_PAYOUT_FAQ_IDS_PROD: frozenset[int] = frozenset({336, 337})
+# Staging payout FAQ ID (withdrawal for LISTENER).
+_PAYOUT_FAQ_IDS_STAG: frozenset[int] = frozenset({81})
+
+_PAYOUT_FAQ_IDS: frozenset[int] = (
+    _PAYOUT_FAQ_IDS_STAG if settings.APP_ENV == "staging" else _PAYOUT_FAQ_IDS_PROD
+)
 
 logger = logging.getLogger(__name__)
 
@@ -122,3 +127,12 @@ def get_listener_earnings_faqs() -> List[FAQ]:
 
 def get_all_faqs() -> List[FAQ]:
     return list(_faqs)
+
+
+def get_faq_title(faq_id: str, language: str, fallback: str) -> str:
+    """Return the localized FAQ title for the active environment."""
+    if settings.APP_ENV == "staging":
+        from app.services.faq_title_translations_stag import get_faq_title as _get
+    else:
+        from app.services.faq_title_translations import get_faq_title as _get
+    return _get(faq_id, language, fallback)

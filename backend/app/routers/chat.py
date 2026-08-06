@@ -27,7 +27,7 @@ from app.services import ai_service, faq_service, session_service
 from app.services import dostt_client
 from app.services.dostt_client import DUMMY_MODE
 from app.services.translations import t
-from app.services.faq_title_translations import get_faq_title
+from app.services.faq_service import get_faq_title
 
 router = APIRouter(prefix="/api", tags=["chat"])
 logger = logging.getLogger(__name__)
@@ -686,11 +686,18 @@ async def _submit_ticket(session: SessionState) -> List[ResponseItem]:
         logger.error("Ticket creation HTTP error %s: %s", e.response.status_code, e.response.text)
         try:
             body = e.response.json()
-            user_msg = body.get("message") or body.get("detail") or body.get("error") or e.response.text
+            raw = body.get("message") or body.get("detail") or body.get("error") or e.response.text
+            if isinstance(raw, dict):
+                parts = []
+                for v in raw.values():
+                    parts += v if isinstance(v, list) else [str(v)]
+                user_msg = " ".join(parts)
+            else:
+                user_msg = str(raw)
         except Exception:
             user_msg = e.response.text or t(lang, "ticket_api_error")
         session.stage = ConversationStage.ENDED
-        return [_text(str(user_msg))]
+        return [_text(user_msg)]
     except Exception as e:
         logger.error("Ticket creation error: %s", e)
         session.stage = ConversationStage.ENDED
