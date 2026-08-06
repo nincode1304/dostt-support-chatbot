@@ -167,6 +167,8 @@ export function useChat(token, userType, platform, appVersionCode) {
     setMessages([]);
     setSessionId(null);
     setIsLoading(true);
+    languageRef.current = "English";
+    setLanguageState("English");
     initSession(token, userType);
   }, [initSession, token, userType, sessionId]);
 
