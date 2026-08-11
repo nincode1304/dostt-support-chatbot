@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 export function useViewportHeight() {
-  const [height, setHeight] = useState(
-    () => _read()
-  );
+  const [height, setHeight] = useState(() => _read());
 
   const rafRef = useRef(null);
   const mountedRef = useRef(true);
+  const pollRef = useRef(null);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -21,6 +20,26 @@ export function useViewportHeight() {
       });
     }
 
+    // Poll every 50ms for up to 2s after any input focus/blur.
+    // Needed because on Android WebViews visualViewport.resize fires only on
+    // first keypress, not when the keyboard opens — fixed timeouts miss it.
+    function startPoll() {
+      if (pollRef.current) clearInterval(pollRef.current);
+      let ticks = 0;
+      let lastH = _read();
+      pollRef.current = setInterval(() => {
+        const h = _read();
+        if (h !== lastH) {
+          lastH = h;
+          update();
+        }
+        if (++ticks >= 40) {
+          clearInterval(pollRef.current);
+          pollRef.current = null;
+        }
+      }, 50);
+    }
+
     const vv = window.visualViewport;
     if (vv) {
       vv.addEventListener("resize", update);
@@ -28,13 +47,9 @@ export function useViewportHeight() {
     }
     window.addEventListener("resize", update);
 
-    // Fallback for WebViews where visualViewport events are unreliable
-    // after the first keyboard show — poll at 3 points during keyboard animation
     function onFocusChange(e) {
       if (!e.target.matches("input, textarea, [contenteditable]")) return;
-      setTimeout(update, 100);
-      setTimeout(update, 300);
-      setTimeout(update, 600);
+      startPoll();
     }
     document.addEventListener("focusin", onFocusChange);
     document.addEventListener("focusout", onFocusChange);
@@ -50,6 +65,10 @@ export function useViewportHeight() {
       document.removeEventListener("focusin", onFocusChange);
       document.removeEventListener("focusout", onFocusChange);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
     };
   }, []);
 
@@ -57,12 +76,6 @@ export function useViewportHeight() {
 }
 
 function _read() {
-  // Use the smaller of visualViewport.height and window.innerHeight.
-  //   Android adjustResize: both shrink together → min = shrunken value ✓
-  //   iOS WebView:          visualViewport shrinks, innerHeight stays → min = visualViewport ✓
-  //   Android adjustPan:    visualViewport shrinks, innerHeight stays → min = visualViewport ✓
-  // Never use offsetTop / translateY — translating the app down pushes the
-  // input *below* the keyboard edge instead of above it.
   const vvh = window.visualViewport?.height ?? window.innerHeight;
   return Math.min(vvh, window.innerHeight);
 }
