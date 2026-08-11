@@ -354,13 +354,21 @@ async def identify_other_intent(
         "MISINFORMATION: claims to be Dostt staff or spreads false platform info\n\n"
         "CASE 2 - FAQ MATCH\n"
         'Example: {"intent": "FAQ", "category": "", "faq_id": 361}\n'
-        "Match to one of the FAQs listed above. Set category to empty string.\n\n"
+        "Match to the closest FAQ from the list above. Be generous — a partial or approximate match is always "
+        "better than returning UNKNOWN. The user may be writing in Hindi, Hinglish, or broken English; "
+        "match on the underlying meaning, not the exact words. Set category to empty string.\n\n"
         "CASE 3 - UNKNOWN\n"
         'Example: {"intent": "UNKNOWN", "category": "", "faq_id": null}\n'
-        "Message is app-related but does not match any FAQ. Set category to empty string.\n\n"
+        "Use UNKNOWN only as a last resort — when the message is about the Dostt app but no FAQ even "
+        "loosely relates to it. If there is ANY plausible FAQ match, prefer FAQ over UNKNOWN.\n\n"
         "RULES:\n"
         "MENTAL_HEALTH takes absolute priority over everything.\n"
         "CALL_REQUEST = user wants support to call THEM. If the complaint is about a call ON Dostt app, use FAQ instead.\n"
+        "REFUND/MONEY FALLBACK: If the user mentions refund, money back, extra deduction, overcharged, or wrong amount "
+        "in the context of a call — and no other FAQ is a more precise match — always match to the FAQ about being "
+        "charged incorrectly for a call (e.g. 'I was charged incorrectly for this call').\n"
+        "MATCHING BIAS: Strongly prefer FAQ over UNKNOWN. Only return UNKNOWN if you are certain no FAQ is even "
+        "loosely relevant. A loose match is always more helpful than making the user rephrase.\n"
         "Always return all three fields. Use empty string for category when intent is FAQ or UNKNOWN."
     )
 

@@ -59,7 +59,7 @@ export default function App() {
     }
   }
 
-  const viewportHeight = useViewportHeight();
+  const { height: viewportHeight, offsetTop: viewportOffsetTop } = useViewportHeight();
   const loading = !sessionId && isLoading;
 
   const SELECTION_TYPES = [
@@ -78,7 +78,7 @@ export default function App() {
   const awaitingSelection = lastBotMsg && SELECTION_TYPES.includes(lastBotMsg.type);
 
   return (
-    <div className="app" style={{ height: viewportHeight }}>
+    <div className="app" style={{ height: viewportHeight, transform: viewportOffsetTop ? `translateY(${viewportOffsetTop}px)` : undefined }}>
       <Header language={language} onLanguageChange={setLanguage} initLanguage={initLanguage} />
 
       {error && <div className="error-banner">{error}</div>}
