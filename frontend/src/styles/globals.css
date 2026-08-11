@@ -356,6 +356,14 @@ a { color: inherit; text-decoration: none; }
   padding: 12px 12px 8px;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pushes messages to the bottom when content is shorter than the container.
+   Shrinks to 0 when messages overflow, so scrolling works normally. */
+.chat-spacer {
+  flex: 1;
 }
 
 .chat-container::-webkit-scrollbar { width: 0; }

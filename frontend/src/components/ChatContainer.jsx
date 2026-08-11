@@ -24,11 +24,24 @@ export default function ChatContainer({
   onCancelAction,
   onQuickReply,
 }) {
-  const bottomRef = useRef(null);
+  const containerRef = useRef(null);
 
+  // New messages / typing indicator → smooth scroll
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isLoading, viewportHeight]);
+    const el = containerRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }, [messages, isLoading]);
+
+  // Keyboard open/close → instant jump so the bottom is immediately visible
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const raf = requestAnimationFrame(() => {
+      el.scrollTo({ top: el.scrollHeight, behavior: "instant" });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [viewportHeight]);
 
   // Only activate an interactive card if the very last message is itself interactive.
   // If the last message is text (e.g. edit prompt), all prior cards go stale.
@@ -41,7 +54,8 @@ export default function ChatContainer({
   }
 
   return (
-    <div className="chat-container" role="log" aria-live="polite" aria-label="Conversation">
+    <div ref={containerRef} className="chat-container" role="log" aria-live="polite" aria-label="Conversation">
+      <div className="chat-spacer" />
       <div className="date-divider"><span>{t(language, "today")}</span></div>
       {messages.map((msg, i) => (
         <Message
@@ -61,7 +75,7 @@ export default function ChatContainer({
         />
       ))}
       {isLoading && <TypingIndicator />}
-      <div ref={bottomRef} style={{ height: 8 }} />
+      <div style={{ height: 8 }} />
     </div>
   );
 }

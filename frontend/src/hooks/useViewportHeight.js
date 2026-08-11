@@ -44,8 +44,10 @@ export function useViewportHeight() {
     // Two delayed reads cover the keyboard slide-in animation (~250–300 ms on iOS).
     function onFocusChange(e) {
       if (!e.target.matches("input, textarea, [contenteditable]")) return;
-      setTimeout(update, 150);
-      setTimeout(update, 350);
+      // Three reads: catches mid-animation, post-animation, and slow Android keyboards
+      setTimeout(update, 100);
+      setTimeout(update, 300);
+      setTimeout(update, 600);
     }
     document.addEventListener("focusin", onFocusChange);
     document.addEventListener("focusout", onFocusChange);
