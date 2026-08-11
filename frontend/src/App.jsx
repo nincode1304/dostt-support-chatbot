@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import MessageInput from "./components/MessageInput";
 import { useBridge } from "./hooks/useBridge";
 import { useChat } from "./hooks/useChat";
+import { useViewportHeight } from "./hooks/useViewportHeight";
 import { t } from "./translations";
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
     }
   }
 
+  const viewportHeight = useViewportHeight();
   const loading = !sessionId && isLoading;
 
   const SELECTION_TYPES = [
@@ -76,7 +78,7 @@ export default function App() {
   const awaitingSelection = lastBotMsg && SELECTION_TYPES.includes(lastBotMsg.type);
 
   return (
-    <div className="app">
+    <div className="app" style={{ height: viewportHeight }}>
       <Header language={language} onLanguageChange={setLanguage} initLanguage={initLanguage} />
 
       {error && <div className="error-banner">{error}</div>}
@@ -102,6 +104,7 @@ export default function App() {
           messages={messages}
           isLoading={isLoading || isTyping}
           language={language}
+          viewportHeight={viewportHeight}
           onSelectCategory={selectCategory}
           onSelectTransactionSubtype={selectTransactionSubtype}
           onSelectFaq={selectFaq}

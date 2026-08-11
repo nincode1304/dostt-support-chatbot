@@ -13,6 +13,7 @@ export default function ChatContainer({
   messages,
   isLoading,
   language,
+  viewportHeight,
   onSelectCategory,
   onSelectTransactionSubtype,
   onSelectFaq,
@@ -27,7 +28,7 @@ export default function ChatContainer({
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isLoading]);
+  }, [messages, isLoading, viewportHeight]);
 
   // Only activate an interactive card if the very last message is itself interactive.
   // If the last message is text (e.g. edit prompt), all prior cards go stale.

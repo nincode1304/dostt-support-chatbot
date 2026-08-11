@@ -444,52 +444,77 @@ async def _handle_faq_selection(session: SessionState, req: ChatRequest) -> List
 # OTHER category: free-text → AI match → answer
 # ---------------------------------------------------------------------------
 
+_CONTENT_KEY_MAP: Dict[str, str] = {
+    "MENTAL_HEALTH":   "content_mental_health",
+    "HARMFUL":         "content_harmful",
+    "VERBAL_ABUSE":    "content_verbal_abuse",
+    "PRIVACY_PROBING": "content_privacy",
+    "PROMPT_INJECTION":"content_injection",
+    "SPAM_GIBBERISH":  "content_gibberish",
+    "OFF_TOPIC":       "content_off_topic",
+    "LEGAL_THREAT":    "content_legal",
+    "CALL_REQUEST":    "content_call_request",
+    "SCAM_FRAUD":      "content_scam",
+    "MISINFORMATION":  "content_misinformation",
+}
+
+
 async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[ResponseItem]:
     lang = session.language
     if not req.message:
         return [_text(t(lang, "other_prompt"))]
 
-    # Match against the full FAQ database visible to this user type
+    # Single Gemini call: classify intent AND identify FAQ in one pass
     all_faqs = faq_service.get_faqs_for_user_type(session.user_type.value)
-    issue_id = await ai_service.identify_faq(req.message, session.user_type.value, all_faqs)
-    faq = faq_service.get_faq_by_id(issue_id) if issue_id else None
+    result = await ai_service.identify_other_intent(req.message, session.user_type.value, all_faqs)
+    intent = result.get("intent", "UNKNOWN")
 
-    if not faq:
-        if session.other_retry_count == 0:
-            session.other_retry_count = 1
-            return [_text(t(lang, "cannot_understand"))]
-        # Second failure — give up and direct to app support
-        session.other_retry_count = 0
-        return [
-            _text(t(lang, "cannot_identify")),
-            *_ask_more_help(session),
-        ]
+    if intent == "SPECIAL":
+        translation_key = _CONTENT_KEY_MAP.get(result.get("category", ""))
+        if translation_key:
+            session.other_retry_count = 0
+            return [_text(t(lang, translation_key))]
+        # Unknown special category — fall through to UNKNOWN handling
+        intent = "UNKNOWN"
 
-    session.matched_faq_id = str(faq.id)
-    session.original_message = req.message
+    if intent == "FAQ":
+        raw_id = result.get("faq_id")
+        faq = faq_service.get_faq_by_id(str(int(raw_id))) if raw_id is not None else None
+        if faq:
+            session.matched_faq_id = str(faq.id)
+            session.original_message = req.message
+            session.other_retry_count = 0
+
+            if faq.type == IssueType.CALL:
+                session.selected_category = "calls"
+                session.preselected_faq_id = str(faq.id)
+                return await _start_call_category_flow(session)
+
+            if faq.type == IssueType.PAYMENT:
+                session.selected_category = "transactions"
+                session.preselected_faq_id = str(faq.id)
+                if session.user_type.value == "LISTENER":
+                    if faq_service.is_payout_faq(faq.id):
+                        session.selected_transaction_subtype = "payouts"
+                        return await _start_payout_flow(session)
+                    else:
+                        session.selected_transaction_subtype = "earnings"
+                        return await _start_earnings_flow(session)
+                return await _start_user_transaction_flow(session)
+
+            return await _handle_other_issue(session, faq)
+        # faq_id was returned but doesn't match anything — fall through
+        intent = "UNKNOWN"
+
+    # UNKNOWN
+    if session.other_retry_count == 0:
+        session.other_retry_count = 1
+        return [_text(t(lang, "cannot_understand"))]
     session.other_retry_count = 0
-
-    # CALL FAQ — transition into the guided call flow
-    if faq.type == IssueType.CALL:
-        session.selected_category = "calls"
-        session.preselected_faq_id = str(faq.id)
-        return await _start_call_category_flow(session)
-
-    # PAYMENT FAQ — transition into the appropriate payment flow
-    if faq.type == IssueType.PAYMENT:
-        session.selected_category = "transactions"
-        session.preselected_faq_id = str(faq.id)
-        if session.user_type.value == "LISTENER":
-            if faq_service.is_payout_faq(faq.id):
-                session.selected_transaction_subtype = "payouts"
-                return await _start_payout_flow(session)
-            else:
-                session.selected_transaction_subtype = "earnings"
-                return await _start_earnings_flow(session)
-        return await _start_user_transaction_flow(session)
-
-    # OTHER / ALL — answer directly
-    return await _handle_other_issue(session, faq)
+    return [
+        _text(t(lang, "cannot_identify")),
+        *_ask_more_help(session),
+    ]
 
 
 # ---------------------------------------------------------------------------
