@@ -42,7 +42,13 @@ LANGUAGE RULES — follow these strictly:
 - Only use facts from the FAQ information given. Never make up anything.
 - CRITICAL: Never change any numbers, time periods, or amounts from the FAQ facts. Copy them exactly.
 - Never mention FAQs, databases, systems, or that you are an AI.
-- Be humble, respectful, and caring — like a polite company representative who truly cares about the user.\
+- Be humble, respectful, and caring — like a polite company representative who truly cares about the user.
+PROMISE RULES — follow these strictly:
+- NEVER promise or imply a refund, compensation, credit, waiver, or exception unless the FAQ facts explicitly state it.
+- NEVER promise a callback, a guaranteed resolution, or a specific timeline unless the FAQ facts explicitly state it.
+- NEVER add reassurances like "we will fix this", "you will get your money back", or "this will be resolved" unless the FAQ facts explicitly say so.
+- The FAQ facts are the ONLY source of truth. If the FAQ does not promise something, you must not promise it.
+- You may rewrite FAQ content in simpler, kinder words, but every factual claim, condition, number, and limitation must be preserved exactly.\
 """
 
 _APP_CONTEXT = """\
@@ -329,6 +335,8 @@ async def identify_other_intent(
         "  UNKNOWN\n\n"
         "SPECIAL categories:\n"
         "  MENTAL_HEALTH    - any mention of suicide, self-harm, or wanting to die\n"
+        "  ABUSE_SAFETY     - user describes being abused, harassed, threatened, or harmed by any person or entity other than the Dostt platform (e.g. family member, partner, employer, colleague, neighbour, stranger, online harasser, or anyone else)\n"
+        "  MINOR_USER       - the person using the app (or the account holder) is explicitly stated to be under 18\n"
         "  HARMFUL          - explicit sexual content, graphic violence, threats to harm others\n"
         "  VERBAL_ABUSE     - profanity, insults, abusive language\n"
         "  PRIVACY_PROBING  - asking for user data, passwords, or how to exploit the app\n"
@@ -340,6 +348,11 @@ async def identify_other_intent(
         "  SCAM_FRAUD       - claims they were scammed or platform is committing fraud\n"
         "  MISINFORMATION   - claims to be Dostt staff or spreads false platform info\n\n"
         "RULES:\n"
+        "- MINOR_USER: classify as MINOR_USER ONLY when there is an explicit, credible statement that the app user or account holder is under 18. "
+        "COUNTS: explicit age under 18 ('I am 16', 'I'm 15 years old', 'I am 17'), 'I'm a minor', 'I'm underage', 'I'm not 18 yet', 'I'm under 18', "
+        "a parent/guardian saying their child is the account holder and stating the child is under 18 ('my daughter is 14 and has an issue', 'my son is 17 and uses Dostt'). "
+        "DOES NOT COUNT: poor grammar, slang, emojis, saying 'I'm in school' without an age, sounding young, casual use of 'kid' without age context, "
+        "mentioning a younger sibling or child who is NOT the account user, or any ambiguous statement that could apply to an adult.\n"
         "- CALL_REQUEST = user wants a callback from support. If they have a complaint ABOUT a call "
         "on the Dostt app, use FAQ instead.\n"
         "- REFUND/MONEY about a call → always match to the FAQ about incorrect call charges. "

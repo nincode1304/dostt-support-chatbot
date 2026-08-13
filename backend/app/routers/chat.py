@@ -446,6 +446,8 @@ async def _handle_faq_selection(session: SessionState, req: ChatRequest) -> List
 
 _CONTENT_KEY_MAP: Dict[str, str] = {
     "MENTAL_HEALTH":   "content_mental_health",
+    "ABUSE_SAFETY":    "content_domestic_abuse",
+    "MINOR_USER":      "content_minor_user",
     "HARMFUL":         "content_harmful",
     "VERBAL_ABUSE":    "content_verbal_abuse",
     "PRIVACY_PROBING": "content_privacy",
@@ -472,9 +474,7 @@ async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[Re
     if intent == "SPECIAL":
         translation_key = _CONTENT_KEY_MAP.get(result.get("category", ""))
         if translation_key:
-            session.other_retry_count = 0
             return [_text(t(lang, translation_key))]
-        # Unknown special category — fall through to UNKNOWN handling
         intent = "UNKNOWN"
 
     if intent == "FAQ":
@@ -483,7 +483,6 @@ async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[Re
         if faq:
             session.matched_faq_id = str(faq.id)
             session.original_message = req.message
-            session.other_retry_count = 0
 
             if faq.type == IssueType.CALL:
                 session.selected_category = "calls"
@@ -503,18 +502,17 @@ async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[Re
                 return await _start_user_transaction_flow(session)
 
             return await _handle_other_issue(session, faq)
-        # faq_id was returned but doesn't match anything — fall through
         intent = "UNKNOWN"
 
-    # UNKNOWN
-    if session.other_retry_count == 0:
-        session.other_retry_count = 1
-        return [_text(t(lang, "cannot_understand"))]
-    session.other_retry_count = 0
-    return [
-        _text(t(lang, "cannot_identify")),
-        *_ask_more_help(session),
-    ]
+    # UNKNOWN — app-related but no specific FAQ matched.
+    # Open a generic "other issues" ticket using FAQ 397 so the user is never
+    # left without a path to resolution.
+    faq_fallback = faq_service.get_faq_by_id("397")
+    if faq_fallback:
+        session.matched_faq_id = "397"
+        session.original_message = req.message
+        return await _handle_other_issue(session, faq_fallback)
+    return [_text(t(lang, "cannot_identify")), *_ask_more_help(session)]
 
 
 # ---------------------------------------------------------------------------
@@ -533,7 +531,16 @@ async def _handle_other_issue(session: SessionState, faq) -> List[ResponseItem]:
     if faq.feedback_type == FeedbackType.FEEDBACK_ONLY:
         items.extend(_ask_more_help(session))
 
-    elif faq.feedback_type in (FeedbackType.RAISE_COMPLAINT_ONLY, FeedbackType.BOTH):
+    elif faq.feedback_type == FeedbackType.RAISE_COMPLAINT_ONLY:
+        if _ticket_limit_reached(session):
+            items.append(_ticket_limit_reply(lang))
+            items.extend(_ask_more_help(session))
+        else:
+            session.stage = ConversationStage.ANSWERED
+            items.append(_text(t(lang, "raise_ticket_prompt")))
+            items.append(_quick_replies_item(lang))
+
+    elif faq.feedback_type == FeedbackType.BOTH:
         if _ticket_limit_reached(session):
             items.append(_ticket_limit_reply(lang))
             items.extend(_ask_more_help(session))
@@ -809,7 +816,16 @@ async def _fallback_to_no_data(session: SessionState, faq, entity: str) -> List[
     if faq.feedback_type == FeedbackType.FEEDBACK_ONLY:
         items.extend(_ask_more_help(session))
 
-    elif faq.feedback_type in (FeedbackType.RAISE_COMPLAINT_ONLY, FeedbackType.BOTH):
+    elif faq.feedback_type == FeedbackType.RAISE_COMPLAINT_ONLY:
+        if _ticket_limit_reached(session):
+            items.append(_ticket_limit_reply(lang))
+            items.extend(_ask_more_help(session))
+        else:
+            session.stage = ConversationStage.ANSWERED
+            items.append(_text(t(lang, "raise_ticket_prompt")))
+            items.append(_quick_replies_item(lang))
+
+    elif faq.feedback_type == FeedbackType.BOTH:
         if _ticket_limit_reached(session):
             items.append(_ticket_limit_reply(lang))
             items.extend(_ask_more_help(session))
