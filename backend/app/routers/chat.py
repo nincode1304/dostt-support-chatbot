@@ -474,6 +474,12 @@ async def _handle_other_text(session: SessionState, req: ChatRequest) -> List[Re
     if intent == "SPECIAL":
         translation_key = _CONTENT_KEY_MAP.get(result.get("category", ""))
         if translation_key:
+            if result.get("category") == "MINOR_USER":
+                session.stage = ConversationStage.ENDED
+                return [
+                    _text(t(lang, translation_key)),
+                    ResponseItem(type=ResponseItemType.CHAT_ENDED, content=t(lang, "chat_ended")),
+                ]
             return [_text(t(lang, translation_key))]
         intent = "UNKNOWN"
 
